@@ -1,9 +1,21 @@
 GIT
   remote: git://github.com/projectjellyfish/jellyfish-demo.git
-  revision: a05d80a35ce9e07023fd977cf3acd02849c9f9bf
+  revision: 2b57e48d864498b00c42ae75a56f683cccb05054
+  branch: demo/jellyfish-miq
   specs:
     jellyfish-demo (0.0.1)
       faker
+      rails
+
+GIT
+  remote: git://github.com/projectjellyfish/jellyfish-miq.git
+  revision: bf87e9ed665c2c72d322fc468dd48ae5ddaa095c
+  branch: demo/jellyfish-miq
+  specs:
+    jellyfish-miq (0.0.1)
+      excon
+      faker
+      httparty
       rails
 
 GEM
@@ -132,13 +144,14 @@ GEM
       railties (>= 4.0, < 5.1)
     equalizer (0.0.11)
     erubis (2.7.0)
+    excon (0.51.0)
     execjs (2.6.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
-    faker (1.6.3)
+    faker (1.6.6)
       i18n (~> 0.5)
     ffi (1.9.10)
     font-awesome-rails (4.6.1.0)
@@ -437,6 +450,7 @@ DEPENDENCIES
   friendly_id
   has_scope
   jellyfish-demo!
+  jellyfish-miq!
   license_finder
   ngannotate-rails (~> 1.2, >= 1.2.1)
   nokogiri
