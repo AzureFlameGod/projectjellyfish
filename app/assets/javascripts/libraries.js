@@ -1,3 +1,5 @@
+//= require_tree ./polyfills
+
 //= require moment
 
 //= require angular
@@ -6,6 +8,7 @@
 //= require angular-messages
 //= require angular-sanitize
 
+//= require vendor/angular-ui-router.min
 //= require angular-moment
 //= require satellizer
 
