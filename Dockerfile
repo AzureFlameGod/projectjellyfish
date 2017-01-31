@@ -3,7 +3,6 @@ FROM ruby:2.3.3-slim
 ENV APT_PACKAGES "git gcc g++ make patch binutils libc6-dev libffi-dev libssl-dev libyaml-dev zlib1g-dev libgmp-dev libxml2-dev libxslt1-dev libpq-dev libreadline-dev"
 ENV APT_REMOVE_PACKAGES "anacron cron openssh-server postfix"
 
-COPY .codelift/config/apt.conf /etc/apt/apt.conf.d/local
 RUN apt-get update \
   && apt-get -y dist-upgrade \
   && apt-get install -y --no-install-recommends $APT_PACKAGES \
