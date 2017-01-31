@@ -1,0 +1,15 @@
+%h1.title.is-4 My Requests
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+
+%div(ng-if="$ctrl.serviceRequests.length")
+  .card.is-fullwidth
+    %service-requests(service-requests="$ctrl.serviceRequests" on-show="$ctrl.onView($event)")
+  %div(ng-if="$ctrl.serviceRequests.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.serviceRequests.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.serviceRequests.length == 0")
+  .message-body You've made no requests.

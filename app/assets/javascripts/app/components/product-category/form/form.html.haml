@@ -1,0 +1,23 @@
+%form(name="form" novalidate)
+  .columns
+    .column.is-half
+      %div.label.has-text-right
+        %span.is-required
+        %small field is required
+      .control
+        %label.label
+          %span.is-required Name
+        %input.input(type="text" name="name" ng-model="$ctrl.model.name" required)
+      .control
+        %label.label Description
+        %textarea.textarea(name="description" rows="3" ng-model="$ctrl.model.description")
+      .control
+        %label.label Tags
+        %tags-input(ng-model="$ctrl.tags")
+
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onCreate" ng-disabled="form.$invalid" ng-click="$ctrl.doCreate();") Create Product Category
+    %button.button.is-primary(type="button" ng-if="$ctrl.onUpdate" ng-disabled="form.$invalid" ng-click="$ctrl.doUpdate();") Save Changes
+    %button.button.is-danger(type="button" ng-if="$ctrl.onDelete" ng-click="$ctrl.doDelete();") Delete Product Category
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel()") Cancel

@@ -1,0 +1,6 @@
+.columns
+  .column
+    %reload-button(type="button" ng-disabled="$ctrl.reloading" ng-click="$ctrl.reload()")
+
+.card.is-fullwidth
+  %service-order-details(service-order="$ctrl.serviceOrder")

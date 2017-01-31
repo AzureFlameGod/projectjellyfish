@@ -1,0 +1,23 @@
+.slide-open {
+  //position: relative;
+
+  &.ng-enter {
+    transition: $base-transition all;
+    max-height: 0;
+    opacity: 0;
+  }
+
+  &.ng-enter.ng-enter-active {
+    opacity: 1;
+    max-height: 500px;
+  }
+
+  //&.ng-leave {
+  //  transition: $base-transition all;
+  //  opacity: 1;
+  //}
+  //
+  //&.ng-leave.ng-leave-active {
+  //  opacity: 0;
+  //}
+}

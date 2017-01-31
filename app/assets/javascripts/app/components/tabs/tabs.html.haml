@@ -1,0 +1,5 @@
+.tabs(ng-class="$ctrl.classes")
+  %ul
+    %li(ng-repeat="tab in $ctrl.tabs" ng-class="{'is-active': $ctrl.selected == $index}")
+      %a(ng-click="$ctrl.selectTab($index)" ng-bind="tab.label")
+.tabs__content(ng-transclude)

@@ -1,5 +1,5 @@
 class ProductCategoryPolicy < ApplicationPolicy
-  def index?
+  def search?
     true
   end
 
@@ -8,14 +8,14 @@ class ProductCategoryPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    is_manager?
   end
 
   def update?
-    user.admin?
+    is_manager?
   end
 
   def destroy?
-    user.admin?
+    is_manager?
   end
 end

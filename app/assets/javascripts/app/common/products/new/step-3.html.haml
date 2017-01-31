@@ -1,0 +1,13 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="products.list") Products
+      %li
+        %a(ui-sref="product-new" ng-bind="::$ctrl.provider.attributes.name")
+      %li
+        %a(ui-sref="product-new-step-2({providerId: $ctrl.provider.id})" ng-bind="::$ctrl.productType.attributes.name")
+      %li
+        New Product
+
+%product-form(product="$ctrl.product" on-create="$ctrl.onCreate($event)" on-cancel="$ctrl.onCancel()")

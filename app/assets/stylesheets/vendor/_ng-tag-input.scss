@@ -1,0 +1,88 @@
+tags-input {
+  $margin-height: floor($small-spacing/2);
+
+  .host {
+    margin-bottom: inherit;
+    margin-top: inherit;
+    height: inherit;
+  }
+
+  .tags {
+    appearance: inherit;
+    font-size: $base-font-size;
+    padding: 0 $xs-spacing/1.25;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    border: $base-border;
+    border-color: #dbdbdb;
+    border-radius: $base-border-radius;
+
+    &:hover {
+      border-color: #b5b5b5;
+    }
+
+    &.focused {
+      border-color: #3397DB;
+      box-shadow: none;
+    }
+
+    input.input, span.input {
+      font-size: $base-font-size;
+      font-family: $base-font-family;
+      font-weight: 400;
+      height: inherit;
+      margin: $margin-height $small-spacing/2;
+      line-height: 1.4;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    $height: 20px;
+
+    .tag-item {
+      background: $blue;
+      border: 0;
+      border-radius: $base-spacing/2;
+      color: $white;
+      font-size: 11px; // $small-font-size;
+      font-family: $base-font-family;
+      font-weight: 400;
+      height: $height;
+      line-height: $height;
+      margin: $margin-height $xxs-spacing;
+      padding: 0 4px 0 $xs-spacing;
+      position: relative;
+
+      .remove-button {
+        //font-size: $small-font-size;
+        color: transparent;
+        //position: absolute;
+        //top: 2px;
+        //z-index: 1;
+
+        &::before {
+          content: '×';
+          color: $white;
+          position: absolute;
+          border-radius: $height;
+          background-color: rgba($black, 0.1);
+          height: $height - 4px;
+          width: $height - 4px;
+          top: 2px;
+          right: 2px;
+          line-height: 18px;
+          text-align:center;
+        }
+
+        &:hover {
+          &::before {
+            background-color: rgba($black, 0.2);
+          }
+        }
+      }
+
+      &.selected {
+        background: $red;
+      }
+    }
+  }
+}

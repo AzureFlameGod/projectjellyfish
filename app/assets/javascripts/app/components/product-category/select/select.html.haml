@@ -1,0 +1,3 @@
+.select
+  %select(ng-model="$ctrl.selected" ng-change="$ctrl.onSelect({$event: {productCategory: $ctrl.selected}})" ng-options="category as category.attributes.name for category in ::$ctrl.productCategories track by category.id")
+    %option(value="" ng-bind="::$ctrl.defaultOption || 'All Categories'")

@@ -1,0 +1,23 @@
+.card.is-fullwidth
+  %table.table
+    %thead.has-no-hover
+      %tr
+        %th Status
+        %th Name
+        %th Product
+        %th Project
+        %th(ng-if="::$ctrl.hasActions()")
+    %tbody
+      %tr(ng-repeat="item in $ctrl.serviceDetails track by item.id" ng-class="{'is-danger': item.attributes.health == 'error'}")
+        %td
+          %span.tag(ng-bind="item.attributes.state")
+          -#%service-status-tag(service="item")
+          -#.tag(ng-bind="item.attributes.status" ng-class="{'is-danger': item.attributes.health == 'error'}")
+        %td(ng-bind="item.attributes.service_name || '-not set-'")
+        %td(ng-bind="item.attributes.product_name")
+        %td(ng-bind="item.attributes.project_name")
+        %td.is-icon(ng-if="::$ctrl.hasActions()")
+          %button.button.is-small.is-dark(type="button" ng-if="::$ctrl.onShow" ng-click="$ctrl.doEvent('Show', item)") View
+          %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.doEvent('Select', item)") Select
+          %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onUpdate" ng-click="$ctrl.doEvent('Update', item)") Edit
+          %button.button.is-small.is-danger(type="button" ng-if="::$ctrl.onDelete" ng-click="$ctrl.doEvent('Delete', item)") Delete

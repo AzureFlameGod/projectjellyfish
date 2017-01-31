@@ -1,0 +1,62 @@
+.select {
+  $height: $base-font-size * 2.5;
+
+  color: $base-font-color;
+  position: relative;
+
+  select {
+    appearance: none;
+    padding: 0 $base-spacing * 1.5 0 $small-spacing;
+    background-color: $white;
+    border: $base-border;
+    border-radius: $base-border-radius;
+    height: $height;
+    line-height: $height;
+    width: 100%;
+
+    &:focus:-moz-focusring {
+      color: transparent;
+      text-shadow: 0 0 0 $black;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.input-sm {
+      font-size: $xs-font-size;
+      height: $base-spacing;
+      line-height: $base-spacing;
+    }
+  }
+
+  &::after {
+    color: $medium-gray;
+    position: absolute;
+    //top: $base-font-size/2;
+    right: $base-font-size;
+    content: "\0f0d7";
+    font-family: FontAwesome;
+    display: inline-block;
+    //margin-top: -1px;
+    pointer-events: none;
+    height: $height;
+    line-height: $height;
+  }
+}
+
+// Media query to target Firefox only
+@-moz-document url-prefix() {
+  // Firefox hack to hide the arrow
+  .select {
+    select {
+      text-indent: 0.01px;
+      text-overflow: "";
+    }
+
+    // <option> elements inherit styles from <select>, so reset them.
+    option {
+      background-color: $white;
+    }
+  }
+}

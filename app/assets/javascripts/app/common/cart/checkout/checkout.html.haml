@@ -1,0 +1,39 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="cart") Cart
+      %li
+        Checkout
+
+.columns
+  .column
+    %button.button.is-success(type="button" ng-click="$ctrl.order()" ng-disabled="$ctrl.items.length == 0") Order Services
+
+%div(ng-if="$ctrl.items.length")
+  .card.is-fullwidth
+    %table.table
+      %thead
+        %tr
+          %th Service
+          %th Product
+          %th Project
+          %th Setup Cost
+          %th Monthly Cost
+      %tbody
+        %tr(ng-repeat="item in $ctrl.items track by item.id")
+          %td(ng-bind="::item.attributes.service_name")
+          %td(ng-bind="::item.attributes.product().attributes.name")
+          %td(ng-bind="::item.attributes.project().attributes.name")
+          %td(ng-bind-template="${{::item.attributes.product().attributes.setup_price}}")
+          %td(ng-bind="::item.attributes.product().attributes.monthly_cost | currency")
+  %div(ng-if="$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.items.length == 0")
+  .message-body
+    %p
+      Only configured services may be ordered. Return to
+      %a(ui-sref="cart") your cart
+      and configure items to order them.

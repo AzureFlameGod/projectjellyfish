@@ -1,0 +1,14 @@
+%h1.title.is-4 My Services
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+
+%div(ng-if="$ctrl.services.length")
+  %service-details(service-details="$ctrl.services" on-show="$ctrl.onSelect($event)")
+  %div(ng-if="$ctrl.services.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.services.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.services.length == 0")
+  .message-body There are no services.

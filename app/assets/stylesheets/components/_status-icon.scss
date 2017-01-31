@@ -1,0 +1,18 @@
+.status-icon {
+  position: relative;
+}
+
+.status-icon__panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .health {
+
+  }
+
+  .updated {
+
+  }
+}

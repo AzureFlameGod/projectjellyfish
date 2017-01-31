@@ -1,18 +1,8 @@
-# == Schema Information
-#
-# Table name: product_categories
-#
-#  id              :integer          not null, primary key
-#  name            :string
-#  description     :string
-#  img             :string
-#  cached_tag_list :string
-#  deleted_at      :datetime
-#  created_at      :datetime
-#  updated_at      :datetime
-#
-
-class ProductCategory < ActiveRecord::Base
-  acts_as_paranoid
+class ProductCategory < ApplicationRecord
   acts_as_taggable
+
+  # This is here because of a bug : https://github.com/mbleigh/acts-as-taggable-on/issues/432
+  def self.caching_tag_list_on?(context)
+    true
+  end
 end

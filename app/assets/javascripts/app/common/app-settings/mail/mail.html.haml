@@ -1,0 +1,11 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="app-settings") Settings
+      %li
+        Mail
+
+.columns
+  .column.is-half
+    %app-settings-mail-form(settings="$ctrl.settings" on-submit="$ctrl.onSubmit($event)" on-cancel="$ctrl.onCancel($event)")

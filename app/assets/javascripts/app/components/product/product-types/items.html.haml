@@ -1,0 +1,22 @@
+.columns.is-multiline
+  .column.is-half(ng-repeat="product in $ctrl.productTypes track by product.id")
+    .card.is-fullwidth
+      .card-content
+        %article.media
+          %figure.media-left
+            .image.is-64x64
+              %img(ng-src="images/{{::product.attributes.type}}.png")
+          .media-content
+            .title.is-5
+              %a(ng-if="$ctrl.onShow" ng-click="$ctrl.showProductType(product)" ng-bind="::product.attributes.name")
+              %span(ng-if="!$ctrl.onShow" ng-bind="::product.attributes.name")
+            %p.subtitle.is-6(ng-bind="::product.attributes.description")
+            .level
+              .level-left
+                .level-item(ng-repeat="tag in ::product.attributes.tag_list")
+                  %span.tag.is-small.is-primary(ng-bind="::tag")
+
+          .media-right
+            %button.button.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.selectProductType(product)") Select
+            %button.button.is-primary(type="button" ng-if="::$ctrl.onUpdate" ng-click="$ctrl.updateProductType(product)") Update
+            %button.button.is-danger(type="button" ng-if="::$ctrl.onDelete" ng-click="$ctrl.deleteProductType(product)") Delete

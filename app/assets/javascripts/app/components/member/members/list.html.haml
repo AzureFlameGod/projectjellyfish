@@ -1,0 +1,17 @@
+.card.is-fullwidth
+  %table.table
+    %thead.has-no-hover
+      %tr
+        %th User
+        %th Access
+        %th
+    %tbody
+      %tr(ng-repeat="item in $ctrl.members track by item.id")
+        %td.has-text-middle
+          %span(ng-bind="item.attributes.user_name")
+        %td.has-text-middle
+          .select(ng-if="$ctrl.roles.indexOf($ctrl.maxRole) >= $ctrl.roles.indexOf(item.attributes.role) && $ctrl.onSave")
+            %select(ng-model="item.attributes.role" ng-options="opt.value as opt.label for opt in $ctrl.options" ng-change="$ctrl.doEvent('Save', item)")
+          %span(ng-if="$ctrl.roles.indexOf($ctrl.maxRole) < $ctrl.roles.indexOf(item.attributes.role) || !$ctrl.onSave" ng-bind="item.attributes.role")
+        %td.has-text-right
+          %button.button.is-danger(type="button" ng-disabled="item.attributes.locked || $ctrl.roles.indexOf($ctrl.maxRole) < $ctrl.roles.indexOf(item.attributes.role) || !$ctrl.onDelete" ng-click="$ctrl.doEvent('Delete', item)") Remove

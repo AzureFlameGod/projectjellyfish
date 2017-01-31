@@ -1,0 +1,17 @@
+.columns
+  .column
+    %reload-button(type="button" ng-disabled="$ctrl.reloading" ng-click="$ctrl.reload()")
+  .column.has-text-right
+    %a.button.is-primary(ui-sref="projects.edit({id: $ctrl.project.id})") Edit
+
+.columns
+  .column
+    %project-details(project="$ctrl.project")
+
+.columns
+  .column.is-3
+    %project-spent-chart(project="$ctrl.project" ratio="0.75")
+  .column.is-4
+    %project-projected-chart(project="$ctrl.project" months="6")
+  .column
+    %project-budget-details(project="$ctrl.project")

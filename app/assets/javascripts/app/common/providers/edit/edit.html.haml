@@ -1,0 +1,11 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="providers.list") Providers
+      %li
+        %a(ui-sref="providers.show({id: $ctrl.provider.id})") View
+      %li
+        Edit
+
+%provider-form(provider="$ctrl.provider" on-update="$ctrl.onUpdate($event)" on-update-credentials="$ctrl.onUpdate($event)" on-cancel="$ctrl.onCancel()")

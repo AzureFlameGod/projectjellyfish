@@ -1,0 +1,13 @@
+---
+cloudforms:
+  name: cloudforms
+private:
+  name: private
+automation:
+  name: automation
+script:
+  name: script
+aaa:
+  name: aaa
+zzz:
+  name: zzz

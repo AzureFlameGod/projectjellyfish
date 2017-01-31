@@ -1,31 +1,31 @@
-FROM ruby:2.3.0
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
-RUN apt-get install -y nodejs
+FROM ruby:2.3.3-slim
 
-RUN mkdir /api
-WORKDIR /api
+ENV APT_PACKAGES "git gcc g++ make patch binutils libc6-dev libffi-dev libssl-dev libyaml-dev zlib1g-dev libgmp-dev libxml2-dev libxslt1-dev libpq-dev libreadline-dev"
+ENV APT_REMOVE_PACKAGES "anacron cron openssh-server postfix"
 
-ENV RACK_ENV=docker
-ENV RAILS_ENV=docker
-ENV DEVISE_SECRET_KEY=I_AM_INSECURE_CHANGE_ME
-ENV SECRET_KEY_BASE=I_AM_INSECURE_CHANGE_ME
+COPY .codelift/config/apt.conf /etc/apt/apt.conf.d/local
+RUN apt-get update \
+  && apt-get -y dist-upgrade \
+  && apt-get install -y --no-install-recommends $APT_PACKAGES \
+  && apt-get remove --purge -y $APT_REMOVE_PACKAGES \
+  && apt-get autoremove --purge -y
 
-# If you are not using Docker compose, you need to set your database connection info here
-# ENV DATABASE_URL=postgres://user:pass@hostname:5432/database_name
+# throw errors if Gemfile has been modified since Gemfile.lock
+RUN bundle config --global frozen 1
 
-COPY Gemfile /api/
-COPY Gemfile.lock /api/
+# Make and switch to the app directory
+WORKDIR /app
 
-COPY . /api/
+# Setup Rails
+ENV RAILS_ENV=production \
+    RAILS_LOG_TO_STDOUT=1
+COPY Gemfile Gemfile.lock /app/
+COPY lib /app/lib
+RUN bundle install --deployment --jobs 4 --without development test \
+  && find vendor/bundle -name *.gem -delete
 
-RUN bundle install --without development test
-RUN DB_ADAPTER=nulldb bundle exec rake assets:precompile
+COPY . /app/
+RUN mkdir -p db public/assets log tmp vendor \
+  && bundle exec rake assets:precompile SECRET_KEY_BASE=noop DATABASE_URL=postgres://noop REDIS_URL=redis://noop
 
-# Note: Don't forget you have to run the migrations manually, by SSH'ing
-# into the web server and running the following:
-# rake db:migrate && rake db:seed && rake setup:demo
-
-EXPOSE 3000
-
-CMD bundle exec rails s -p 3000 -b '0.0.0.0'
+VOLUME [ "/app/public" ]

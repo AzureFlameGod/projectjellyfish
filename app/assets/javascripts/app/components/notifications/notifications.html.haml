@@ -1,0 +1,5 @@
+.notifications
+  .notification(ng-repeat="notification in $ctrl.notifications track by $index" ng-class="notification.type")
+    %button.delete(ng-click="$ctrl.remove($index)")
+    %strong(ng-if="notification.title" ng-bind="notification.title")
+    %span(ng-bind="notification.message")

@@ -1,0 +1,54 @@
+%form(name="form" novalidate)
+  %div.label.has-text-right
+    %span.is-required
+    %small field is required
+  .columns
+    .column.is-half
+      .control
+        %label.label
+          %span.is-required Name
+        %input.input(type="text" name="name" ng-model="$ctrl.model.name" required)
+      .control
+        %label.label Description
+        %textarea.textarea(name="description" rows="3" ng-model="$ctrl.model.description")
+      .control
+        %label.label
+          %span.is-required Setup Price
+          %span.is-error.pull-right(ng-messages="form.setup.$error")
+            %span(ng-message="pattern") Must be a monetary value
+        %input.input(type="text" name="setup" ng-model="$ctrl.model.setup_price" required ng-pattern="$ctrl.priceRegEx")
+      .control
+        %label.label
+          %span.is-required Hourly Price
+          %span.is-error.pull-right(ng-messages="form.hourly.$error")
+            %span(ng-message="pattern") Must be a monetary value
+        %input.input(type="text" name="hourly" ng-model="$ctrl.model.hourly_price" required ng-pattern="$ctrl.priceRegEx")
+      .control
+        %label.label
+          %span.is-required Monthly Price
+          %span.is-error.pull-right(ng-messages="form.monthly.$error")
+            %span(ng-message="pattern") Must be a monetary value
+        %input.input(type="text" name="monthly" ng-model="$ctrl.model.monthly_price" required ng-pattern="$ctrl.priceRegEx")
+      .control
+        %label.label Comparable Properties
+        .control.is-horizontal(ng-repeat="pair in ::$ctrl.model.properties track by $index")
+          .control-label
+            %label.label.flex--middle(ng-bind="pair.name")
+          .control
+            %input.input(type="text" ng-model="pair.value")
+      .control
+        %label.label Tags
+        %div
+          %tags-input(ng-model="$ctrl.tags")
+
+    .column.is-half
+      %div(ng-switch="$ctrl.model.type")
+        %settings(ng-switch-when="cloud_forms/automation/product" item="$ctrl.product" on-change="$ctrl.onChange($event)")
+        %settings(ng-switch-when="cloud_forms/vm/product" item="$ctrl.product" on-change="$ctrl.onChange($event)")
+
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onCreate" ng-disabled="form.$invalid" ng-click="$ctrl.doCreate();") Create Product
+    %button.button.is-primary(type="button" ng-if="$ctrl.onUpdate" ng-disabled="form.$invalid" ng-click="$ctrl.doUpdate();") Save Changes
+    %button.button.is-danger(type="button" ng-if="$ctrl.onDelete" ng-click="$ctrl.doDelete();") Delete Product
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel();") Cancel

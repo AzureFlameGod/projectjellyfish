@@ -1,0 +1,12 @@
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+
+%div(ng-if="$ctrl.serviceOrders.length")
+  %service-orders(service-orders="$ctrl.serviceOrders" on-show="$ctrl.onShow($event)")
+  %div(ng-if="$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.serviceOrders.length == 0")
+  .message-body There are no orders to display

@@ -1,0 +1,17 @@
+%h1.title.is-4 Project Approvals
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+
+%div(ng-if="$ctrl.projectRequests.length")
+  .card.is-fullwidth
+    %project-requests(project-requests="$ctrl.projectRequests" on-edit="$ctrl.onApprove($event)")
+  %div(ng-if="$ctrl.projectRequests.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.projectRequests.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.projectRequests.length == 0")
+  .message-body There are no requests.
+
+%project-approval-modal(ng-if="$ctrl.selectedRequest" project-request="$ctrl.selectedRequest" on-approve="$ctrl.withApproval($event)" on-deny="$ctrl.withApproval($event)" on-cancel="$ctrl.selectedRequest = null;")

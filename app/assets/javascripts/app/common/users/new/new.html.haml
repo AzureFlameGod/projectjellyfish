@@ -1,0 +1,11 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="users.list") Users
+      %li
+        New User
+
+.columns
+  .column.is-half
+    %user-form(user="$ctrl.user" on-create="$ctrl.onCreate($event)" on-cancel="$ctrl.onCancel()")

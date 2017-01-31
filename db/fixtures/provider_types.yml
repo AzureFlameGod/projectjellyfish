@@ -1,0 +1,11 @@
+---
+cloud_forms:
+  type: CloudForms::ProviderType
+  name: CloudForms
+  description: Red Hat CloudForms
+  active: true
+amazon:
+  type: Amazon::ProviderType
+  name: AWS
+  description: Amazon Web Services
+  active: true

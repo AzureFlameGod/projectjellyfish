@@ -1,0 +1,244 @@
+{
+  "name": "API",
+  "description": "REST API",
+  "version": "2.2.0",
+  "versions": [
+    {
+      "name": "2.2.0",
+      "href": "https://localhost/api/v2.2.0"
+    }
+  ],
+  "settings": {
+    "locale": "en"
+  },
+  "identity": {
+    "userid": "admin",
+    "name": "Administrator",
+    "user_href": "https://localhost/api/users/1",
+    "group": "EvmGroup-super_administrator",
+    "group_href": "https://localhost/api/groups/2",
+    "role": "EvmRole-super_administrator",
+    "role_href": "https://localhost/api/roles/1",
+    "tenant": "My Company",
+    "groups": [
+      "EvmGroup-super_administrator"
+    ]
+  },
+  "collections": [
+    {
+      "name": "automation_requests",
+      "href": "https://localhost/api/automation_requests",
+      "description": "Automation Requests"
+    },
+    {
+      "name": "availability_zones",
+      "href": "https://localhost/api/availability_zones",
+      "description": "Availability Zones"
+    },
+    {
+      "name": "categories",
+      "href": "https://localhost/api/categories",
+      "description": "Categories"
+    },
+    {
+      "name": "chargebacks",
+      "href": "https://localhost/api/chargebacks",
+      "description": "Chargebacks"
+    },
+    {
+      "name": "clusters",
+      "href": "https://localhost/api/clusters",
+      "description": "Clusters"
+    },
+    {
+      "name": "conditions",
+      "href": "https://localhost/api/conditions",
+      "description": "Conditions"
+    },
+    {
+      "name": "data_stores",
+      "href": "https://localhost/api/data_stores",
+      "description": "Datastores"
+    },
+    {
+      "name": "events",
+      "href": "https://localhost/api/events",
+      "description": "Events"
+    },
+    {
+      "name": "features",
+      "href": "https://localhost/api/features",
+      "description": "Product Features"
+    },
+    {
+      "name": "flavors",
+      "href": "https://localhost/api/flavors",
+      "description": "Flavors"
+    },
+    {
+      "name": "groups",
+      "href": "https://localhost/api/groups",
+      "description": "Groups"
+    },
+    {
+      "name": "hosts",
+      "href": "https://localhost/api/hosts",
+      "description": "Hosts"
+    },
+    {
+      "name": "instances",
+      "href": "https://localhost/api/instances",
+      "description": "Instances"
+    },
+    {
+      "name": "pictures",
+      "href": "https://localhost/api/pictures",
+      "description": "Pictures"
+    },
+    {
+      "name": "policies",
+      "href": "https://localhost/api/policies",
+      "description": "Policies"
+    },
+    {
+      "name": "policy_actions",
+      "href": "https://localhost/api/policy_actions",
+      "description": "Actions"
+    },
+    {
+      "name": "policy_profiles",
+      "href": "https://localhost/api/policy_profiles",
+      "description": "Policy Profiles"
+    },
+    {
+      "name": "providers",
+      "href": "https://localhost/api/providers",
+      "description": "Providers"
+    },
+    {
+      "name": "provision_dialogs",
+      "href": "https://localhost/api/provision_dialogs",
+      "description": "Provisioning Dialogs"
+    },
+    {
+      "name": "provision_requests",
+      "href": "https://localhost/api/provision_requests",
+      "description": "Provision Requests"
+    },
+    {
+      "name": "rates",
+      "href": "https://localhost/api/rates",
+      "description": "Chargeback Rates"
+    },
+    {
+      "name": "reports",
+      "href": "https://localhost/api/reports",
+      "description": "Reports"
+    },
+    {
+      "name": "request_tasks",
+      "href": "https://localhost/api/request_tasks",
+      "description": "Request Tasks"
+    },
+    {
+      "name": "requests",
+      "href": "https://localhost/api/requests",
+      "description": "Requests"
+    },
+    {
+      "name": "resource_pools",
+      "href": "https://localhost/api/resource_pools",
+      "description": "Resource Pools"
+    },
+    {
+      "name": "results",
+      "href": "https://localhost/api/results",
+      "description": "Report Results"
+    },
+    {
+      "name": "roles",
+      "href": "https://localhost/api/roles",
+      "description": "Roles"
+    },
+    {
+      "name": "security_groups",
+      "href": "https://localhost/api/security_groups",
+      "description": "Security Groups"
+    },
+    {
+      "name": "servers",
+      "href": "https://localhost/api/servers",
+      "description": "EVM Servers"
+    },
+    {
+      "name": "service_catalogs",
+      "href": "https://localhost/api/service_catalogs",
+      "description": "Service Catalogs"
+    },
+    {
+      "name": "service_dialogs",
+      "href": "https://localhost/api/service_dialogs",
+      "description": "Service Dialogs"
+    },
+    {
+      "name": "service_orders",
+      "href": "https://localhost/api/service_orders",
+      "description": "Service Orders"
+    },
+    {
+      "name": "service_requests",
+      "href": "https://localhost/api/service_requests",
+      "description": "Service Requests"
+    },
+    {
+      "name": "service_templates",
+      "href": "https://localhost/api/service_templates",
+      "description": "Service Templates"
+    },
+    {
+      "name": "services",
+      "href": "https://localhost/api/services",
+      "description": "Services"
+    },
+    {
+      "name": "settings",
+      "href": "https://localhost/api/settings",
+      "description": "Settings"
+    },
+    {
+      "name": "tags",
+      "href": "https://localhost/api/tags",
+      "description": "Tags"
+    },
+    {
+      "name": "tasks",
+      "href": "https://localhost/api/tasks",
+      "description": "Tasks"
+    },
+    {
+      "name": "templates",
+      "href": "https://localhost/api/templates",
+      "description": "Templates"
+    },
+    {
+      "name": "tenants",
+      "href": "https://localhost/api/tenants",
+      "description": "Tenants"
+    },
+    {
+      "name": "users",
+      "href": "https://localhost/api/users",
+      "description": "Users"
+    },
+    {
+      "name": "vms",
+      "href": "https://localhost/api/vms",
+      "description": "Virtual Machines"
+    },
+    {
+      "name": "zones",
+      "href": "https://localhost/api/zones",
+      "description": "Zones"
+    }
+  ]
+}

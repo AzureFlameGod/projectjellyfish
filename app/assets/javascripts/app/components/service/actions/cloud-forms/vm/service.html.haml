@@ -1,0 +1,7 @@
+%button.button.is-danger(ng-if="$ctrl.hasAction('deprovision')" ng-disabled="$ctrl.isDisabled" ng-click="$ctrl.confirmAction('deprovision','Are you sure you want to deprovision? This cannot be undone.')") Deprovision
+.select
+  %select(ng-model="selectedAction" ng-disabled="$ctrl.isDisabled" ng-change="$ctrl.confirmAction(selectedAction.split('|')[0], selectedAction.split('|')[1])")
+    %option(value="" selected) Command
+    %option(value="power_on|Power on this service?" ng-if="$ctrl.hasAction('power_on')") Power On
+    %option(value="power_off|Power off this service?" ng-if="$ctrl.hasAction('power_off')") Power Off
+    %option(value="reboot|Reboot this service?" ng-if="$ctrl.hasAction('reboot')") Reboot

@@ -1,30 +1,19 @@
-//= require lodash
 //= require moment
-//= require jquery
-//= require toastr
 
 //= require angular
 //= require angular-animate
 //= require angular-aria
-//= require angular-bootstrap
 //= require angular-messages
-//= require angular-resource
 //= require angular-sanitize
-//= require angular-ui-router
+
+//= require angular-moment
+//= require satellizer
+
 //= require angular-rails-templates
 
-//= require angular-filter
-//= require angular-smart-table
-//= require angular-ui-sortable
-//= require api-check
-//= require angular-formly
-//= require marked
-//= require angular-marked
-//= require tinycolor
-//= require angularjs-color-picker
-//= require highcharts
-//= require highcharts-ng
+//= require ng-tags-input
+//= require angular-loading-bar
 
-//= require ngDraggable
-//= require bootstrap-sass-official
-
+//= require chart.js.js
+//= require angular-chart.js.js
+//= require ng-dialog

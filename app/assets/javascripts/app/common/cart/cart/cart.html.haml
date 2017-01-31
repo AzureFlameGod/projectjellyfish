@@ -1,0 +1,16 @@
+.columns
+  .column
+    %button.button.is-primary(type="button" ui-sref="checkout" ng-disabled="$ctrl.items.length == 0") Checkout
+
+%div(ng-if="$ctrl.items.length")
+  %cart-items(items="$ctrl.items" on-select="$ctrl.onSelect($event)" on-configure="$ctrl.configure($event)" on-remove="$ctrl.remove($event)")
+  %div(ng-if="::$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.items.length == 0")
+  .message-body
+    %p
+      There is nothing in your cart
+      %a(ui-sref="marketplace") visit the Marketplace
+      to add some items.

@@ -1,0 +1,11 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="products.list") Products
+      %li
+        %a(ui-sref="products.show({id: $ctrl.product.id})") View
+      %li
+        Edit
+
+%product-form(product="$ctrl.product" on-update="$ctrl.onUpdate($event)" on-update-credentials="$ctrl.onUpdate($event)" on-delete="$ctrl.onDelete($event)" on-cancel="$ctrl.onCancel()")

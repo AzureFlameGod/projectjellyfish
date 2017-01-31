@@ -6,6 +6,7 @@ AllCops:
     - bin/**
     - lib/tasks/sample.rake
     - lib/jellyfish_fog_aws/spec/dummy/**/*
+    - test/**/*
   TargetRubyVersion: 2.3
 
 Rails:

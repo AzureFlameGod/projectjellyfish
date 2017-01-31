@@ -1,0 +1,19 @@
+.card.is-fullwidth
+  %table.table
+    %thead.has-no-hover
+      %tr
+        %th Question
+        %th Required
+        %th(ng-if="::$ctrl.hasActions()")
+    %tbody
+      %tr(ng-repeat="question in $ctrl.projectQuestions track by question.id")
+        %td
+          %a(ng-if="::$ctrl.onShow" ng-click="$ctrl.doShow(question)" ng-bind="::question.attributes.label")
+          %span(ng-if="::!$ctrl.onShow" ng-bind="::question.attributes.label")
+        %td
+          %strong(ng-bind="::question.attributes.required ? 'Yes' : 'No'")
+        %td.is-icon(ng-if="::$ctrl.hasActions()")
+          %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.doSelect(question)") Select
+          %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onEdit" ng-click="$ctrl.doEdit(question)") Edit
+          %button.button.is-small.is-danger(type="button" ng-if="::$ctrl.onDelete" ng-click="$ctrl.doDelete(question)") Delete
+

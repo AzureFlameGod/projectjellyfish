@@ -1,0 +1,20 @@
+ul.breadcrumbs {
+  align-items: center;
+  display: flex;
+  font-weight: 400;
+  max-width: 100%;
+
+  a {
+    color: $blue;
+  }
+
+  li + li {
+    margin-left: $xs-spacing;
+
+    &:before {
+      content: "\0f054";
+      font-family: FontAwesome;
+      color: $medium-gray;
+    }
+  }
+}

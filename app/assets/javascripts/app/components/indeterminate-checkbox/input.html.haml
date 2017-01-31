@@ -1,0 +1,7 @@
+%span.indeterminate-checkbox(ng-click="$ctrl.doClick()" ng-class="{'is-disabled': $ctrl.isDisabled}")
+  .fa-stack.indeterminate-checkbox__control(ng-class="{'fa-lg': $ctrl.isLarge}")
+    %i.fa.fa-square-o.fa-stack-2x
+    %i.fa.fa-minus.fa-stack-1x(ng-if="$ctrl.isIndeterminate")
+    %i.fa.fa-check.fa-stack-1x(ng-if="!$ctrl.isIndeterminate && $ctrl.isChecked")
+    %i.fa.fa-stack-1x(ng-if="!$ctrl.isIndeterminate && !$ctrl.isChecked")
+  %span(ng-transclude)

@@ -1,0 +1,9 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="cart") Cart
+      %li
+        Configure
+
+%configure-form(service-request="$ctrl.serviceRequest" on-update="$ctrl.onUpdate($event)" on-delete="$ctrl.onDelete($event)" on-cancel="$ctrl.onCancel()")

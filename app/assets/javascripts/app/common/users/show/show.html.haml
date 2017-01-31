@@ -1,0 +1,15 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="users.list") Users
+      %li
+        View
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-primary(ui-sref="users.edit({id: $ctrl.user.id})") Edit
+
+%user-details(user="$ctrl.user")

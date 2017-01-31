@@ -1,0 +1,43 @@
+.divider {
+  border: 0;
+  box-shadow: $edge-shadow;
+  height: 1px;
+  margin-top: $small-spacing;
+  margin-bottom: $small-spacing;
+}
+
+.has-bottom-border {
+  box-shadow: $edge-shadow;
+}
+
+td.has-text-middle,
+th.has-text-middle,
+tr.has-text-middle > td,
+tr.has-text-middle > th {
+  vertical-align: middle;
+}
+
+.flex-center {
+  align-items: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.table {
+  thead.has-righted-headers,
+  tbody.has-righted-headers,
+  tfoot.has-righted-headers {
+    th {
+      text-align: right;
+    }
+  }
+}
+
+.table.is-borderless {
+  th,
+  td {
+    border: none;
+  }
+}

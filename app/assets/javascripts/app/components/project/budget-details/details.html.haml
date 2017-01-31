@@ -1,0 +1,25 @@
+.card
+  .card-header
+    .card-header-title Budget
+  .card-content
+    %table.table.is-borderless
+      %tbody.has-righted-headers
+        %tr(ng-if="$ctrl.overSpent > 0")
+          %td(colspan="2")
+            .notification.is-danger
+              %p(ng-bind-template="Project is {{$ctrl.overSpent | currency}} over budget!")
+        %tr
+          %th Budget
+          %td(ng-bind="::$ctrl.project.attributes.budget | currency")
+        %tr
+          %th Spent
+          %td(ng-bind="$ctrl.project.attributes.spent | currency")
+        %tr
+          %th Remaining
+          %td(ng-bind="$ctrl.remaining | currency")
+        %tr
+          %th Monthly Spend
+          %td(ng-bind="$ctrl.project.attributes.monthly_spend | currency")
+        %tr
+          %th Projection
+          %td(ng-bind-template="{{$ctrl.projected}} months until funds are exhausted")

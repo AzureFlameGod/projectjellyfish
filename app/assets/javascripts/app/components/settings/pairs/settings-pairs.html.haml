@@ -1,0 +1,10 @@
+.control.is-horizontal(ng-repeat="pair in $ctrl.pairs track by $index")
+  .control.is-grouped
+    .control.is-expanded
+      %input.input(type="text" ng-model="pair.name" required ng-change="$ctrl.doChange()" placeholder="{{::$ctrl.nameLabel}}")
+    .control.is-expanded
+      %input.input(type="text" ng-model="pair.value" ng-required="$ctrl.valueRequired" ng-change="$ctrl.doChange()" placeholder="{{::$ctrl.valueLabel}}")
+    .control.is-centered
+      %button.delete(type="button" ng-click="$ctrl.removePair($index)")
+.control
+  %button.button.is-small(type="button" ng-click="$ctrl.addPair()" ng-bind="::$ctrl.add")

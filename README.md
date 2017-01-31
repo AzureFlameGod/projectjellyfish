@@ -1,26 +1,26 @@
-Project Jellyfish
-=======
+# README
 
-[![Code Climate](https://codeclimate.com/github/projectjellyfish/api/badges/gpa.svg)](https://codeclimate.com/github/projectjellyfish/api) [![Test Coverage](https://codeclimate.com/github/projectjellyfish/api/badges/coverage.svg)](https://codeclimate.com/github/projectjellyfish/api/coverage) [![Build Status](https://travis-ci.org/boozallen/projectjellyfish.svg?branch=master)](https://travis-ci.org/boozallen/projectjellyfish)
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-#### Overview
+Things you may want to cover:
 
-Project Jellyfish is an open source broker system offering policy-driven
-solutions that assist organizations with the management of multi-cloud IT
-environments.
+* Ruby version
 
-### Documentation
+* System dependencies
 
-Please see the [Project Jellyfish Read the Docs](https://projectjellyfish.readthedocs.io) site.
+* Configuration
 
-### Issues
+* Database creation
 
-If you find an issue, please log at issue at https://github.com/boozallen/projectjellyfish/issues
+* Database initialization
 
------
-#### License
+* How to run the test suite
 
-This project is licensed under the [Apache 2.0 License](https://projectjellyfish.readthedocs.io/#license).
+* Services (job queues, cache servers, search engines, etc.)
 
------
-Copyright 2016 Booz Allen Hamilton
+* Deployment instructions
+
+* Contributing instructions
+
+* ...

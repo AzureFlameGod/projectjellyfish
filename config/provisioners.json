@@ -1,6 +1,0 @@
-{
-  "AWS": "NullProvisioner",
-  "VMWare": "NullProvisioner",
-  "RDS": "NullProvisioner",
-  "Storage": "NullProvisioner"
-}

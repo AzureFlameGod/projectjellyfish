@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+cloud_forms:
+  type: CloudForms::ProviderType
+  name: CloudForms
+  description: Red Hat CloudForms
+  active: true

@@ -1,0 +1,101 @@
+// Sizes
+$base-font-size: 14px;
+$base-line-height: 1.5; // 1.428571429;
+$base-spacing: $base-font-size * $base-line-height;
+
+// Content width maximums; Experimenting...
+$large-max-width: $base-spacing * 45;
+$base-max-width: $base-spacing * 30;
+$small-max-width: $base-spacing * 15;
+
+$xxl-font-size: $base-font-size + 12px;
+$xl-font-size: $base-font-size + 8px;
+$large-font-size: $base-font-size + 4px;
+$small-font-size: ceil($base-font-size * 0.8);
+$xs-font-size: floor($base-font-size * 0.75);
+$xxs-font-size: floor($base-font-size * 0.65);
+
+$xxl-spacing: $base-spacing * 4;
+$xl-spacing: $base-spacing * 3;
+$large-spacing: $base-spacing * 2;
+$small-spacing: $base-spacing / 2;
+$xs-spacing: $base-spacing / 3;
+$xxs-spacing: $base-spacing / 4;
+
+// Colors
+$red: #F13B54;
+$green: #11c551;
+$blue: #3397DB;
+$cyan: #00ccd1;
+$yellow: #ffe047;
+$gold: #F4B80E;
+$purple: #c267ff;
+
+$light-red: lighten($red, 16%);
+$dark-red: darken($red, 12%);
+
+$light-green: lighten($green, 13%);
+$dark-green: darken($green, 7%);
+
+$light-blue: lighten($blue, 17%);
+$dark-blue: darken($blue, 13%);
+
+$light-yellow: lighten($yellow, 13%);
+$dark-yellow: darken($yellow, 12%);
+
+$light-purple: lighten($purple, 8%);
+$dark-purple: darken($purple, 12%);
+
+$primary-color: $blue;
+$secondary-color: $purple;
+$tertiary-color: tint($yellow, 34%);
+$success-color: $green;
+$error-color: $red;
+$fatal-color: mix(#EF2321, $error-color);
+$warning-color: $tertiary-color;
+$warning-log-color: #EF9C19;
+
+$black: mix(#111111, $secondary-color, 91%);
+$dark-gray: mix(#333333, $secondary-color, 93%);
+$medium-gray: mix(#666666, $secondary-color, 95%);
+$gray: mix(#939393, $secondary-color, 93%);
+$light-gray: mix(#B1B3B6, $secondary-color, 97%);
+$off-white: mix(#EBEBEB, $blue, 99%);
+//$off-white: mix(#F6F6F6, $secondary-color, 99%); // Original off-white from CodeLift
+$white: #FFFFFF;
+$faint-white: rgba(#000000, 0.06);
+
+// Font Colors
+$base-font-color: darken($dark-gray, 15%);
+$action-color: tint($primary-color, 12%);
+$dark-action-color: darken($action-color, 20%);
+$light-action-color: lighten($action-color, 10%);
+
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+// Layout
+$header-height: 75px;
+$footer-height: 35px;
+$sidebar-width: 215px;
+
+// Border
+$base-border-radius: 3px;
+$base-border-width: 1px;
+$base-border-style: solid;
+$base-border-color: rgba($dark-gray, 0.25);
+$light-border-color: rgba($dark-gray, 0.15);
+$faint-border-color: rgba($dark-gray, 0.05);
+$base-border: $base-border-width $base-border-style $base-border-color;
+
+// Shadows
+$card-shadow: 0 1px 5px rgba($black, 0.15);
+$edge-shadow: 0 -1px $light-border-color inset;
+$modal-shadow: 0 5px 40px rgba($black, 0.5);
+
+// Animations
+$base-duration: 200ms;
+$fast-duration: 167ms;
+$slow-duration: 400ms;
+$base-timing: $ease-in-out-cubic;
+$base-transition: $base-duration $base-timing;
+$slow-transition: $slow-duration $base-timing;

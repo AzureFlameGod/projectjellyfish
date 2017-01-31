@@ -1,0 +1,14 @@
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-success(ui-sref="project-questions.new") New Question
+
+%div(ng-if="$ctrl.projectQuestions.length")
+  %project-questions(project-questions="$ctrl.projectQuestions" on-edit="$ctrl.onEdit($event)" on-delete="$ctrl.onDelete($event)")
+  %div(ng-if="$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.projectQuestions.length == 0")
+  .message-body There are no questions to display

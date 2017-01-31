@@ -1,0 +1,9 @@
+.widget
+  .widget--content(ng-if="$ctrl.projects.length > 0")
+    .select
+      %select(ng-model="$ctrl.project" ng-options="project as project.attributes.name for project in $ctrl.projects track by project.id")
+    %hr.divider
+    %project-projected-chart(project="$ctrl.project" months="4")
+  .widget--content(ng-if="$ctrl.projects.length === 0")
+    .message.is-info
+      .message-body No projects to report on.

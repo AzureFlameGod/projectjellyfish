@@ -1,0 +1,79 @@
+header.nav {
+  background-color: $blue;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+}
+
+.is-brand {
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.3;
+    background-position: 0 0;
+    background-image: url("../images/jelly_alone.png");
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  .title {
+    font-weight: 400;
+    color: $white;
+    text-shadow: 1px 1px 2px $dark-gray;
+    font-variant: small-caps;
+  }
+}
+
+.header__profile {
+  img {
+    border: $base-border;
+    border-width: $base-border-width;
+    border-radius: 50%;
+    max-height: 48px;
+    margin-right: $xs-spacing;
+  }
+}
+
+//header.header {
+//  align-items: center;
+//  display: flex;
+//  justify-content: space-between;
+//  min-height: 100%;
+//  padding: 0 $small-spacing;
+//
+//  > div {
+//    display: flex;
+//  }
+//}
+//
+//.header__brand {
+//  color: $dark-gray;
+//  font-size: $xl-font-size;
+//  font-weight: 500;
+//}
+//
+//.header__brand, .header__profile, .header__logout {
+//  align-items: center;
+//  display: flex;
+//  padding: 0 $base-spacing/2;
+//}
+//
+//.header__brand, .header__profile {
+//  img {
+//    max-height: $header-height/1.2;
+//    max-width: $header-height/1.2;
+//    margin: 0 $xs-spacing;
+//  }
+//}
+//
+//.header__profile img {
+//  border: $base-border;
+//  border-width: 2px;
+//  border-radius: 50%;
+//}

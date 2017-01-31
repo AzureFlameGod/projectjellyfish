@@ -1,0 +1,14 @@
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-success(ui-sref="providers.new") New Provider
+
+%div(ng-if="$ctrl.providers.length")
+  %providers(providers="$ctrl.providers" on-show="$ctrl.onShow($event)" on-update="$ctrl.onUpdate($event)")
+  %div(ng-if="$ctrl.providers.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.providers.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.providers.length == 0")
+  .message-body There are no providers.

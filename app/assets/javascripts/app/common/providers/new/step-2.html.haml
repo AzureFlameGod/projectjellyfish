@@ -1,0 +1,11 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="providers.list") Providers
+      %li
+        %a(ui-sref="providers.new" ng-bind="::$ctrl.providerType.attributes.name")
+      %li
+        New Provider
+
+%provider-form(provider="$ctrl.provider" on-create="$ctrl.onCreate($event)" on-cancel="$ctrl.onCancel()")

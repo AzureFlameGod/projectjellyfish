@@ -1,0 +1,5 @@
+%div(ng-form name="settings" ng-model-options="{debounce: 250}")
+  .control
+    %label.label
+      %span.is-required VM Fields
+    %settings-pairs(settings="$ctrl.model" pairs="vm_fields" labels="['Field', 'Value']" on-change="$ctrl.doChange($event)" add="Add Vm Field")

@@ -1,0 +1,21 @@
+%product(product="$ctrl.product")
+%hr
+.card.is-fullwidth
+  %table.table
+    %tbody
+      %tr
+        %th ID
+        %td(ng-bind="::$ctrl.product.id")
+      %tr(ng-if="::$ctrl.product.attributes.provider()")
+        %th Provider
+        %td
+          %a(ui-sref="providers.show({id: $ctrl.product.attributes.provider().id})" ng-bind="::$ctrl.product.attributes.provider().attributes.name")
+      %tr
+        %th Setup
+        %td(ng-bind-template="${{::$ctrl.product.attributes.setup_price}}")
+      %tr
+        %th Hourly
+        %td(ng-bind-template="${{::$ctrl.product.attributes.hourly_price}}")
+      %tr
+        %th Monthly
+        %td(ng-bind-template="${{::$ctrl.product.attributes.monthly_price}}")

@@ -1,0 +1,180 @@
+.btn, %btn, button, input[type="button"], input[type="reset"], input[type="submit"]
+  appearance: none
+  background-color: $action-color
+  border: 0
+  border-radius: $base-border-radius
+  box-shadow: inset 0 -1px rgba($action-color, 0.04)
+  color: $white
+  cursor: pointer
+  display: inline-block
+  font-family: $base-font-family
+  font-size: $small-font-size
+  font-weight: 400
+  line-height: 1
+  padding: $small-spacing $base-spacing
+  text-decoration: none
+  text-transform: uppercase
+  transition: background-color $base-transition, color $base-transition, border-color $base-transition
+  user-select: none
+  vertical-align: top
+  white-space: nowrap
+
+  & + &
+    margin-left: $xs-spacing
+
+  &:disabled
+    cursor: default
+    opacity: 0.25
+    pointer-events: none
+
+  &:hover, &:focus, &:active
+    outline: none
+    color: $white
+    background-color: $blue
+    text-decoration: none
+    border-color: $dark-blue
+
+.btn-large
+  font-size: $large-font-size
+  font-weight: 300
+  line-height: 1.5
+  padding: $small-spacing $base-spacing
+
+.btn-small, %btn-small
+  font-size: $xxs-font-size
+  font-weight: 400
+  padding: $xs-spacing $small-spacing
+
+.btn-tiny
+  font-size: $xxs-font-size
+  font-weight: 400
+  padding: $xxs-spacing $xs-spacing
+
+.btn-block
+  display: block
+  flex: 1
+  width: auto
+
+  & + &
+    margin-top: $small-spacing
+
+// TODO: Clean up rounded and bordered to be modifiers of .btn instead of entire scopes all their own
+
++block(btn-rounded)
+  @extend .btn
+  border-radius: 20px
+  padding: 10px 20px
+  color: $white
+  background-color: $blue
+  border: 2px solid transparent
+  text-transform: uppercase
+
+  &:hover, &:focus, &:active
+    outline: none
+    color: $white
+    background-color: $blue
+    text-decoration: none
+    border-color: $dark-blue
+
+  +modifier(other)
+    background-color: $dark-gray
+
+    &:hover, &:focus, &:active
+      background-color: $dark-gray
+      border-color: $medium-gray
+
+  +modifier(success)
+    background-color: $green
+
+    &:hover, &:focus, &:active
+      background-color: $green
+      border-color: $dark-green
+
+  +modifier(danger)
+    background-color: $red
+
+    &:hover, &:focus, &:active
+      background-color: $red
+      border-color: $dark-red
+
+  +modifier(bold)
+    font-weight: bold
+
+  +modifier(capitalize)
+    text-transform: capitalize
+
+  +modifier(small)
+    padding: 5px 15px
+
++block(btn-link)
+  color: $blue
+  text-transform: uppercase
+
+  &:active, &:focus, &:hover
+    outline: none
+    color: $blue
+    text-decoration: none
+
++block(btn-bordered)
+  @extend .btn
+  border-radius: 20px
+  padding: 10px 20px
+  color: $blue
+  background-color: $off-white
+  border: 2px solid
+  text-transform: uppercase
+
+  &.disabled, &[disabled]
+    color: lighten($blue, 20%)
+
+  &:hover, &:focus, &:active
+    outline: none
+    color: $blue
+    background-color: $off-white
+    text-decoration: none
+    border-color: $dark-blue
+
+  +modifier(other)
+    color: $dark-gray
+    background-color: $off-white
+
+    &.disabled, &[disabled]
+      color: lighten($dark-gray, 20%)
+
+    &:hover, &:focus, &:active
+      color: $dark-gray
+      background-color: $off-white
+      border-color: $medium-gray
+
+  +modifier(success)
+    color: $green
+    background-color: $off-white
+
+    &.disabled, &[disabled]
+      color: lighten($green, 20%)
+
+    &:hover, &:focus, &:active
+      color: $green
+      background-color: $off-white
+      border-color: $dark-green
+
+  +modifier(danger)
+    color: $red
+    background-color: $off-white
+
+    &.disabled, &[disabled]
+      color: lighten($red, 20%)
+
+    &:hover, &:focus, &:active
+      color: $red
+      background-color: $off-white
+      border-color: $dark-red
+
+  +modifier(bold)
+    font-weight: bold
+
+  +modifier(capitalize)
+    text-transform: capitalize
+
+  +modifier(small)
+    padding: 5px 15px

@@ -1,0 +1,11 @@
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %div(ng-switch="$ctrl.serviceDetail.attributes.service_type")
+      %service-actions(ng-switch-when="cloud_forms/vm/service" service="$ctrl.serviceDetail" is-disabled="$ctrl.reloading" on-action="$ctrl.onAction($event)")
+
+%service-detail-details(service-detail="$ctrl.serviceDetail")
+
+%div(ng-switch="$ctrl.serviceDetail.attributes.service_type")
+  %service-specifics(ng-switch-when="cloud_forms/vm/service" service="$ctrl.serviceDetail")

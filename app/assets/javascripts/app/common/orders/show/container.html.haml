@@ -1,0 +1,16 @@
+.columns
+  .column.is-3
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="orders.list") Service Orders
+      %li
+        View
+  .column.is-6
+    %nav.tabs.is-toggle.is-centered
+      %ul
+        %li(ui-sref-active="is-active")
+          %a(ui-sref="orders.show.order({id: $ctrl.serviceOrder.id})") Order
+        %li(ui-sref-active="is-active")
+          %a(ui-sref="orders.show.requests({id: $ctrl.serviceOrder.id})") Requests
+
+%div(ui-view)

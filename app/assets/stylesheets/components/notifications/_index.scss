@@ -1,0 +1,58 @@
+.notifications {
+  display: flex;
+  flex-direction: column;
+
+  li {
+    margin-bottom: $small-spacing;
+  }
+}
+
+.notification {
+  border: 2px solid;
+  border-radius: $base-border-radius;
+  color: $dark-gray;
+  display: flex;
+  padding: $xxs-spacing;
+
+  &.error {
+    background-color: $light-red;
+    border-color: $dark-red;
+  }
+
+  &.success {
+    background-color: $light-green;
+    border-color: $dark-green;
+  }
+
+  &.warning {
+    background-color: $light-yellow;
+    border-color: $dark-yellow;
+  }
+
+  &.info {
+    background-color: $light-blue;
+    border-color: $dark-blue;
+  }
+}
+
+.notification__content {
+  flex: 1;
+  align-self: center;
+
+  .title {
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
+.notification__close {
+  align-self: center;
+  font-size: $xl-font-size;
+
+  a {
+    color: $dark-gray;
+
+    &:hover {
+      color: $medium-gray;
+    }
+  }
+}

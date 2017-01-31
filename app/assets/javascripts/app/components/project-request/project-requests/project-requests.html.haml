@@ -1,0 +1,22 @@
+%table.table
+  %thead.has-no-hover
+    %tr
+      %th Status
+      %th Project
+      %th Budget
+      %th Requested By
+      %th Requested On
+      %th(ng-if="::$ctrl.hasActions()")
+  %tbody
+    %tr(ng-repeat="request in $ctrl.projectRequests track by request.id")
+      %td(ng-bind="::request.attributes.status")
+      %td(ng-bind="::request.attributes.name")
+      %td(ng-bind="::request.attributes.budget | currency")
+      %td(ng-bind="::request.attributes.user().attributes.name")
+      %td(ng-bind="::request.attributes.created_at | date : 'medium'")
+      %td.is-icon(ng-if="::$ctrl.hasActions()")
+        %button.button.is-small.is-dark(type="button" ng-if="::$ctrl.onShow" ng-click="$ctrl.doEvent('Show', request)") View
+        %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onEdit" ng-click="$ctrl.doEvent('Edit', request)") Edit
+        %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.doEvent('Select', request)") Select
+        %button.button.is-small.is-success(type="button" ng-if="::$ctrl.onApprove" ng-click="$ctrl.doEvent('Approve', request)") Approve
+        %button.button.is-small.is-danger(type="button" ng-if="::$ctrl.onDeny" ng-click="$ctrl.doEvent('Deny', request)") Deny

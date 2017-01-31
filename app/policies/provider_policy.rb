@@ -1,21 +1,21 @@
 class ProviderPolicy < ApplicationPolicy
-  def index?
-    admin?
+  def search?
+    is_manager?
   end
 
   def show?
-    admin?
+    is_manager?
   end
 
   def create?
-    admin?
+    is_admin?
   end
 
   def update?
-    admin?
+    is_admin?
   end
 
   def destroy?
-    admin?
+    is_admin?
   end
 end

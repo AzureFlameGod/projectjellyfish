@@ -1,0 +1,11 @@
+---
+cloud_forms_automation:
+  type: CloudForms::Automation::ProductType
+  name: Automation Script
+  description: Run an automation script installed in CloudForms
+  provider_type: cloud_forms
+cloud_forms_vm:
+  type: CloudForms::Vm::ProductType
+  name: Provision Request
+  description: Requests provisioning of a new VM
+  provider_type: cloud_forms

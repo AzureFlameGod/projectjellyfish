@@ -1,0 +1,55 @@
+indeterminate-checkbox {
+  display: inline-flex;
+
+  * {
+    outline: none;
+  }
+}
+.indeterminate-checkbox {
+  margin-right: $xs-spacing;
+
+  &__control {
+    cursor: pointer;
+    outline: none;
+
+    .fa-stack-2x {
+      color: $action-color;
+    }
+
+    &::before {
+      background-color: $white;
+      border-radius: 5px;
+      content: ' ';
+      height: 22px;
+      width: 22px;
+      position: absolute;
+      // The following will need tweaking if the base-font-size is changed
+      left: 3px;
+      top: 2px;
+    }
+
+
+    &:hover {
+      .fa-stack-2x {
+        color: $dark-action-color;
+      }
+    }
+  }
+
+  &__control.fa-lg {
+    &::before {
+      height: 28px;
+      width: 28px;
+      // The following will need tweaking if the base-font-size is changed
+      left: 5px;
+      top: 3px;
+    }
+  }
+
+  &.is-disabled {
+    .indeterminate-checkbox__control * {
+      color: $light-gray;
+      cursor: default;
+    }
+  }
+}

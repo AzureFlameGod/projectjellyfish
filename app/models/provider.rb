@@ -1,35 +1,51 @@
-# == Schema Information
-#
-# Table name: providers
-#
-#  id                     :integer          not null, primary key
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  deleted_at             :datetime
-#  type                   :string           not null
-#  registered_provider_id :integer          not null
-#  name                   :string           not null
-#  description            :text
-#  active                 :boolean
-#  cached_tag_list        :string
-#
-# Indexes
-#
-#  index_providers_on_registered_provider_id  (registered_provider_id)
-#  index_providers_on_type                    (type)
-#
+class Provider < ApplicationRecord
+  include PgSearch
 
-class Provider < ActiveRecord::Base
-  include Answers
-
-  acts_as_paranoid
   acts_as_taggable
+  acts_as_paranoid
 
-  belongs_to :registered_provider
+  belongs_to :provider_type
+  has_many :product_types, primary_key: :provider_type_id, foreign_key: :provider_type_id
+  has_many :products
 
-  accepts_nested_attributes_for :answers, reject_if: -> (answer) { answer['value'].nil? }
+  pg_search_scope :search, against: %i(name description cached_tag_list), using: {
+    tsearch: {
+      dictionary: 'english',
+      tsvector_column: :tsv
+    }
+  }
 
-  def self.policy_class
-    ProviderPolicy
+  class << self
+    def credential(key, encrypted: false)
+      if encrypted
+        define_method(key.to_sym) { decrypt credentials["encrypted_#{key}"] }
+        define_method("#{key}=".to_sym) do |value|
+          self[:credentials]["encrypted_#{key}"] = encrypt(value)
+        end
+      else
+        define_method(key.to_sym) { credentials[key.to_s] }
+        define_method("#{key}=".to_sym) do |value|
+          self[:credentials][key.to_s] = value
+        end
+      end
+    end
+  end
+
+  def valid_credentials?
+    true
+  end
+
+  def client
+    nil
+  end
+
+  # This is here because of a bug : https://github.com/mbleigh/acts-as-taggable-on/issues/432
+  def self.caching_tag_list_on?(context)
+    true
+  end
+
+  # All Providers use the same serializer
+  def serializer_class_name
+    'ProviderSerializer'
   end
 end

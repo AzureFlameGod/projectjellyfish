@@ -1,0 +1,19 @@
+.card.is-fullwidth
+  %table.table
+    %thead.has-no-hover
+      %tr
+        %th Status
+        %th ID
+        %th Ordered At
+        %th Services Ordered
+        %th Approved
+        %th Denied
+    %tbody
+      %tr(ng-repeat="order in $ctrl.serviceOrders track by order.id")
+        %td(ng-bind="::order.attributes.status")
+        %td
+          %a(ng-click="$ctrl.selectOrder(order)" ng-bind="::order.id")
+        %td(ng-bind="::order.attributes.ordered_at | date : 'medium'")
+        %td(ng-bind="::order.attributes.ordered_count")
+        %td(ng-bind="::order.attributes.approved_count")
+        %td(ng-bind="::order.attributes.denied_count")

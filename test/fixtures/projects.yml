@@ -1,0 +1,8 @@
+delta:
+  description: Project Delta
+  name: Delta
+  budget: 100
+  spent: 0
+  monthly_spend: 20
+  last_hourly_compute_at: <%= Time.now.to_s(:db) %>
+  last_monthly_compute_at: <%= 10.days.ago.to_s(:db) %>

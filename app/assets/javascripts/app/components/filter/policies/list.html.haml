@@ -1,0 +1,27 @@
+.card.is-fullwidth
+  %table.table
+    %thead.has-no-hover
+      %tr
+        %th Require/Exclude
+        %th Tags
+        %th
+    %tbody
+      %tr(ng-repeat="item in $ctrl.policies track by item.id")
+        %td(ng-if="$ctrl.editing($index)")
+          .select
+            %select(ng-model="item.attributes.exclude" required ng-options="opt.v as opt.l for opt in [{v: true, l: 'Exclude ALL'}, {v: false, l: 'Require ANY'}]")
+        %td(ng-if="$ctrl.editing($index)")
+          %tags-input(ng-model="item.attributes.tag_list")
+        %td.has-text-right(ng-if="$ctrl.editing($index)")
+          %button.button.is-primary(type="button" ng-if="::$ctrl.onSave" ng-click="$ctrl.doEvent('Save', $ctrl.processTags(item))") Save
+          %button.button(type="button" ng-click="$ctrl.cancel($index)") Cancel
+
+        %td.has-text-middle(ng-if="!$ctrl.editing($index)")
+          %span(ng-bind="item.attributes.exclude ? 'Exclude ALL' : 'Require ANY'")
+        %td.has-text-middle(ng-if="!$ctrl.editing($index)")
+          .level
+            .level-left
+              %span.level-item.tag.is-small.is-primary(ng-repeat="tag in item.attributes.tag_list track by $index" ng-bind="tag")
+        %td.has-text-right(ng-if="!$ctrl.editing($index)")
+          %button.button.is-primary(type="button" ng-click="$ctrl.edit($index)") Edit
+          %button.button.is-danger(type="button" ng-if="::$ctrl.onDelete" ng-click="$ctrl.doEvent('Delete', item)") Remove
