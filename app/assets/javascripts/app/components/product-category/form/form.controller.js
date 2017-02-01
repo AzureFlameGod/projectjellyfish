@@ -17,31 +17,44 @@
     function onInit() {
       ctrl.model = ctrl.productCategory.attributes;
       mapTags();
+      ctrl.serverErrors = null;
     }
 
     function doCreate() {
+      ctrl.serverErrors = null;
+
       unmapTags();
       ctrl.onCreate({
         $event: {
           productCategory: ctrl.productCategory
         }
+      }).catch(function(errors) {
+        ctrl.serverErrors = errors;
       });
     }
 
     function doUpdate() {
+      ctrl.serverErrors = null;
+
       unmapTags();
       ctrl.onUpdate({
         $event: {
           productCategory: ctrl.productCategory
         }
+      }).catch(function(errors) {
+        ctrl.serverErrors = errors;
       });
     }
 
     function doDelete() {
+      ctrl.serverErrors = null;
+
       ctrl.onDelete({
         $event: {
           productCategory: ctrl.productCategory
         }
+      }).catch(function(errors) {
+        ctrl.serverErrors = errors;
       });
     }
 

@@ -24,7 +24,9 @@
         $event: {
           settings: ctrl.settings
         }
-      });
+      }).catch(function(errors) {
+          ctrl.serverErrors = errors;
+        });
     }
   }
 })();

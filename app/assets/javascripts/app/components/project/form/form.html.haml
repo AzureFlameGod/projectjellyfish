@@ -7,15 +7,22 @@
       .control
         %label.label
           %span.is-required Name
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/name']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="text" name="name" ng-model="$ctrl.model.name" required)
       .control
-        %label.label Description
+        %label.label
+          %span Description
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/description']")
+            %server-message(message="VALIDATION_ERROR")
         %textarea.textarea(name="description" rows="3" ng-model="$ctrl.model.description")
       .control(ng-if="$ctrl.isAdmin")
         %label.label
           %span.is-required Budget
           %span.is-error.pull-right(ng-messages="form.budget.$error")
             %span(ng-message="pattern") Must be a monetary value
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/budget']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="text" name="budget" ng-model="$ctrl.model.budget" required ng-pattern="$ctrl.budgetRegEx")
 
 .columns

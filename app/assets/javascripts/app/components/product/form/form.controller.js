@@ -28,28 +28,40 @@
     }
 
     function doCreate() {
+      ctrl.serverErrors = null;
+
       unmapTags();
       ctrl.onCreate({
         $event: {
           product: ctrl.product
         }
+      }).catch(function(errors) {
+        ctrl.serverErrors = errors;
       });
     }
 
     function doUpdate() {
+      ctrl.serverErrors = null;
+
       unmapTags();
       ctrl.onUpdate({
         $event: {
           product: ctrl.product
         }
+      }).catch(function(errors) {
+        ctrl.serverErrors = errors;
       });
     }
 
     function doDelete() {
+      ctrl.serverErrors = null;
+
       ctrl.onDelete({
         $event: {
           product: ctrl.product
         }
+      }).catch(function(errors) {
+        ctrl.serverErrors = errors;
       });
     }
 

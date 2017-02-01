@@ -16,6 +16,7 @@
 // = require app/components/project-request/project-request.module
 // = require app/components/provider/provider.module
 // = require app/components/reload-button/reload-button.module
+// = require app/components/server-messages/server-messages.module
 // = require app/components/service/service.module
 // = require app/components/service-detail/service-detail.module
 // = require app/components/service-order/service-order.module
@@ -47,6 +48,7 @@
     'components.project-request',
     'components.provider',
     'components.reload-button',
+    'components.server-messages',
     'components.service',
     'components.service-detail',
     'components.service-order',

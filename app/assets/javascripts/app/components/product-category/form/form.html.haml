@@ -7,12 +7,20 @@
       .control
         %label.label
           %span.is-required Name
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/name']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="text" name="name" ng-model="$ctrl.model.name" required)
       .control
-        %label.label Description
+        %label.label
+          %span Description
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/description']")
+            %server-message(message="VALIDATION_ERROR")
         %textarea.textarea(name="description" rows="3" ng-model="$ctrl.model.description")
       .control
-        %label.label Tags
+        %label.label
+          %span Tags
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/tags_list']")
+            %server-message(message="VALIDATION_ERROR")
         %tags-input(ng-model="$ctrl.tags")
 
 .columns

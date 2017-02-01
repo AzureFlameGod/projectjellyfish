@@ -7,14 +7,20 @@
       .control
         %label.label
           %span.is-required Host
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_host']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="text" name="host" ng-model="$ctrl.model.mail_host" required)
       .control
         %label.label
-          %span.is-required Post
+          %span.is-required Port
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_port']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="text" name="port" ng-model="$ctrl.model.mail_port" required)
       .control
         %label.label
           %span.is-required Username
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_username']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="text" name="username" ng-model="$ctrl.model.mail_username" required)
       .control
         %label.label
@@ -24,6 +30,8 @@
       .control(ng-if="$ctrl.changePassword")
         %label.label
           %span.is-required Password
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_password']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="password" name="password" ng-model="$ctrl.model.mail_password" required)
       .control(ng-if="$ctrl.changePassword")
         %label.label
@@ -34,6 +42,8 @@
       .control
         %label.label
           %span.is-required Sender Address
+          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_sender']")
+            %server-message(message="VALIDATION_ERROR")
         %input.input(type="text" name="sender" ng-model="$ctrl.model.mail_sender" required)
 
 .columns

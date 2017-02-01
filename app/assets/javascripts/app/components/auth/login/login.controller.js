@@ -35,16 +35,9 @@
     function signInUser(event) {
       return AuthService
         .login(event.user)
-        .then(success, failure);
-
-      function success() {
-        $state.go('app');
-      }
-
-      function failure(error) {
-        // TODO: Handle failure to login
-        console.log(error);
-      }
+        .then(function () {
+          $state.go('app');
+        });
     }
   }
 })();

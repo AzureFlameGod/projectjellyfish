@@ -29,7 +29,7 @@
     .factory('ApiService', Factory);
 
   /** @ngInject */
-  function Factory($q, $http) {
+  function Factory($q, $http, ErrorsService) {
     var service = {
       routes: routes,
       buildUrl: buildUrl,
@@ -94,7 +94,8 @@
 
         angular.forEach(resource.relationships, function (relationship, key) {
           if (!relationship) {
-            this.attributes[key] = function() {};
+            this.attributes[key] = function () {
+            };
           } else if (angular.isArray(relationship.data)) {
             this.attributes[key] = (function many(relationship, included) {
               var type = relationship[0].type;
@@ -126,12 +127,17 @@
       }
     }
 
+    function parseError(response) {
+      return $q.reject(ErrorsService.parse(response));
+    }
+
     function search(path, parameters) {
       var url = buildUrl(path, parameters);
 
       return $http
         .get(url)
-        .then(parse);
+        .then(parse)
+        .catch(parseError);
     }
 
     function show(path, parameters) {
@@ -139,7 +145,8 @@
 
       return $http
         .get(url)
-        .then(parse);
+        .then(parse)
+        .catch(parseError);
     }
 
     function create(path, data, parameters) {
@@ -147,7 +154,8 @@
 
       return $http
         .post(url, buildRequest(data))
-        .then(parse);
+        .then(parse)
+        .catch(parseError);
     }
 
     function update(path, data, parameters) {
@@ -155,7 +163,8 @@
 
       return $http
         .put(url, buildRequest(data))
-        .then(parse);
+        .then(parse)
+        .catch(parseError);
     }
 
     function destroy(path) {
@@ -163,7 +172,8 @@
 
       return $http
         .delete(url)
-        .then(parse);
+        .then(parse)
+        .catch(parseError);
     }
 
     function buildRequest(request) {
@@ -185,7 +195,7 @@
           var serializedValue = '';
 
           if (Array.isArray(value)) {
-            serializedValue = value.map(function(item) {
+            serializedValue = value.map(function (item) {
               return encodeURIComponent(key + '[]') + '=' + encodeURIComponent(item);
             }).join('&');
           } else if (typeof value === 'object') {

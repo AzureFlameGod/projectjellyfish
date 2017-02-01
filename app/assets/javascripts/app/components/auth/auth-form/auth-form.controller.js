@@ -5,7 +5,7 @@
     .controller('AuthFormController', AuthFormController);
 
   /** @ngInject */
-  function AuthFormController() {
+  function AuthFormController(ErrorsService) {
     var ctrl = this;
 
     ctrl.$onChanges = onChanges;
@@ -18,8 +18,12 @@
     }
 
     function submitForm() {
-      ctrl.onSubmit({
+      ctrl.serverErrors = null;
+
+      return ctrl.onSubmit({
         $event: {user: ctrl.user}
+      }).catch(function(response) {
+        ctrl.serverErrors = ErrorsService.parse(response);
       });
     }
   }
