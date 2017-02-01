@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     # get '/rails/mailers/*path' => 'rails/mailers#preview'
   end
 
+  resource :health_check, only: [:show]
+
   # API Routes
   scope :api, format: false, defaults: { format: :jsonapi } do
     resource :app_settings, only: [:show, :update]

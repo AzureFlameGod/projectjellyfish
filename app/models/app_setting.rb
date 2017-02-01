@@ -29,6 +29,9 @@ class AppSetting < ApplicationRecord
       enable_signup: true,
       enable_signin: true,
 
+      # Remote Authentication Settings
+      enable_remote: false,
+
       # SAML Authentication Settings
       enable_saml: false,
 
