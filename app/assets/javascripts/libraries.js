@@ -8,7 +8,7 @@
 //= require angular-messages
 //= require angular-sanitize
 
-//= require vendor/angular-ui-router.min
+//= require vendor/angular-ui-router
 //= require angular-moment
 //= require satellizer
 
