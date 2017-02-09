@@ -1,5 +1,5 @@
 PATH
-  remote: ./lib/goby
+  remote: lib/goby
   specs:
     goby (0.1.0)
       activesupport (~> 5.0)
@@ -8,7 +8,7 @@ PATH
       kaminari (~> 0.17.0)
 
 PATH
-  remote: ./lib/manageiq_client
+  remote: lib/manageiq_client
   specs:
     manageiq-client (0.1.0)
       excon (~> 0.53.0)
@@ -357,4 +357,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.7
+   1.14.3

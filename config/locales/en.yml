@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  test_mailer:
+    test_email:
+      subject: 'You have received a test email from Project Jellyfish'
