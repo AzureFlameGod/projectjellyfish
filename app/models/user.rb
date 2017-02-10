@@ -15,6 +15,7 @@ class User < ApplicationRecord
   state_machine :state, initial: :pending do
     before_transition any => :active, do: :activate_user
     before_transition active: :disabled, do: :deactivate_user
+    after_transition on: :approve, do: :send_approval_email
 
     event :approve do
       transition pending: :active
@@ -52,4 +53,9 @@ class User < ApplicationRecord
   def deactivate_user
     self[:disabled_at] = DateTime.current
   end
+
+  def send_approval_email
+    UserMailer.approval(self).deliver_later
+  end
+
 end

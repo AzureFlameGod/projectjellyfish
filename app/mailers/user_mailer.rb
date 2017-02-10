@@ -1,24 +1,19 @@
 class UserMailer < ApplicationMailer
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.user_mailer.registration.subject
-  #
-  def registration
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+  def registration(user)
+    mail to: user.email
   end
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.user_mailer.forgot_password.subject
-  #
-  def forgot_password
-    @greeting = "Hi"
+  def approval(user)
+    @user = user
 
-    mail to: "to@example.org"
+    mail to: @user.email
   end
+
+  def welcome(user)
+    @user = user
+
+    mail to: @user.email
+  end
+
 end

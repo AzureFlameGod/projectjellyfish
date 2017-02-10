@@ -34,14 +34,21 @@ class RemoteAuthSession
     end
 
     def find_model!
-      User.find_or_create_by!(email: params[:remote_user]) do |user|
-        user.name = params[:name]
+      user = User.find_or_initialize_by(email: params[:remote_user]) do |u|
+        u.name = params[:name]
         # adding a random password since the user model requires a password
-        user.password = user.password_confirmation = SecureRandom.base64(12)
+        u.password = u.password_confirmation = SecureRandom.base64(12)
         # Bypassing state machine activation actions and marking user as active
-        user.state = 'active'
+        u.state = 'active'
       end
-    rescue
+
+      unless user.persisted?
+        user.save!
+        UserMailer.welcome(user).deliver_later
+      end
+
+      user
+    rescue => e
       raise Goby::Exceptions::ValidationErrors.new data: { attributes: ['Could not authenticate user'] }
     end
 

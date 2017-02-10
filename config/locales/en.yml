@@ -20,6 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  user_mailer:
+    registration:
+      subject: 'Successful registration at Project Jellyfish!'
+    approval:
+      subject: 'Welcome to Project Jellyfish!'
+    welcome:
+      subject: 'Welcome to Project Jellyfish!'
   test_mailer:
     test_email:
-      subject: 'You have received a test email from Project Jellyfish'
+      subject: 'This is a test email from Project Jellyfish'

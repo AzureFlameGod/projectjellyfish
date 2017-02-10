@@ -15,7 +15,7 @@ class Registration
     def perform
       run_service User::Create do |success|
         @model = success.model
-        send_registration_email
+        send_registration_email(@model)
       end
     end
 
@@ -27,8 +27,8 @@ class Registration
       params[:data][:attributes][:role] = 'user'
     end
 
-    def send_registration_email
-      # TODO: Implement mailer job
+    def send_registration_email(user)
+      UserMailer.registration(user).deliver_later
     end
   end
 end
