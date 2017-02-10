@@ -1,22 +1,22 @@
 class ServiceRequestMailer < ApplicationMailer
 
-  def admin_manager_notice(project, owner, service_request_count)
-    @count = service_request_count
+  def admin_manager_notice(project, owner, count)
+    @count = count
     @project = project
     @owner = owner
     @site_url = Rails.application.routes.url_helpers.root_url
 
     bcc_list = User.where(role: [:manager, :admin]).pluck(:email)
 
-    mail bcc: bcc_list
+    mail bcc: bcc_list, subject: "Service #{'request'.pluralize(@count)} created by #{@owner.name} for #{@project.name}"
   end
 
-  def owner_notice(project, owner, service_request_count)
-    @count = service_request_count
+  def owner_notice(project, owner, count)
+    @count = count
     @project = project
     @owner = owner
 
-    mail to: @owner.email
+    mail to: @owner.email, subject: "You have created #{@count} service #{'request'.pluralize(@count)} for #{@project.name}"
   end
 
   def approval(service_request)
