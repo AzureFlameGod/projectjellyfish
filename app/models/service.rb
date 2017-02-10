@@ -18,6 +18,7 @@ class Service < ApplicationRecord
     event :errored do
       transition all - :error => :error
     end
+    after_transition to: :error, do: :alert_email
 
     after_transition do |service, transition|
       service.monitor_frequency = service.monitor_frequency_for(transition.to)
@@ -82,5 +83,9 @@ class Service < ApplicationRecord
   # All Services use the same serializer unless overridden
   def serializer_class_name
     'ServiceSerializer'
+  end
+
+  def alert_email
+    ServiceMailer.error_alert(self).deliver_later
   end
 end

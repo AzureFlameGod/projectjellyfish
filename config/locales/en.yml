@@ -45,3 +45,6 @@ en:
   provider_mailer:
     disconnected:
       subject: 'The %{provider_type} Provider %{name} is not reachable'
+  service_mailer:
+    error_alert:
+      subject: 'The service %{name} is in an error state'
