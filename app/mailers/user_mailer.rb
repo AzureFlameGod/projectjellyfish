@@ -10,10 +10,10 @@ class UserMailer < ApplicationMailer
     mail to: @user.email
   end
 
-  def welcome(user)
-    @user = user
+  def welcome(name, email)
+    @name = name
 
-    mail to: @user.email
+    mail to: email
   end
 
 end
