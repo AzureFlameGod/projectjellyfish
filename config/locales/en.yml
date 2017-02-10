@@ -37,3 +37,8 @@ en:
       subject: 'Your project request has been approved'
     denied:
       subject: 'Your project request has been denied'
+  service_request_mailer:
+    admin_manager_notice:
+      subject: 'A service request has been created'
+    owner_notice:
+      subject: 'You have created a service request'

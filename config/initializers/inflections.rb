@@ -14,3 +14,8 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+ActiveSupport::Inflector.inflections(:en) do |inflection|
+  inflection.irregular "is", "are"
+  inflection.irregular "has", "have"
+  inflection.irregular "it", "they"
+end

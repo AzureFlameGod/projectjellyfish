@@ -39,6 +39,11 @@ class ServiceOrder < ApplicationRecord
           service_request.order
         end
       end
+
+      service_requests_by_project.each do |project, service_requests|
+        ServiceRequestMailer.admin_manager_notice(project, model.user, service_requests.count).deliver_later
+        ServiceRequestMailer.owner_notice(project, model.user, service_requests.count).deliver_later
+      end
     end
 
     private
@@ -52,7 +57,11 @@ class ServiceOrder < ApplicationRecord
     end
 
     def service_requests
-      @service_requests ||= ServiceRequest.includes(:product).with_state(:configured).where user_id: context.id
+      @service_requests ||= ServiceRequest.includes(:product, :project).with_state(:configured).where user_id: context.id
+    end
+
+    def service_requests_by_project
+      service_requests.group_by(&:project)
     end
   end
 end
