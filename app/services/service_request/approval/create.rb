@@ -27,9 +27,11 @@ class ServiceRequest < ApplicationRecord
 
           if model.approved?
             model.service_order.increment :approved_count
+            ServiceRequestMailer.approval(model).deliver_later
             # create_service
           elsif model.denied?
             model.service_order.increment :denied_count
+            ServiceRequestMailer.denial(model).deliver_later
           end
 
           model.service_order.reload

@@ -19,4 +19,17 @@ class ServiceRequestMailer < ApplicationMailer
     mail to: @owner.email
   end
 
+  def approval(service_request)
+    @service_request = service_request
+    @owner = service_request.user
+
+    mail to: @owner.email, subject: default_i18n_subject(service_name: service_request.service_name)
+  end
+
+  def denial(service_request)
+    @service_request = service_request
+    @owner = service_request.user
+
+    mail to: @owner.email, subject: default_i18n_subject(service_name: service_request.service_name)
+  end
 end

@@ -42,3 +42,7 @@ en:
       subject: 'A service request has been created'
     owner_notice:
       subject: 'You have created a service request'
+    approval:
+      subject: 'Your service request for %{service_name} was approved'
+    denial:
+      subject: 'Your service request for %{service_name} was denied'
