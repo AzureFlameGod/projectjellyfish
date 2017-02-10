@@ -42,3 +42,6 @@ en:
       subject: 'Your service request for %{service_name} was approved'
     denial:
       subject: 'Your service request for %{service_name} was denied'
+  provider_mailer:
+    disconnected:
+      subject: 'The %{provider_type} Provider %{name} is not reachable'

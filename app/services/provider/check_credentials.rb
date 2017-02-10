@@ -17,6 +17,7 @@ class Provider < ApplicationRecord
     ensure
       model.credentials_validated_at = DateTime.now
       model.save
+      ProviderMailer.disconnected(model).deliver_later unless model.connected
     end
 
     private
