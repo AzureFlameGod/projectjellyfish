@@ -30,3 +30,10 @@ en:
   test_mailer:
     test_email:
       subject: 'This is a test email from Project Jellyfish'
+  project_request_mailer:
+    needs_approval:
+      subject: 'New project request for approval'
+    approved:
+      subject: 'Your project request has been approved'
+    denied:
+      subject: 'Your project request has been denied'

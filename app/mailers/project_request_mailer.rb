@@ -4,15 +4,20 @@ class ProjectRequestMailer < ApplicationMailer
     bcc_list = User.where(role: :manager).pluck :email
 
     @project_request = project_request
-
-    mail subject: 'New project request needing approval', bcc: bcc_list
+    @approval_url = Rails.application.routes.url_helpers.root_url + 'projects/approvals'
+    mail bcc: bcc_list
   end
 
   def approved(project_request)
-
+    @project_request = project_request
+    @site_url = Rails.application.routes.url_helpers.root_url
+    mail to: @project_request.user.email
   end
 
   def denied(project_request)
-
+    @project_request = project_request
+    @site_url = Rails.application.routes.url_helpers.root_url
+    mail to: @project_request.user.email
   end
+
 end
