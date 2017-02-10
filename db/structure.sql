@@ -69,7 +69,7 @@ CREATE TABLE app_settings (
     mail_password text DEFAULT ''::text,
     mail_authentication text DEFAULT 'plain'::text,
     mail_ssl_verify text DEFAULT 'none'::text,
-    mail_sender text DEFAULT ''::text,
+    mail_sender text DEFAULT 'no-reply@my-pj-deployment.io'::text,
     system_notification_email text
 );
 

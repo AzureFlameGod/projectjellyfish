@@ -19,5 +19,4 @@ class ProjectRequestMailer < ApplicationMailer
     @site_url = Rails.application.routes.url_helpers.root_url
     mail to: @project_request.user.email
   end
-
 end

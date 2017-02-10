@@ -21,24 +21,24 @@
           %span.is-required Username
           %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_username']")
             %server-message(message="VALIDATION_ERROR")
-        %input.input(type="text" name="username" ng-model="$ctrl.model.mail_username" required)
+        %input.input(type="text" name="username" ng-model="$ctrl.model.mail_username")
       .control
         %label.label
           %span Change Password?
-        %input.toggle(type="checkbox" id="changePassword" ng-model="$ctrl.changePassword" ng-change="!$ctrl.changePassword && delete $ctrl.model['mail_password']")
+        %input.toggle(type="checkbox" id="changePassword" ng-model="$ctrl.changePassword" ng-change="!$ctrl.changePassword && delete($ctrl.model['mail_password'])")
         %label.label(for="changePassword")
       .control(ng-if="$ctrl.changePassword")
         %label.label
           %span.is-required Password
           %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_password']")
             %server-message(message="VALIDATION_ERROR")
-        %input.input(type="password" name="password" ng-model="$ctrl.model.mail_password" required)
+        %input.input(type="password" name="password" ng-model="$ctrl.model.mail_password")
       .control(ng-if="$ctrl.changePassword")
         %label.label
           %span.is-required Confirm Password
           %span.is-error.pull-right(ng-messages="form.passwordConfirm.$error")
             %span(ng-message="match") Passwords do not match
-        %input.input(type="password" name="passwordConfirm" ng-model="passwordConfirm" required match="$ctrl.model.mail_password")
+        %input.input(type="password" name="passwordConfirm" ng-model="passwordConfirm" match="$ctrl.model.mail_password")
       .control
         %label.label
           %span.is-required Sender Address

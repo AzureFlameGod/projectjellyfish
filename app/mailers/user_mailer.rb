@@ -15,5 +15,4 @@ class UserMailer < ApplicationMailer
 
     mail to: email
   end
-
 end

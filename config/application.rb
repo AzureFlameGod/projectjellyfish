@@ -39,6 +39,6 @@ module Server
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    Rails.application.routes.default_url_options[:host] = ENV['SITE_HOST_URL']
+    Rails.application.routes.default_url_options[:host] = ENV.fetch('SITE_HOST_URL', 'localhost:3000')
   end
 end

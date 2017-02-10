@@ -13,10 +13,14 @@
     .run(setup);
 
   /** @ngInject */
-  function configure($compileProvider, $locationProvider, cfpLoadingBarProvider) {
-    // Disable debug info
-    // TODO: Enable for the 'test' environments
-    $compileProvider.debugInfoEnabled(false);
+  function configure($compileProvider, $logProvider, $locationProvider, cfpLoadingBarProvider) {
+    var isLocal = !![/^localhost/, /^127.0.0.1/, /^\[::1]/].find(function(address) {
+      return address.test(window.location.host)
+    });
+
+    // Disable debug info for all remote requests
+    $compileProvider.debugInfoEnabled(isLocal);
+    $logProvider.debugEnabled(isLocal);
 
     // Use HTML5 routing for clean routes; Backing server must have a catch-all route
     $locationProvider.html5Mode(true);
