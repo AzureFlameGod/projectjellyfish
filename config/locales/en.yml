@@ -34,9 +34,9 @@ en:
     needs_approval:
       subject: 'New project request for approval'
     approved:
-      subject: 'Your project request has been approved'
+      subject: 'Your project %{name} has been approved'
     denied:
-      subject: 'Your project request has been denied'
+      subject: 'Your project request %{name} has been denied'
   service_request_mailer:
     approval:
       subject: 'Your service request for %{service_name} was approved'

@@ -1,4 +1,4 @@
-<p>We were last able to connect at <%= @provider.last_connected_at %></p>
+<p>We were last able to connect to the <%= @provider.type.deconstantize %> Provider <%= @provider.name %> at: <%= @provider.last_connected_at %></p>
 
 <p>The current status message is: <%= @provider.status_message %></p>
 
