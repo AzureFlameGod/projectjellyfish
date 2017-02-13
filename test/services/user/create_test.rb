@@ -9,7 +9,9 @@ class User::CreateTest < ActiveSupport::TestCase
           name: 'Create Me',
           email: 'create@me.com',
           password: 'password',
-          password_confirmation: 'password'
+          password_confirmation: 'password',
+          state: 'pending',
+          role: 'user'
         }
       }
     }
