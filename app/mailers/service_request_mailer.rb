@@ -6,7 +6,7 @@ class ServiceRequestMailer < ApplicationMailer
     @owner = owner
     @site_url = Rails.application.routes.url_helpers.root_url
 
-    bcc_list = User.where(role: [:manager, :admin]).pluck(:email)
+    bcc_list = User.where(role: [:manager, :admin], state: :active).pluck(:email)
 
     mail bcc: bcc_list, subject: "Service #{'request'.pluralize(@count)} created by #{@owner.name} for #{@project.name}"
   end

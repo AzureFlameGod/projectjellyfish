@@ -1,7 +1,7 @@
 class ProjectRequestMailer < ApplicationMailer
   def needs_approval(project_request)
     # Create BCC list of approvers
-    bcc_list = User.where(role: :manager).pluck :email
+    bcc_list = User.where(role: :manager, state: :active).pluck :email
 
     @project_request = project_request
     @approval_url = Rails.application.routes.url_helpers.root_url + 'projects/approvals'
