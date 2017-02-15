@@ -21,7 +21,7 @@ class User::CreateTest < ActiveSupport::TestCase
     context = nil
     result = User::Create.run(context: context, params: @params)
 
-    assert_equal true, result.valid?
+    assert result.valid?
     user = User.find_by name: 'Create Me'
     assert_equal user.id, result.model.id
   end

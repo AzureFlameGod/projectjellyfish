@@ -1,7 +1,6 @@
 require 'test_helper'
 class ProviderMailerTest < ActionMailer::TestCase
 
-
   setup do
     stub_request(:get, "http://localhost:3002/api").
       to_return(:status => 401, :body => "", :headers => {})
