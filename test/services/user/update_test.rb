@@ -29,14 +29,12 @@ class User::UpdateTest < ActiveSupport::TestCase
   end
 
   test 'user should not be able to update manager' do
-
     assert_raises Goby::Service::NotAuthorizedError do
       User::Update.run(context: users(:user), params: @params)
-
     end
   end
 
-  test 'user should not be able to change his own role' do
+  test 'user should not be able to change their own role' do
     params = @params.dup
     params[:data][:attributes][:role] = 'admin'
     result = User::Update.run(context: @user, params: params)

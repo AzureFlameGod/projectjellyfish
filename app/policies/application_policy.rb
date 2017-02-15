@@ -46,11 +46,11 @@ class ApplicationPolicy
   private
 
   def is_manager?
-    context && (context.manager? || context.admin?)
+    context&.active? && (context.manager? || context.admin?)
   end
 
   def is_admin?
-    context&.admin?
+    context&.active? && context.admin?
   end
 
   def owns_object?
