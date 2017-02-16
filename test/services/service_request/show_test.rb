@@ -17,7 +17,7 @@ class ServiceRequest::ShowTest < ActiveSupport::TestCase
     assert_equal sr.id, result.model.id
   end
 
-  test 'admin can load service_requests' do
+  test 'admin can load service_requests of other users' do
     sr = service_requests(:user_owned)
     result = ServiceRequest::Show.run context: users(:admin), params: { id: sr.id }
     assert result.valid?

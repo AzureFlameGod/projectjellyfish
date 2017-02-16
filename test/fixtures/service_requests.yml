@@ -26,3 +26,10 @@ user_owned:
   project: delta
   state: configured
   service_name: to test ownership
+approved:
+  type: CloudForms::Automation::ServiceRequest
+  user: user
+  product: cloud_forms_automation
+  project: delta
+  state: approved
+  service_name: to test ownership
