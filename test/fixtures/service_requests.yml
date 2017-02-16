@@ -10,12 +10,19 @@ configured:
   user: admin
   product: cloud_forms_automation
   project: delta
-  state: configured 
+  state: configured
   service_name: some name
 configured2:
   type: CloudForms::Automation::ServiceRequest
   user: admin
   product: cloud_forms_automation
   project: delta
-  state: configured 
+  state: configured
   service_name: another name
+user_owned:
+  type: CloudForms::Automation::ServiceRequest
+  user: user
+  product: cloud_forms_automation
+  project: delta
+  state: configured
+  service_name: to test ownership
