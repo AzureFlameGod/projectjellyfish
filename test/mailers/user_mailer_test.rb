@@ -27,12 +27,20 @@ class UserMailerTest < ActionMailer::TestCase
       remote_ip: '10.0.0.1',
       user_agent: 'Browser string'
     )
+    assert_nil User.find_by(email: params[:remote_user])
 
-    assert_emails 1 do
-      perform_enqueued_jobs do
-        RemoteAuthSession::Create.run context: nil, params: params
-      end
+    result = nil
+    perform_enqueued_jobs do
+      result = RemoteAuthSession::Create.run context: nil, params: params
     end
+
+    unless result.valid?
+      Rails.logger.error 'find-me'
+      Rails.logger.error result.errors.inspect
+    end
+
+    assert User.find_by(email: params[:remote_user])
+    assert_emails 1
   end
 
   test 'existing user registration via remote headers' do

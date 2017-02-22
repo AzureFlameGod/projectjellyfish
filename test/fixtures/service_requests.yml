@@ -33,3 +33,10 @@ approved:
   project: delta
   state: approved
   service_name: to test ownership
+ordered:
+  type: CloudForms::Automation::ServiceRequest
+  user: user
+  product: cloud_forms_automation
+  project: delta
+  state: configured
+  service_name: an ordered service
