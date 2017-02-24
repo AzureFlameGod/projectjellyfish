@@ -63,7 +63,6 @@ class ActionTest < ActiveSupport::TestCase
     assert result.valid?
     user.reload
     assert 'enabled', user.state
-
   end
 
 end

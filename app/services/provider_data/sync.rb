@@ -2,12 +2,14 @@ class ProviderData < ApplicationRecord
   class Sync < ApplicationService
     include Sanitize
     include Model
+    include Policy
 
     model Provider, :find
+    policy ProviderDataPolicy
 
     sanitize do
       required(:provider_id, ApplicationRecord::Types::UUID).filled(format?: ApplicationRecord::Types::UUID_REGEXP)
-      optional(:last_synced_at).maybe([:date_time?, :int?, :str?])
+      required(:last_synced_at).filled([:date_time?, :int?, :str?, :nil?])
     end
 
     def perform

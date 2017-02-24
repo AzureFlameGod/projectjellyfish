@@ -4,10 +4,12 @@ class ServiceRequestsControllerTest < ActionDispatch::IntegrationTest
 
   test 'create a service request' do
     headers = authorize users(:admin)
-    params = { data: {
+    params = {
+      data: {
         type: "service_requests",
         attributes: { product_id: products(:cheap_setup).id, project_id: projects(:delta).id }
-    } }
+      }
+    }
     post(service_requests_url, headers: headers, params: params.deep_stringify_keys)
 
     assert_response :success
@@ -21,18 +23,19 @@ class ServiceRequestsControllerTest < ActionDispatch::IntegrationTest
     product = products(:cloud_forms_automation)
     project = projects(:delta)
     params = { id: service_request.id,
-               data: { id: service_request.id,
-                       type: "service_requests",
-                       attributes: { service_name: "updated name",
-                                     type: "cloud_forms/automation/service_request",
-                                     product_id: product.id,
-                                     project_id: project.id,
-                                     settings: {},
-                                     } } }
-    # byebug
+      data: {
+        type: "service_requests",
+        attributes: { service_name: "updated name",
+          type: "cloud_forms/automation/service_request",
+          product_id: product.id,
+          project_id: project.id,
+          settings: {},
+        }
+      }
+    }
     put(service_request_url(service_request.id,
-                            :include => 'product',
-                            'fields[products]' => 'type,name,description,setup_price,hourly_price,monthly_price,monthly_cost'),
+      :include => 'product',
+      'fields[products]' => 'type,name,description,setup_price,hourly_price,monthly_price,monthly_cost'),
       headers: headers, params: params.deep_stringify_keys)
     assert_response :success
 
