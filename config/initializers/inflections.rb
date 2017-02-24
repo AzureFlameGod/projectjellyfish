@@ -18,4 +18,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflection|
   inflection.irregular 'is', 'are'
   inflection.irregular 'has', 'have'
   inflection.irregular 'it', 'they'
+  inflection.singular 'data', 'data'
 end

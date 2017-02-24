@@ -12,6 +12,12 @@ if File.split($0).last == 'puma'
     end
   end
 
+  scheduler.every '10m', overlap: false do
+    Provider.where(connected: true).pluck(:id, :last_synced_at) do |id, last_synced_at|
+      ProviderData::SyncJob.perform_later provider_id: id, last_synced_at: last_synced_at
+    end
+  end
+
   # Monitor services
   #
   # 1. Find only services with connected providers

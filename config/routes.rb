@@ -24,8 +24,10 @@ Rails.application.routes.draw do
     resource :account_info, only: [:show]
 
     resources :provider_types, only: [:index, :show]
+    resources :provider_data, only: [:index]
     resources :providers do
       resource :connection, only: [:update], module: :providers
+      resource :sync, only: [:create], module: :providers
     end
     namespace :providers do
       resource :credentials, only: [:create]

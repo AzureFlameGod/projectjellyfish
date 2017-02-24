@@ -274,6 +274,26 @@ CREATE TABLE project_requests (
 
 
 --
+-- Name: provider_data; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE provider_data (
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    data_type text NOT NULL,
+    provider_id uuid,
+    name text NOT NULL,
+    description text,
+    ext_id text,
+    ext_group_id text,
+    properties json DEFAULT '{}'::json,
+    available boolean DEFAULT true,
+    deprecated boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: provider_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -309,7 +329,8 @@ CREATE TABLE providers (
     cached_tag_list text DEFAULT ''::text,
     credentials_validated_at timestamp without time zone,
     last_connected_at timestamp without time zone,
-    tsv tsvector
+    tsv tsvector,
+    last_synced_at timestamp without time zone
 );
 
 
@@ -602,6 +623,14 @@ ALTER TABLE ONLY projects
 
 
 --
+-- Name: provider_data provider_data_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY provider_data
+    ADD CONSTRAINT provider_data_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: provider_types provider_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -811,6 +840,34 @@ CREATE INDEX index_projects_on_last_monthly_compute_at ON projects USING btree (
 --
 
 CREATE INDEX index_projects_on_tsv ON projects USING gin (tsv);
+
+
+--
+-- Name: index_provider_data_on_data_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_data_on_data_type ON provider_data USING btree (data_type);
+
+
+--
+-- Name: index_provider_data_on_ext_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_data_on_ext_group_id ON provider_data USING btree (ext_group_id);
+
+
+--
+-- Name: index_provider_data_on_ext_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_data_on_ext_id ON provider_data USING btree (ext_id);
+
+
+--
+-- Name: index_provider_data_on_provider_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_data_on_provider_id ON provider_data USING btree (provider_id);
 
 
 --
@@ -1101,6 +1158,14 @@ CREATE TRIGGER providers_fulltext BEFORE INSERT OR UPDATE ON providers FOR EACH 
 
 
 --
+-- Name: provider_data fk_rails_5a2ceda2c7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY provider_data
+    ADD CONSTRAINT fk_rails_5a2ceda2c7 FOREIGN KEY (provider_id) REFERENCES providers(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1130,6 +1195,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20161201003244'),
 ('20161201171144'),
 ('20161202180326'),
-('20161205224323');
+('20161205224323'),
+('20170222155222');
 
 
