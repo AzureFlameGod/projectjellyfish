@@ -38,5 +38,5 @@ ordered:
   user: user
   product: cloud_forms_automation
   project: delta
-  state: configured
+  state: ordered
   service_name: an ordered service

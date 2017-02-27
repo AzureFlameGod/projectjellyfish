@@ -18,7 +18,7 @@ class ServiceRequest::ApprovalTest < ActiveSupport::TestCase
     assert_difference 'Service.count', 1 do
       perform_enqueued_jobs do
         assert_enqueued_jobs 1 do
-          request = ServiceRequest::Approval::Create.new context: users(:manager), params: @params
+          request = ServiceRequest::Approval::Create.run context: users(:manager), params: @params
           assert request.valid?
         end
       end
