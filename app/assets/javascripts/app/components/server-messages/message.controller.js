@@ -13,7 +13,8 @@
     function onInit() {
       ctrl.message = {
         key: ctrl.key,
-        show: false
+        show: false,
+        text: ''
       };
 
       ctrl.messages.addMessage(ctrl.message);

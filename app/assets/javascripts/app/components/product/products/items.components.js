@@ -7,6 +7,7 @@
       controller: 'ProductsController',
       bindings: {
         products: '<',
+        comparable: '<',
         onSelect: '&?',
         onUpdate: '&?',
         onDelete: '&?',

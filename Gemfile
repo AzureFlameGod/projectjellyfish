@@ -115,4 +115,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-chart.js', '~> 2.4.0'
   gem 'rails-assets-angular-chart.js', '~> 1.1.0'
   gem 'rails-assets-ng-dialog', '~> 0.6.0'
+  gem 'rails-assets-angular-toastr', '~> 2.1.0'
 end

@@ -41,54 +41,12 @@ module Goby
       end
 
       def errors
-        @errors ||= parse_nested error_data
-      end
-
-      def parse_nested(obj, path = '')
-        return obj unless obj.is_a? Hash
-
-        obj.map do |key, value|
-          sub_path = [path, key].join('/')
-          if value.is_a? Hash
-            parse_nested value, sub_path
-          else
-            next value unless value.respond_to?(:map)
-            value.map do |error|
-              pointer = error == 'is missing' ? path : sub_path
-              detail = "`#{sub_path}` #{error}"
-#              detail = error == 'is missing' ? "`#{sub_path}` is missing" : error
-
-              Goby::Error.new(status: :unprocessable_entity,
-                code: 'VALIDATION_ERROR',
-                title: 'Validation error',
-                source: { pointer: pointer },
-                detail: detail)
-            end
-          end
-        end.flatten
-      end
-    end
-
-    class MissingPresenter < Error
-      attr_reader :class_name
-
-      def initialize(class_name)
-        @class_name = class_name.to_s
-      end
-
-      def errors
-        if Rails.env.development?
-          [Goby::Error.new(status: :not_implemented,
-            code: 'MISSING_PRESENTER',
-            title: 'Missing presenter',
-            detail: "Expected to find `#{class_name}Presenter` for resource `#{class_name}`"
-          )]
-        else
-          [Goby::Error.new(status: :internal_server_error,
-            code: 'INTERNAL_SERVER_ERROR',
-            title: 'Internal server error',
-            detail: "Missing implementation of `#{class_name}Presenter`"
-          )]
+        @errors ||= error_data.map do |error|
+          Goby::Error.new(status: :unprocessable_entity,
+            code: error[:predicate].to_s.sub(/\?\z/, ''),
+            title: 'Validation Error',
+            source: { pointer: '/'+error[:path].join('/') },
+            detail: error[:text])
         end
       end
     end
@@ -104,7 +62,7 @@ module Goby
       def errors
         [Goby::Error.new(status: :unauthorized,
           code: 'AUTHORIZATION_ERROR',
-          title: 'Not authorized',
+          title: 'Not Authorized',
           detail: "You do not have permission to call `#{action}` on `#{resource_type}`"
         )]
       end
@@ -137,7 +95,7 @@ module Goby
       def errors
         [Goby::Error.new(status: path.nil? ? :not_found : :unprocessable_entity,
           code: 'RECORD_NOT_FOUND',
-          title: 'Record not found',
+          title: 'Record Not Found',
           detail: "The record identified by `#{id}` could not be found",
           source: (path ? { pointer: path } : nil)
         )]
@@ -148,7 +106,7 @@ module Goby
       def errors
         [Goby::Error.new(status: :unprocessable_entity,
           code: 'RECORD_NOT_UNIQUE',
-          title: 'Record not unique',
+          title: 'Record Not Unique',
           detail: 'The record parameters have violated a unique constraint'
         )]
       end

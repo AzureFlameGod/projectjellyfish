@@ -1,0 +1,73 @@
+.notifications-nav {
+  padding: $xs-spacing 0; // Covers the gap created by margin-top on the container
+  position: relative;
+
+  &:hover .notifications-nav__container {
+    display:block;
+  }
+
+  span.badge {
+    font-weight: 600;
+    position: absolute;
+    right: -10px;
+    top: $xs-spacing - 10px;
+  }
+
+  .notifications-nav__container {
+    background-color: $white;
+    border: $base-border;
+    border-radius: $base-border-radius;
+    color: $black;
+    display: none;
+    margin-top: $xs-spacing;
+    width: 300px;
+    text-align: left;
+    padding: $xs-spacing;
+    position: absolute;
+    z-index: 1;
+
+    &.is-open {
+      display: block;
+    }
+  }
+
+  .notifications-nav__outer-wrapper {
+    overflow: auto;
+    max-height: 240px;
+    margin-top: $xs-spacing;
+  }
+
+  .notifications-nav__inner-wrapper {
+    overflow: hidden;
+  }
+
+  .notifications-nav__item {
+    border-left-width: 4px;
+    border-left-style: solid;
+    display: flex;
+    margin-bottom: $xs-spacing;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    i {
+      vertical-align: inherit;
+    }
+
+    a {
+      color: $action-color;
+
+      &:hover,
+      &:active {
+        color: $dark-action-color;
+      }
+    }
+  }
+
+  .notifications-nav__icon {
+    align-items: center;
+    display: flex;
+    padding: $xxs-spacing;
+  }
+}

@@ -5,44 +5,54 @@
     .controller('ServerMessagesController', Controller);
 
   /** @ngInject */
-  function Controller() {
+  function Controller(ErrorsService) {
     var ctrl = this;
+
+    var errors = {};
 
     ctrl.$onInit = onInit;
     ctrl.$onChanges = onChanges;
+    ctrl.$onDestroy = onDestroy;
 
+    // Used by child components to register themselves.
     ctrl.addMessage = addMessage;
 
     function onInit() {
       ctrl.messages = [];
+      ErrorsService.subscribe(displayError);
     }
 
     function onChanges(changes) {
-      if (changes.errors) {
-        ctrl.errors = angular.copy(ctrl.errors);
-      }
+    }
 
-      displayError();
+    function onDestroy() {
+      ErrorsService.unsubscribe(displayError);
     }
 
     function addMessage(message) {
       ctrl.messages.push(message);
     }
 
-    function displayError() {
-      var display = null;
+    function displayError(errors) {
+      var message;
 
-      angular.forEach(ctrl.messages, function(message) {
-        if (display != null || angular.isUndefined(ctrl.errors[message.key])) {
-          message.show = false;
-          return;
-        }
-
-        if (angular.isDefined(ctrl.errors[message.key])) {
-          display = message;
-          message.show = true;
-        }
+      // Hide all messages
+      angular.forEach(ctrl.messages, function (message) {
+        message.show = false;
       });
+
+      if (angular.isUndefined(errors.errors[ctrl.path])) {
+        return;
+      }
+
+      message = ctrl.messages.find(function(message) {
+        return angular.isDefined(errors.errors[ctrl.path][message.key]);
+      });
+
+      if (message) {
+        message.show = true;
+        message.text = errors.errors[ctrl.path][message.key];
+      }
     }
   }
 })();

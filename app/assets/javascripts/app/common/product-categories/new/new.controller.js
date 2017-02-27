@@ -18,7 +18,8 @@
 
     function onCreate(event) {
       return ProductCategoryService.create(event.productCategory)
-        .then(function (productCategory) {
+        .then(function (category) {
+          NotificationsService.success('Category \'' +category.attributes.name + '\' has been created.', 'Category Created');
           $state.go('product-categories.list');
         });
     }

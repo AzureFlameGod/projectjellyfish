@@ -279,17 +279,17 @@ CREATE TABLE project_requests (
 
 CREATE TABLE provider_data (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     data_type text NOT NULL,
-    provider_id uuid,
+    provider_id uuid NOT NULL,
     name text NOT NULL,
     description text,
     ext_id text,
     ext_group_id text,
     properties json DEFAULT '{}'::json,
     available boolean DEFAULT true,
-    deprecated boolean DEFAULT false,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    deprecated boolean DEFAULT false
 );
 
 

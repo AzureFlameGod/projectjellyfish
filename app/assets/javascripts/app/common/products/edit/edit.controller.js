@@ -5,7 +5,7 @@
     .controller('ProductEditController', Controller);
 
   /** @ngInject */
-  function Controller($window, $state, ProductService) {
+  function Controller($window, $state, NotificationsService, ProductService) {
     var ctrl = this;
 
     ctrl.$onChanges = onChanges;
@@ -21,8 +21,12 @@
 
     function onUpdate(event) {
       return ProductService.update(event.product)
-        .then(function () {
+        .then(function (product) {
           $state.go('products.show', {id: ctrl.product.id});
+          NotificationsService.success('Product '+ product.attributes.name +' has been updated.', 'Product Updated');
+        })
+        .catch(function () {
+          NotificationsService.error('Product not saved. There were problems with the product inputs. Check your input and try again.', 'Product Not Saved')
         });
     }
 
@@ -31,8 +35,9 @@
 
       if ($window.confirm(message)) {
         return ProductService.destroy(event.product)
-          .then(function () {
+          .then(function (product) {
             $state.go('products.list');
+            NotificationsService.success('Product '+ product.attributes.name +' has been removed.', 'Product Deleted');
           });
       }
     }

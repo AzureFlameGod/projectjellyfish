@@ -1,6 +1,7 @@
 // = require app/components/app-settings/app-settings.module
 // = require app/components/auth/auth.module
 // = require app/components/autocomplete/autocomplete.module
+// = require app/components/compare/compare.module
 // = require app/components/dashboard/dashboard.module
 // = require app/components/filter/filter.module
 // = require app/components/indeterminate-checkbox/indeterminate-checkbox.module
@@ -33,6 +34,7 @@
     'components.app-settings',
     'components.auth',
     'components.autocomplete',
+    'components.compare',
     'components.dashboard',
     'components.filter',
     'components.indeterminate-checkbox',

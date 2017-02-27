@@ -1,1 +1,2 @@
-%span(ng-if="$ctrl.message.show" ng-bind="$ctrl.messages.errors[$ctrl.key]")
+%span(ng-if="$ctrl.message.show" ng-transclude)
+  %span(ng-bind="$ctrl.message.text")

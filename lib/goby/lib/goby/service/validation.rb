@@ -7,13 +7,14 @@ module Goby
 
       def validate(params_to_validate = params, schema: validation_schema, error_nesting: [], raise: true)
         result = schema.new(context: context || {}, model: model).call(params_to_validate)
+
         if result.success?
           yield result.output if block_given?
         end
 
         unless result.success? || raise == false
-          nested_errors = error_nesting.reverse.inject(result.errors) { |a, n| { n => a } }
-          raise Goby::Exceptions::ValidationErrors.new(nested_errors)
+          errors = result.message_set.failures.map { |e| { path: error_nesting.concat(e.path), predicate: e.predicate, text: e.text } }
+          raise Goby::Exceptions::ValidationErrors.new(errors)
         end
 
         result

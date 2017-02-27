@@ -12,15 +12,15 @@ class ServiceRequest < ApplicationRecord
       required(:data).schema do
         required(:type, :string).filled(eql?: 'service_requests')
         required(:attributes).schema do
-          required(:product_id, ApplicationRecord::Types::UUID).filled(format?: ApplicationRecord::Types::UUID_REGEXP)
-          required(:project_id, ApplicationRecord::Types::UUID).filled(format?: ApplicationRecord::Types::UUID_REGEXP)
+          required(:product_id, ApplicationRecord::Types::UUID).filled
+          required(:project_id, ApplicationRecord::Types::UUID).filled
         end
       end
     end
 
     validation do
-      required(:product_id).filled
-      required(:project_id).filled
+      required(:product_id).filled(format?: ApplicationRecord::Types::UUID_REGEXP)
+      required(:project_id).filled(format?: ApplicationRecord::Types::UUID_REGEXP)
 
       validate exists?: [:product_id] do |product_id|
         Product.where(id: product_id).exists?

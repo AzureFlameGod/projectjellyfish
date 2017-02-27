@@ -6,7 +6,7 @@
       templateUrl: 'components/server-messages/messages.html',
       controller: 'ServerMessagesController',
       bindings: {
-        errors: '<'
+        path: '@'
       },
       transclude: true
     })
@@ -18,6 +18,7 @@
       },
       require: {
         messages: '^^serverMessages'
-      }
+      },
+      transclude: true
     })
 })();

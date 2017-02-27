@@ -5,7 +5,7 @@
     .controller('RequestProjectController', Controller);
 
   /** @ngInject */
-  function Controller($state, ProjectRequestService) {
+  function Controller($state, NotificationsService, ProjectRequestService) {
     var ctrl = this;
 
     ctrl.$onInit = onInit;
@@ -22,6 +22,7 @@
           $state.go('projects.show-request', {
             id: projectRequest.id
           });
+          NotificationsService.success('Request to create project has been sent.', 'Project Requested');
         });
     }
 

@@ -6,14 +6,14 @@
         %project-select.level-item(projects="$ctrl.projects" selected="$ctrl.project" on-select="$ctrl.onSelectProject($event)" default-option="Choose a Project")
 
       .level-right
+        %compare-list.level-item
         %span.level-item Search
         .control.level-item.has-addons
           %input.input(ng-model="$ctrl.query.filter.search" on-enter="$ctrl.doSearch($ctrl.query.filter.search)")
           %button.button.is-dark(type="button" ng-click="$ctrl.doSearch('')") Clear
 
 %div(ng-if="$ctrl.products.length")
-  %products(ng-if="$ctrl.project" products="$ctrl.products" on-show="$ctrl.onShow($event)" on-add-to-cart="$ctrl.addToCart($event)")
-  %products(ng-if="!$ctrl.project" products="$ctrl.products" on-show="$ctrl.onShow($event)")
+  %products(products="$ctrl.products" on-show="$ctrl.onShow($event)" on-add-to-cart="$ctrl.addToCart($event)" comparable="true")
   %div(ng-if="$ctrl.meta.total_pages > 1")
     %hr
     %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")

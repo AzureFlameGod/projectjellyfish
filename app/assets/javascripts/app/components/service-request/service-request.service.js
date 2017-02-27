@@ -26,8 +26,8 @@
         id: null,
         type: 'service_requests',
         attributes: {
-          product_id: product.id,
-          project_id: project.id
+          product_id: product ? product.id : null,
+          project_id: project ? project.id : null
         }
       };
     }

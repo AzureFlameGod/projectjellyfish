@@ -7,20 +7,20 @@
       .control
         %label.label
           %span.is-required Host
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_host']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="mail_host")
+            %server-message(message="format") Expecting a server or host address
         %input.input(type="text" name="host" ng-model="$ctrl.model.mail_host" required)
       .control
         %label.label
           %span.is-required Port
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_port']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="mail_port")
+            %server-message(message="filled") A port is required
         %input.input(type="text" name="port" ng-model="$ctrl.model.mail_port" required)
       .control
         %label.label
           %span.is-required Username
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_username']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="mail_username")
+            %server-message(message="filled") A username is required
         %input.input(type="text" name="username" ng-model="$ctrl.model.mail_username")
       .control
         %label.label
@@ -30,8 +30,8 @@
       .control(ng-if="$ctrl.changePassword")
         %label.label
           %span.is-required Password
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_password']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="mail_password")
+            %server-message(message="filled") A password is required
         %input.input(type="password" name="password" ng-model="$ctrl.model.mail_password")
       .control(ng-if="$ctrl.changePassword")
         %label.label
@@ -42,8 +42,8 @@
       .control
         %label.label
           %span.is-required Sender Address
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/mail_sender']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="mail_sender")
+            %server-message(message="filled") An email address for the sender is required
         %input.input(type="text" name="sender" ng-model="$ctrl.model.mail_sender" required)
 
 .columns

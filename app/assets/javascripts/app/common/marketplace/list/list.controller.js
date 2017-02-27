@@ -5,7 +5,7 @@
     .controller('MarketplaceListingController', Controller);
 
   /** @ngInject */
-  function Controller($state, $stateParams, CartService, ProductService, ServiceRequestService) {
+  function Controller($state, $stateParams, CartService, ProductService, NotificationsService) {
     var ctrl = this;
 
     ctrl.reloading = false;
@@ -70,18 +70,25 @@
         $state.go('.', {projectId: event.project.id, page: 1});
         ctrl.query.filter.project_policy = event.project.id;
         ctrl.project = angular.copy(event.project);
+        CartService.project = angular.copy(event.project);
       } else {
         $state.go('.', {projectId: null, page: 1});
         delete ctrl.query.filter.project_policy;
         ctrl.project = null;
+        CartService.project = null;
       }
       reload();
     }
 
     function addToCart(event) {
-      var serviceRequest = ServiceRequestService.build(event.product, ctrl.project);
-
-      CartService.addToCart(serviceRequest);
+      CartService
+        .addToCart(event.product)
+        .catch(function (errors) {
+          console.log(errors);
+          if (errors.errors['project_id']) {
+            NotificationsService.error('You must select a project first.', 'Project Missing');
+          }
+        });
     }
   }
 })();

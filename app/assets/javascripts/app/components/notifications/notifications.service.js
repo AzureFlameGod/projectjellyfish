@@ -5,11 +5,12 @@
     .factory('NotificationsService', Factory);
 
   /** @ngInject */
-  function Factory() {
+  function Factory(toastr, moment) {
     var service = {
       notifications: [],
       clear: clear,
       remove: remove,
+      log: log,
       error: error,
       success: success,
       warning: warning,
@@ -26,28 +27,63 @@
       service.notifications.splice(index, 1);
     }
 
-    function error(message, title) {
-      add('is-danger', message, title);
+    function log(message, options) {
+      if (angular.isUndefined(options.toast)) {
+        options.toast = false;
+      }
+
+      add('log', message, '', defaultOptions(options));
     }
 
-    function success(message, title) {
-      add('is-success', message, title);
+    function error(message, title, options) {
+      add('error', message, title, defaultOptions(options));
     }
 
-    function warning(message, title) {
-      add('is-warning', message, title);
+    function success(message, title, options) {
+      add('success', message, title, defaultOptions(options));
     }
 
-    function info(message, title) {
-      add('is-info', message, title);
+    function warning(message, title, options) {
+      add('warning', message, title, defaultOptions(options));
     }
 
-    function add(type, message, title) {
-      service.notifications.unshift({
+    function info(message, title, options) {
+      add('info', message, title, defaultOptions(options));
+    }
+
+    function defaultOptions(options) {
+      return angular.merge({}, {
+        toast: true,
+        link: {
+          state: '',
+          params: {}
+        },
+        // TODO: More text when implemented will cause an '...' icon to be added to the message on the right side.
+        // When clicked it will display a small modal with the more text rendered as `ng-bind-html` within a .content div
+        more: ''
+      }, options);
+    }
+
+    function add(type, message, title, options) {
+      var notification = {
+        acknowledged: false,
+        when: moment().format(),
         type: type,
         message: message,
-        title: title
-      });
+        title: title,
+        link: options.link,
+        more: options.more
+      };
+
+      if (options.toast) {
+        toastr[type](message, title, {
+          onHidden: function(acknowledged, _toast) {
+            notification.acknowledged = acknowledged;
+          }
+        });
+      }
+
+      service.notifications.unshift(notification);
     }
   }
 })();

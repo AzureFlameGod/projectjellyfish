@@ -1,177 +1,36 @@
 .is-danger, .is-error {
-  color: $red;
+  color: $error-color;
 }
 
 .is-success {
-  color: $green;
+  color: $success-color;
 }
 
-//*, *:before, *:after {
-//  box-sizing: border-box;
-//  outline: none;
-//}
-//
-//body {
-//  color: $base-font-color;
-//  font-family: $base-font-family;
-//  font-feature-settings: "kern", "liga", "pnum";
-//  font-size: $base-font-size;
-//  font-weight: 300;
-//  line-height: $base-line-height;
-//}
-//
-//button, input, optgroup, select, textarea {
-//  font-family: inherit;
-//}
-//
-//h1,
-//h2,
-//h3,
-//h4,
-//h5,
-//h6 {
-//  margin: 0;
-//  font-weight: 300;
-//}
-//
-//h1 {
-//  font-size: 33px;
-//  line-height: (40 / 33);
-//}
-//
-//h2 {
-//  font-size: 25px;
-//  line-height: (40 / 25);
-//}
-//
-//h3 {
-//  font-size: 21px;
-//  line-height: (30 / 21);
-//}
-//
-//h4 {
-//  font-size: 18px;
-//  line-height: (30 / 18);
-//}
-//
-//h5 {
-//  font-size: 15px;
-//  font-weight: 400;
-//  line-height: (20 / 15);
-//}
-//
-//h6 {
-//  font-size: 12px;
-//  font-weight: 600;
-//  line-height: (20 / 12);
-//}
-//
-//pre {
-//  background: transparent;
-//  border: 0;
-//  font-size: $small-font-size;
-//  line-height: $base-line-height;
-//  margin: 0;
-//  padding: 0;
-//  white-space: pre-wrap;
-//}
-//
-//a {
-//  color: $action-color;
-//  cursor: pointer;
-//  outline: none;
-//  text-decoration: none;
-//
-//  &:hover {
-//    color: $dark-action-color;
-//    text-decoration: none;
-//  }
-//
-//  &:active {
-//    color: $light-action-color;
-//    text-decoration: none;
-//  }
-//
-//  .inline {
-//    display: inline;
-//  }
-//}
-//
-//p {
-//  font-size: $base-font-size;
-//  line-height: $base-line-height;
-//  margin: $small-spacing 0;
-//}
-//
-//mark {
-//  color: $base-font-color;
-//}
-//
-//.divider {
-//  border: 0;
-//  box-shadow: $edge-shadow;
-//  height: 1px;
-//  margin-top: $small-spacing;
-//  margin-bottom: $small-spacing;
-//}
-//
-//small {
-//  font-size: 85%;
-//}
-//
-//@include block(text) {
-//  @include modifier(success) {
-//    color: $green;
-//  }
-//
-//  @include modifier(danger) {
-//    color: $red;
-//  }
-//
-//  @include modifier(error) {
-//    color: $red;
-//  }
-//
-//  @include modifier(warning) {
-//    color: $dark-yellow;
-//  }
-//
-//  @include modifier(info) {
-//    color: $light-blue;
-//  }
-//
-//  @include modifier(primary) {
-//    color: $primary-color;
-//  }
-//
-//  @include modifier(secondary) {
-//    color: $secondary-color;
-//  }
-//
-//  @include modifier(other) {
-//    color: $dark-gray;
-//  }
-//
-//  @include modifier(uppercase) {
-//    text-transform: uppercase;
-//  }
-//
-//  @include modifier(bold) {
-//    font-weight: 600;
-//  }
-//
-//  @include modifier(small) {
-//    font-size: $small-font-size;
-//  }
-//
-//  @include modifier(one-line) {
-//    width: 100%;
-//    white-space: nowrap;
-//    overflow: hidden;
-//    text-overflow: ellipsis;
-//  }
-//
-//  @include modifier(description) {
-//    white-space: pre-line;
-//  }
-//}
+.is-warning {
+  color: $warning-color;
+}
+
+.is-info {
+  color: $info-color;
+}
+
+.bd-danger,
+.bd-error {
+  border-color: $error-color;
+}
+
+.bd-success {
+  border-color: $success-color;
+}
+
+.bd-primary {
+  border-color: $primary-color;
+}
+
+.bd-warning {
+  border-color: $warning-color;
+}
+
+.bd-info {
+  border-color: $info-color;
+}

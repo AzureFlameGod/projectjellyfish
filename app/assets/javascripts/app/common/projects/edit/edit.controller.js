@@ -5,7 +5,7 @@
     .controller('ProjectEditController', Controller);
 
   /** @ngInject */
-  function Controller($state, ProjectService) {
+  function Controller($state, NotificationsService, ProjectService) {
     var ctrl = this;
 
     ctrl.$onChanges = onChanges;
@@ -24,8 +24,9 @@
 
     function onUpdate(event) {
       return ProjectService.update(event.project)
-        .then(function () {
+        .then(function (project) {
           $state.go('projects.show', {id: ctrl.project.id});
+          NotificationsService.success("Project " + project.attributes.name + " has been updated.", 'Project Updated');
         });
     }
 

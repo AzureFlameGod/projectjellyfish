@@ -5,7 +5,7 @@
     .controller('ProviderNewStep2Controller', Controller);
 
   /** @ngInject */
-  function Controller($state, ProviderService) {
+  function Controller($state, NotificationsService, ProviderService) {
     var ctrl = this;
 
     ctrl.$onInit = onInit;
@@ -23,6 +23,7 @@
       return ProviderService.create(event.provider)
         .then(function (provider) {
           $state.go('providers.show', {id: provider.id});
+          NotificationsService.success("Provider " + provider.attributes.name + " has been created.", 'Provider Created');
         });
     }
 

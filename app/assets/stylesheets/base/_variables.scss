@@ -32,7 +32,7 @@ $gold: #F4B80E;
 $purple: #c267ff;
 
 $light-red: lighten($red, 16%);
-$dark-red: darken($red, 12%);
+$dark-red: darken($red, 14%);
 
 $light-green: lighten($green, 13%);
 $dark-green: darken($green, 7%);
@@ -51,6 +51,7 @@ $secondary-color: $purple;
 $tertiary-color: tint($yellow, 34%);
 $success-color: $green;
 $error-color: $red;
+$info-color: $cyan;
 $fatal-color: mix(#EF2321, $error-color);
 $warning-color: $tertiary-color;
 $warning-log-color: #EF9C19;

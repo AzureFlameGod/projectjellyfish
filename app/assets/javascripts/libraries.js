@@ -16,6 +16,7 @@
 
 //= require ng-tags-input
 //= require angular-loading-bar
+//= require angular-toastr
 
 //= require chart.js.js
 //= require angular-chart.js.js

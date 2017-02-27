@@ -1,0 +1,22 @@
+.compare-modal.modal.is-active
+  .modal-background
+  .modal-card
+    %header.modal-card-head
+      %p.modal-card-title(ng-bind="$ctrl.title || 'Comparing Items'")
+      %button.delete(ng-click="$ctrl.onCancel()")
+    %section.modal-card-body
+      %table.table.is-striped
+        %thead
+          %tr
+            %td
+            %th(ng-repeat="item in ::$ctrl.items")
+              %span(ng-bind="item.attributes.name")
+        %tbody
+          %tr(ng-repeat="row in ::$ctrl.rows track by $index")
+            %th(ng-bind="row.name")
+            %td(ng-repeat="value in ::row.values track by $index" ng-bind="value")
+        %tfoot
+          %td
+          %td(ng-repeat="item in ::$ctrl.items")
+            %button.button.is-success(type="button" ng-click="$ctrl.addToCart(item)") Add to cart
+    %section.modal-card-foot

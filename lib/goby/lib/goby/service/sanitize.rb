@@ -9,7 +9,11 @@ module Goby
         result = sanitize_schema.call(params)
         @params = result.output if result.success?
 
-        raise Goby::Exceptions::ValidationErrors.new(result.errors) unless result.success?
+
+        unless result.success?
+          errors = result.message_set.failures.map { |e| { path: e.path, predicate: e.predicate, text: e.text } }
+          raise Goby::Exceptions::ValidationErrors.new(errors)
+        end
 
         result
       end

@@ -5,7 +5,7 @@
     .controller('ProviderEditController', Controller);
 
   /** @ngInject */
-  function Controller($window, $state, ProviderService) {
+  function Controller($window, $state, NotificationsService, ProviderService) {
     var ctrl = this;
 
     ctrl.onUpdate = onUpdate;
@@ -14,7 +14,11 @@
 
     function onUpdate(event) {
       return ProviderService
-        .update(event.provider);
+        .update(event.provider)
+        .then(function (provider) {
+          $state.go('providers');
+          NotificationsService.success("Provider " + provider.attributes.name + " has been updated.", 'Provider Updated');
+        });
     }
 
     function onCancel() {
@@ -27,8 +31,9 @@
       if ($window.confirm(message)) {
         return ProviderService
           .destroy(event.provider)
-          .then(function () {
+          .then(function (provider) {
             $state.go('providers');
+            NotificationsService.success("Provider " + provider.attributes.name + " has been deleted.", 'Provider Deleted');
           });
       }
     }

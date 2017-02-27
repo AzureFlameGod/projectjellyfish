@@ -7,44 +7,42 @@
       .control
         %label.label
           %span.is-required Name
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/name']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="name")
+            %server-message(message="filled") A name is required
         %input.input(type="text" name="name" ng-model="$ctrl.model.name" required)
       .control
         %label.label
           %span Description
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/description']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="description")
+            %server-message(message="filled") A description is required
         %textarea.textarea(name="description" rows="3" ng-model="$ctrl.model.description")
       .control
         %label.label
           %span.is-required Setup Price
           %span.is-error.pull-right(ng-messages="form.setup.$error")
             %span(ng-message="pattern") Must be a monetary value
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/setup_price']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="setup_price")
+            %server-message(message="filled") A setup price is required
         %input.input(type="text" name="setup" ng-model="$ctrl.model.setup_price" required ng-pattern="$ctrl.priceRegEx")
       .control
         %label.label
           %span.is-required Hourly Price
           %span.is-error.pull-right(ng-messages="form.hourly.$error")
             %span(ng-message="pattern") Must be a monetary value
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/hourly_price']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="hourly_price")
+            %server-message(message="filled") An hourly price is required
         %input.input(type="text" name="hourly" ng-model="$ctrl.model.hourly_price" required ng-pattern="$ctrl.priceRegEx")
       .control
         %label.label
           %span.is-required Monthly Price
           %span.is-error.pull-right(ng-messages="form.monthly.$error")
             %span(ng-message="pattern") Must be a monetary value
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/monthly_price']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="monthly_price")
+            %server-message(message="filled") A monthly price is required
         %input.input(type="text" name="monthly" ng-model="$ctrl.model.monthly_price" required ng-pattern="$ctrl.priceRegEx")
       .control
         %label.label
           %span Comparable Properties
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/properties']")
-            %server-message(message="VALIDATION_ERROR")
         .control.is-horizontal(ng-repeat="pair in ::$ctrl.model.properties track by $index")
           .control-label
             %label.label.flex--middle(ng-bind="pair.name")
@@ -53,8 +51,8 @@
       .control
         %label.label
           %span Tags
-          %server-messages.is-error.pull-right(errors="$ctrl.serverErrors.pointers['/data/attributes/tags_list']")
-            %server-message(message="VALIDATION_ERROR")
+          %server-messages.is-error.pull-right(path="tag_list")
+            %server-message(message="filled") A tag is required
         %div
           %tags-input(ng-model="$ctrl.tags")
 

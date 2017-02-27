@@ -28,3 +28,4 @@
             %button.button.level-item.is-small.is-success(type="button" ng-if="::$ctrl.onAddToCart" ng-click="$ctrl.doEvent('AddToCart', product)") Add to cart
             %button.button.level-item.is-small.is-success(type="button" ng-if="::$ctrl.onAddToProject" ng-click="$ctrl.doEvent('AddToProject', product)") Add to project
             %button.button.level-item.is-small.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.doEvent('Select', product)") Select
+            %compare-button(ng-if="$ctrl.comparable" item="product")

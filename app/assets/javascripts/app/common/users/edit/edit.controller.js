@@ -5,7 +5,7 @@
     .controller('EditUserController', Controller);
 
   /** @ngInject */
-  function Controller($window, $state, UserService) {
+  function Controller($window, $state, NotificationsService, UserService) {
     var ctrl = this;
 
     ctrl.$onInit = onInit;
@@ -32,8 +32,9 @@
     function onUpdate(event) {
       return UserService
         .update(event.user)
-        .then(function () {
+        .then(function (user) {
           $state.go('users.show', {id: ctrl.user.id});
+          NotificationsService.success("User " + user.attributes.name + " has been updated.", 'User Updated');
         });
 
     }
@@ -43,6 +44,7 @@
         .updatePassword(ctrl.user.id, event.password)
         .then(function () {
           $state.go('users.show', {id: ctrl.user.id});
+          NotificationsService.success("Password for " + ctrl.user.attributes.name + " has been changed.", 'Password Changed');
         });
     }
 
@@ -56,8 +58,9 @@
       if ($window.confirm(message)) {
         return UserService
           .destroy(event.user)
-          .then(function () {
+          .then(function (user) {
             $state.go('users');
+            NotificationsService.success("User " + user.attributes.name + " has been removed.", 'User Deleted');
           });
       }
     }

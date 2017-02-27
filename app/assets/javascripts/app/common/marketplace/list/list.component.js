@@ -48,13 +48,19 @@
 
             return null;
           },
-          project: function($transition$, projects) {
+          project: function($transition$, projects, CartService) {
             var id = $transition$.params().projectId;
+            var project;
 
             if (id) {
-              return projects.find(function (item) {
+              project = projects.find(function (item) {
                 return item.id === id;
               });
+
+              // TODO: DRY up when project app focus is complete
+              CartService.project = angular.copy(project);
+
+              return project;
             }
 
             return null;

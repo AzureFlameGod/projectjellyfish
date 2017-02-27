@@ -5,7 +5,7 @@
     .controller('NewUserController', Controller);
 
   /** @ngInject */
-  function Controller($state, UserService) {
+  function Controller($state, NotificationsService, UserService) {
     var ctrl = this;
 
     ctrl.$onInit = onInit;
@@ -20,6 +20,7 @@
       return UserService.create(event.user)
         .then(function (user) {
           $state.go('users.list');
+          NotificationsService.success("Created new user " + user.attributes.name + " with " + user.attributes.role + ' permissions.', 'User Created');
         });
     }
 

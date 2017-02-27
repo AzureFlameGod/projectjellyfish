@@ -5,8 +5,9 @@
     .factory('CartService', Factory);
 
   /** @ngInject */
-  function Factory(ApiService, AuthService, ServiceRequestService, ServiceOrderService) {
+  function Factory($q, ApiService, AuthService, NotificationsService, ServiceRequestService, ServiceOrderService) {
     var service = {
+      project: null,
       getItems: getItems,
       reload: reload,
       addToCart: create,
@@ -33,8 +34,7 @@
       return load();
     }
 
-    function create(serviceRequest) {
-
+    function create(product) {
       var query = {
         include: 'product',
         fields: {
@@ -42,11 +42,24 @@
         }
       };
 
+      var serviceRequest = ServiceRequestService.build(product, service.project);
+
       return ServiceRequestService
         .create(serviceRequest, query)
         .then(function (newRequest) {
           if (newRequest.attributes.state == 'pending') {
             items.push(newRequest);
+            NotificationsService.success(product.attributes.name + ' has been added to your cart.', 'Item Added', {
+              link: {
+                state: 'cart'
+              }
+            });
+            NotificationsService.log(product.attributes.name + ' needs to be configured.', {
+              link: {
+                state: 'cart.configure',
+                params: {id: newRequest.id}
+              }
+            });
           }
         });
     }
