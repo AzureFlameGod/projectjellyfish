@@ -5,7 +5,7 @@
     .controller('NewProductCategoryController', Controller);
 
   /** @ngInject */
-  function Controller($state, ProductCategoryService) {
+  function Controller($state, ProductCategoryService, NotificationsService) {
     var ctrl = this;
 
     ctrl.$onInit = onInit;

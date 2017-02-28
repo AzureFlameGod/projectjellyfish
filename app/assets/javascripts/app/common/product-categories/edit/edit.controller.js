@@ -34,7 +34,7 @@
       if ($window.confirm(message)) {
         return ProductCategoryService.delete(event.productCategory)
           .then(function (category) {
-            NotificationsService.success('Category \'' +category.attributes.name + '\' has been deleted.', 'Category Deleted');
+            NotificationsService.success('Category has been deleted.', 'Category Deleted');
             $state.go('product-categories.list');
           });
       }
