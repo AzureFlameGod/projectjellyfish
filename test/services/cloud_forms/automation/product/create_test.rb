@@ -44,8 +44,8 @@ class CloudForms::Automation::Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/settings/miq_namespace` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/settings/miq_namespace', error.source[:pointer]
   end
 
   test 'should require miq_class setting' do
@@ -59,8 +59,8 @@ class CloudForms::Automation::Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/settings/miq_class` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/settings/miq_class', error.source[:pointer]
   end
 
   test 'should require miq_instance setting' do
@@ -74,7 +74,7 @@ class CloudForms::Automation::Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/settings/miq_instance` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/settings/miq_instance', error.source[:pointer]
   end
 end

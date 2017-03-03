@@ -33,8 +33,8 @@ class CloudForms::Provider::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/credentials/host` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/credentials/host', error.source[:pointer]
   end
 
   test 'should require username credentials' do
@@ -51,8 +51,8 @@ class CloudForms::Provider::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/credentials/username` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/credentials/username', error.source[:pointer]
   end
 
   test 'should require password credentials' do
@@ -69,7 +69,7 @@ class CloudForms::Provider::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/credentials/password` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/credentials/password', error.source[:pointer]
   end
 end

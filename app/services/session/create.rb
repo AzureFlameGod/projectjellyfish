@@ -52,7 +52,8 @@ class Session
     def find_model!
       User.find_by! email: params[:data][:attributes][:email]
     rescue ActiveRecord::RecordNotFound
-      raise Goby::Exceptions::ValidationErrors.new data: { attributes: ['Email or password is incorrect'] }
+      raise Goby::Exceptions::ValidationErrors.new [{ path: %w(data attributes email), predicate: 'password',
+        text: 'Email or password is incorrect' }]
     end
 
     # def hide_password_errors

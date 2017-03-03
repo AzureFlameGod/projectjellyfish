@@ -9,7 +9,7 @@ class Membership::CreateTest < ActiveSupport::TestCase
   end
 
   test 'should create a membership' do
-    assert_empty Membership.where(user_id: user.id, project_id: project.id)
+    assert_empty Membership.where(user_id: @user.id, project_id: @project.id)
     result = Membership::Create.run(context: @admin, params: @params)
 
     assert result.valid?

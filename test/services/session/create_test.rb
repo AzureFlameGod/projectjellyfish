@@ -21,8 +21,8 @@ class Session::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/email` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/email', error.source[:pointer]
   end
 
   test 'should require a password' do
@@ -35,8 +35,8 @@ class Session::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/password` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/password', error.source[:pointer]
   end
 
   test 'should require a valid email' do
@@ -49,7 +49,7 @@ class Session::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes` Email or password is incorrect', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/email', error.source[:pointer]
   end
 end

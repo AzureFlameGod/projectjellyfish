@@ -49,7 +49,7 @@ class Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'RECORD_NOT_FOUND', error.code
+    assert_equal 'Record Not Found', error.title
     assert_equal '/data/attributes/product_type_id', error.source[:pointer]
   end
 
@@ -63,8 +63,8 @@ class Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/provider_id` is not a valid id', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/provider_id', error.source[:pointer]
   end
 
   test 'should deny non-managers' do
@@ -88,8 +88,8 @@ class Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/name` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/name', error.source[:pointer]
   end
 
   test 'should require settings' do
@@ -102,8 +102,8 @@ class Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/settings` is missing', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/settings', error.source[:pointer]
   end
 
   test 'should require settings to be a hash' do
@@ -116,8 +116,8 @@ class Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/settings` must be a hash', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/settings', error.source[:pointer]
   end
 
 
@@ -141,8 +141,8 @@ class Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/description` must be a string', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/description', error.source[:pointer]
   end
 
   test 'should require tag_list to be an array' do
@@ -155,8 +155,8 @@ class Product::CreateTest < ActiveSupport::TestCase
     assert_equal false, result.valid?
     assert_equal 1, result.errors.length
     error = result.errors.first
-    assert_equal 'VALIDATION_ERROR', error.code
-    assert_equal '`/data/attributes/tag_list` must be an array', error.detail
+    assert_equal 'Validation Error', error.title
+    assert_equal '/data/attributes/tag_list', error.source[:pointer]
   end
 
   test 'should allow tag_list to be optional' do

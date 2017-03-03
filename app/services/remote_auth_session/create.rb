@@ -45,7 +45,8 @@ class RemoteAuthSession
         u.state = 'active'
       end
     rescue => e
-      raise Goby::Exceptions::ValidationErrors.new data: { attributes: ['Could not authenticate user'] }
+      raise Goby::Exceptions::ValidationErrors.new [{ path: %w(data attributes email), predicate: 'email',
+        text: 'Could not authenticate user' }]
     end
 
     def login_info

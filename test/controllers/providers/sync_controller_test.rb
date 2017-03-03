@@ -5,7 +5,7 @@ class Providers::SyncControllerTest < ActionDispatch::IntegrationTest
     headers = authorize users(:admin)
     provider = providers :cloud_forms
     assert_enqueued_jobs 1 do
-      post provider_sync_url(provider), headers: headers
+      post provider_sync_url(provider), headers: headers, params: { data: { type: 'provider/sync' } }
       assert_response :success
     end
   end
@@ -13,7 +13,7 @@ class Providers::SyncControllerTest < ActionDispatch::IntegrationTest
   test 'user cannot create new sync job' do
     headers = authorize users(:user)
     provider = providers :cloud_forms
-    post provider_sync_url(provider), headers: headers
+    post provider_sync_url(provider), headers: headers, params: { data: { type: 'provider/sync' } }
     assert_response :forbidden
   end
 end
