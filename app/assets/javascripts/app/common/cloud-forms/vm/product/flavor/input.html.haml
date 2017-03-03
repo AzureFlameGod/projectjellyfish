@@ -1,0 +1,9 @@
+.control(ng-class="{'is-loading': $ctrl.isLoading}")
+  %input.input.is-clickable(type="text" placeholder="click to select a flavor" readonly value="{{$ctrl.text}}" ng-click="$ctrl.openModal();")
+
+%provider-data-modal{'ng-if':'$ctrl.isOpen',
+  query:'$ctrl.query',
+  'placeholder':'search flavors',
+  'table-settings': '$ctrl.tableSettings',
+  'on-select':'$ctrl.doSelect($event)',
+  'on-cancel':'$ctrl.isOpen = false;'} Available Flavors

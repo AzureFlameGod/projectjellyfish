@@ -71,8 +71,11 @@ class Service < ApplicationRecord
   def check_status
     check_method = "check_#{state}_status".to_sym
     __send__ check_method if respond_to? check_method
+  rescue => error
+    errored!
+    self.status_message = error.message
   ensure
-    save
+    save if changed?
   end
 
   # TODO: unused?

@@ -59,7 +59,8 @@
     .column.is-half
       %div(ng-switch="$ctrl.model.type")
         %settings(ng-switch-when="cloud_forms/automation/product" item="$ctrl.product" on-change="$ctrl.onChange($event)")
-        %settings(ng-switch-when="cloud_forms/vm/product" item="$ctrl.product" on-change="$ctrl.onChange($event)")
+        -#%settings(ng-switch-when="cloud_forms/vm/product" item="$ctrl.product" on-change="$ctrl.onChange($event)")
+        %cloud-forms-vm-product(ng-switch-when="cloud_forms/vm/product" item="$ctrl.product" on-change="$ctrl.onChange($event)")
 
 .columns
   .column

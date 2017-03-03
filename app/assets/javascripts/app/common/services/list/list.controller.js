@@ -5,7 +5,7 @@
     .controller('ServicesListController', Controller);
 
   /** @ngInject */
-  function Controller($state, ServiceService) {
+  function Controller($state, ServiceDetailService) {
     var ctrl = this;
 
     ctrl.reloading = false;
@@ -23,7 +23,7 @@
 
     function reload() {
       ctrl.reloading = true;
-      ServiceService.search(ctrl.query)
+      ServiceDetailService.search(ctrl.query)
         .then(function (results) {
           ctrl.services = results;
         })

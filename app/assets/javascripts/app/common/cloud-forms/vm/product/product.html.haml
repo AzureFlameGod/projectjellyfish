@@ -1,0 +1,20 @@
+%div(ng-form name="settings")
+  .control(ng-class="{'is-loading is-disabled': $ctrl.isLoading}")
+    %label.label
+      %span.is-required Management System
+    %cloud-forms-vm-product-provider(item="$ctrl.item" provider="$ctrl.provider" on-select="$ctrl.setProvider($event)")
+
+  .control(ng-if="$ctrl.showTemplate" ng-class="{'is-loading is-disabled': $ctrl.isLoading}")
+    %label.label
+      %span.is-required Template
+    %cloud-forms-vm-product-template(item="$ctrl.item" template="$ctrl.template" on-select="$ctrl.setTemplate($event)")
+
+  .control(ng-if="$ctrl.showFlavor" ng-class="{'is-loading is-disabled': $ctrl.isLoading}")
+    %label.label
+      %span.is-required Flavor
+    %cloud-forms-vm-product-flavor(item="$ctrl.item" flavor="$ctrl.flavor" on-select="$ctrl.setFlavor($event)")
+
+  .control(ng-if="$ctrl.showDiskSize" ng-class="{'is-loading is-disabled': $ctrl.isLoading}")
+    %label.label
+      %span.is-required Disk Size
+    %input.input(type="text" ng-model="$ctrl.item.attributes.settings.disk_size_gb" placeholder="size of system or boot disk in gb" required)

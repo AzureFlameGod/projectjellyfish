@@ -17,6 +17,7 @@
 // = require app/components/project-request/project-request.module
 // = require app/components/provider/provider.module
 // = require app/components/reload-button/reload-button.module
+// = require app/components/search/search.module
 // = require app/components/server-messages/server-messages.module
 // = require app/components/service/service.module
 // = require app/components/service-detail/service-detail.module
@@ -49,6 +50,7 @@
     'components.project-question',
     'components.project-request',
     'components.provider',
+    'components.search',
     'components.reload-button',
     'components.server-messages',
     'components.service',

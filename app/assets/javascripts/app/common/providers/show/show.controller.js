@@ -13,6 +13,7 @@
     ctrl.$onChanges = onChanges;
     ctrl.reload = reload;
     ctrl.reconnect = reconnect;
+    ctrl.sync = sync;
 
     function onChanges(changes) {
       if (changes.provider) {
@@ -36,7 +37,25 @@
 
       return ProviderService.reconnect(ctrl.provider.id)
         .then(function () {
-          NotificationsService.info('Reconnection requested');
+          NotificationsService.info('Provider reconnection requested');
+        })
+        .catch(function () {
+          NotificationsService.error('Could not request a reconnection attempt at this time.', 'Command Error');
+        })
+        .finally(function () {
+          ctrl.reloading = false;
+        })
+    }
+
+    function sync() {
+      ctrl.reloading = true;
+
+      return ProviderService.sync(ctrl.provider.id)
+        .then(function () {
+          NotificationsService.info('Provider data sync requested');
+        })
+        .catch(function () {
+          NotificationsService.error('Could not request a data sync attempt at this time.', 'Command Error');
         })
         .finally(function () {
           ctrl.reloading = false;

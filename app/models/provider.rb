@@ -7,6 +7,7 @@ class Provider < ApplicationRecord
   belongs_to :provider_type
   has_many :product_types, primary_key: :provider_type_id, foreign_key: :provider_type_id
   has_many :products
+  has_many :provider_data, dependent: :delete_all
 
   pg_search_scope :search, against: %i(name description cached_tag_list), using: {
     tsearch: {
@@ -29,6 +30,11 @@ class Provider < ApplicationRecord
         end
       end
     end
+  end
+
+  # Optional: Override in each provider to sync provider specific data/records locally
+  def sync_provider_data
+    true
   end
 
   def valid_credentials?

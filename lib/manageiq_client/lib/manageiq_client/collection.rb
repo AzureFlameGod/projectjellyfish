@@ -56,6 +56,22 @@ module ManageIQClient
       self
     end
 
+    # Page a call starting at offset, returning up to limit results at a time
+    def paginate(uri = '', offset: 0, limit: 50, **options)
+      loops = 0
+
+      fail StandardError, 'Limit must be between 1 and 100' unless limit >= 1 && limit <= 100
+
+      loop do
+        request_offset = offset + (limit * loops)
+        request_uri = uri + "#{(uri[0] == '?' ? '&' : '?')}offset=#{request_offset}&limit=#{limit}"
+        results = all request_uri, options
+        break if results['subcount'] == 0
+        results['resources'].each { |resource| yield resource.symbolize_keys }
+        loops += 1
+      end
+    end
+
     private
 
     attr_reader :connection

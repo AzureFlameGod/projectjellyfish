@@ -62,38 +62,70 @@ module CloudForms
       end
 
       def self.combine_settings(product_settings, user_settings)
-        combined_settings = {
-          guid: product_settings['guid'],
-          vm_fields: product_settings['vm_fields'].map { |v| [v['name'], v['value']] }.to_h,
-          tags: product_settings['tags'].map { |v| [v['name'], v['value']] }.to_h,
-          ems_custom_attributes: product_settings['ems_attrs'].map { |v| [v['name'], v['value']] }.to_h,
-          miq_custom_attributes: product_settings['miq_attrs'].map { |v| [v['name'], v['value']] }.to_h
+        product_settings.merge(user_settings)
+
+        #
+        # combined_settings = {
+        #   guid: product_settings['guid'],
+        #   vm_fields: product_settings['vm_fields'].map { |v| [v['name'], v['value']] }.to_h,
+        #   tags: product_settings['tags'].map { |v| [v['name'], v['value']] }.to_h,
+        #   ems_custom_attributes: product_settings['ems_attrs'].map { |v| [v['name'], v['value']] }.to_h,
+        #   miq_custom_attributes: product_settings['miq_attrs'].map { |v| [v['name'], v['value']] }.to_h
+        # }
+        #
+        # combined_settings[:vm_fields].merge! user_settings['vm_fields'].map { |v| [v['name'], v['value']] }.to_h
+        #
+        # # Ensure some settings exist
+        # combined_settings[:vm_fields]['vm_name'] ||= generate_vm_name
+        #
+        # combined_settings
+      end
+
+      def build_provision_request
+        inputs = self.settings
+
+        ext_provider = ProviderData.find_by provider_id: self.provider_id, ext_id: inputs['provider_ext_id'], data_type: 'provider'
+        ext_template = ProviderData.find_by provider_id: self.provider_id, ext_id: inputs['template_ext_id'], data_type: 'template'
+
+        vm_fields = case ext_provider.properties['type']
+        when 'google'
+          {
+            instance_type: inputs['flavor_ext_id'].to_i,
+            boot_disk_size: inputs['disk_size_gb']
+          }
+        when 'aws', 'azure'
+          {
+            instance_type: inputs['flavor_ext_id'].to_i,
+          }
+        else
+          {}
+        end
+
+        vm_fields[:vm_name] = generate_vm_name ext_provider.properties['type']
+
+        {
+          body: {
+            resource: {
+              version: '1.1',
+              template_fields: {
+                guid: ext_template.properties['guid']
+              },
+              vm_fields: vm_fields,
+              requester: {
+                owner_first_name: 'Project',
+                owner_last_name: 'Jellyfish',
+                owner_email: user.email
+              },
+              tags: {}, #self.settings['tags'] || {},
+              ems_custom_attributes: {}, #self.settings['ems_custom_attributes'] || {},
+              miq_custom_attributes: {} #self.settings['miq_custom_attributes'] || {}
+            }
+          }
         }
-
-        combined_settings[:vm_fields].merge! user_settings['vm_fields'].map { |v| [v['name'], v['value']] }.to_h
-
-        # Ensure some settings exist
-        combined_settings[:vm_fields]['vm_name'] ||= generate_vm_name
-
-        combined_settings
       end
 
       def start_provisioning
-        resource = {
-          version: '1.1',
-          template_fields: { guid: self.settings['guid'] },
-          vm_fields: self.settings['vm_fields'] || {},
-          requester: {
-            owner_first_name: 'Project',
-            owner_last_name: 'Jellyfish',
-            owner_email: user.email
-          },
-          tags: self.settings['tags'] || {},
-          ems_custom_attributes: self.settings['ems_custom_attributes'] || {},
-          miq_custom_attributes: self.settings['miq_custom_attributes'] || {}
-        }
-
-        response = provider.client.provision_requests.create body: { resource: resource }
+        response = provider.client.provision_requests.create build_provision_request
         results = response['results'].first
         self.status_message = results['message']
         self.details['provision_request_id'] = results['id']
@@ -101,7 +133,7 @@ module CloudForms
         errored!
         self.status_message = error.message
       ensure
-        save
+        save if changed?
       end
 
       def check_provisioning_status
@@ -127,7 +159,7 @@ module CloudForms
         errored!
         self.status_message = error.message
       ensure
-        save
+        save if changed?
       end
 
       def start_deprovisioning
@@ -145,6 +177,8 @@ module CloudForms
       rescue => error
         errored!
         self.status_message = error.message
+      ensure
+        save if changed?
       end
 
       def check_deprovisioning_status
@@ -158,9 +192,12 @@ module CloudForms
             update_status
             self.status_message = task['message']
           end
-
-          done! if self.details['retired']
         end
+      rescue => error
+        errored!
+        self.status_message = error.message
+      ensure
+        save if changed?
       end
 
       def check_powered_on_status
@@ -178,6 +215,11 @@ module CloudForms
         task_results = provider.client.instances.start details['instance_id']
         self.status_message = task_results['message']
         self.details['power_on_task_id'] = task_results['task_id']
+      rescue => error
+        errored!
+        self.status_message = error.message
+      ensure
+        save if changed?
       end
 
       def check_powering_on_status
@@ -229,9 +271,6 @@ module CloudForms
 
       private
 
-      ADJ = %w(hot cold big little massive tiny heavy light dark heated frosty mild wet damp dry cracked leaning standing sitting left right top bottom).freeze
-      NOUNS = %w(city town state county country street road trail trip jaunt adventure car truck wagon carriage wood metal glass plastic earth air wind fire flame water ice).freeze
-
       def update_status
         attributes = 'disks,provisioned_storage,ipaddresses,mem_cpu,num_cpu,cpu_total_cores,cpu_cores_per_socket'
         instance_details = provider.client.instances.find "#{details['instance_id']}?attributes=#{attributes}"
@@ -264,8 +303,14 @@ module CloudForms
         save if changed?
       end
 
-      def generate_vm_name
-        [ADJ.sample, NOUNS.sample, rand(1000..9999)].join '-'
+      def generate_vm_name(provider_type)
+        case provider_type
+        when 'azure'
+          # AFAICT Azure has the most restrictive server name rules. 15 alphanumeric and -_, must start and end with alpha
+          ('pj-'+SecureRandom.base58(11)+('a'..'z').to_a.sample)
+        else
+          ('pj-'+SecureRandom.hex(8))
+        end
       end
 
       def partition_ips(ips)

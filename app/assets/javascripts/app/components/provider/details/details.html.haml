@@ -14,3 +14,8 @@
         %td
           %span(ng-if="!$ctrl.provider.attributes.credentials_validated_at") Never
           %span(ng-if="$ctrl.provider.attributes.credentials_validated_at" am-time-ago="$ctrl.provider.attributes.credentials_validated_at")
+      %tr
+        %th Last Synced
+        %td
+          %span(ng-if="!$ctrl.provider.attributes.last_synced_at") Never
+          %span(ng-if="$ctrl.provider.attributes.last_synced_at" am-time-ago="$ctrl.provider.attributes.last_synced_at")

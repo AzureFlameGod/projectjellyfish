@@ -1,25 +1,16 @@
 %form(name="form" novalidate)
-  %div
-    %span.is-required
-    field is required
   .columns
     .column
-      -#.control
-      -#  %label.label
-      -#    %span.is-required Project
-      -#  .select.is-fullwidth(ng-if="$ctrl.projects.length")
-      -#    %select(ng-model="$ctrl.model.project_id" ng-options="project.id as project.attributes.name for project in ::$ctrl.projects" required)
-      -#      %option(value="") Select Project
-      -#  .message.is-danger(ng-if="$ctrl.projects.length == 0")
-      -#    .message-header No projects are available
-      -#    .message-body You will need to be added to a project or request one be created before ordering any services.
+      %div.label.has-text-right
+        %span.is-required
+        %small field is required
       .control
         %label.label
           %span.is-required Service Name
         %input.input(type="text" name="name" ng-model="$ctrl.model.service_name" required)
       .control
         %label.label Request Message
-        %textarea.textarea(name="request_message" rows="3" ng-model="$ctrl.model.request_message")
+        %textarea.textarea(name="request_message" placeholder="Optional: reason, purpose, or justification for ordering the service" rows="3" ng-model="$ctrl.model.request_message")
     .column
       %div(ng-switch="$ctrl.model.type")
         %settings(ng-switch-when="cloud_forms/automation/service_request" item="$ctrl.serviceRequest" on-change="$ctrl.onChange($event)")

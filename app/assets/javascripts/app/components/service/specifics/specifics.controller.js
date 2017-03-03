@@ -23,7 +23,7 @@
           ctrl.actions = ctrl.actions.split(/,\s?/);
         }
         ctrl.service = angular.copy(ctrl.service);
-        ctrl.status = ctrl.service.attributes.status;
+        ctrl.status = ctrl.service.attributes.state;
         ctrl.health = ctrl.service.attributes.health;
         ctrl.details = ctrl.service.attributes.details;
       }

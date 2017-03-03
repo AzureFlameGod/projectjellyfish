@@ -13,7 +13,8 @@
       show: show,
       update: update,
       destroy: destroy,
-      reconnect: reconnect
+      reconnect: reconnect,
+      sync: sync
     };
 
     var API_ROUTE = ApiService.routes.providers;
@@ -58,6 +59,10 @@
 
     function reconnect(id, query) {
       return ApiService.update(API_ROUTE + '/' + id + '/connection', {data: {type: 'provider/connections'}}, query);
+    }
+
+    function sync(id, query) {
+      return ApiService.create(API_ROUTE + '/' + id + '/sync', {data: {type: 'provider/sync'}}, query);
     }
   }
 })();

@@ -27,7 +27,11 @@ class Provider < ApplicationRecord
       validate params[:data][:attributes][:credentials], schema: schema, error_nesting: nesting do |credentials|
         model.assign_attributes params[:data][:attributes].tap { |d| d.delete :credentials }
         model.credentials_validated_at = DateTime.current
+        model.last_synced_at = DateTime.current
         model.update credentials
+
+        # Schedule a syncing of this providers data
+        ProviderData::SyncJob.set(wait: ApplicationJob::WAIT).perform_later model.id, model.last_synced_at.to_s
       end
     end
 

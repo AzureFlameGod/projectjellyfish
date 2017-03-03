@@ -843,31 +843,17 @@ CREATE INDEX index_projects_on_tsv ON projects USING gin (tsv);
 
 
 --
--- Name: index_provider_data_on_data_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_provider_data_on_data_type ON provider_data USING btree (data_type);
-
-
---
--- Name: index_provider_data_on_ext_group_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_provider_data_on_ext_group_id ON provider_data USING btree (ext_group_id);
-
-
---
--- Name: index_provider_data_on_ext_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_provider_data_on_ext_id ON provider_data USING btree (ext_id);
-
-
---
 -- Name: index_provider_data_on_provider_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_provider_data_on_provider_id ON provider_data USING btree (provider_id);
+
+
+--
+-- Name: index_provider_data_on_provider_id_and_ext_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_data_on_provider_id_and_ext_id ON provider_data USING btree (provider_id, ext_id);
 
 
 --
@@ -1120,6 +1106,20 @@ CREATE INDEX index_users_on_session_token ON users USING btree (session_token);
 --
 
 CREATE INDEX index_users_on_state ON users USING btree (state);
+
+
+--
+-- Name: provider_data_id_type_group_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX provider_data_id_type_group_name ON provider_data USING btree (provider_id, data_type, ext_group_id, name);
+
+
+--
+-- Name: provider_data_id_type_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX provider_data_id_type_name ON provider_data USING btree (provider_id, data_type, name);
 
 
 --

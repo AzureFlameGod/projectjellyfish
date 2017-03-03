@@ -2,9 +2,8 @@
   .columns
     .column.is-half
       .control
-        %label.label
-          %span Message / Reason
-        %textarea.textarea(name="description" rows="3" ng-model="$ctrl.model.reason_message")
+        %label.label Message
+        %textarea.textarea(name="description" placeholder="Optional: Reason for approval or denying the request." rows="3" ng-model="$ctrl.model.reason_message")
   .form__buttons
     %button.button.is-success(type="button" ng-if="::$ctrl.onApprove" ng-disabled="form.$invalid" ng-click="$ctrl.doApprove()") Approve
     %button.button.is-danger(type="button" ng-if="::$ctrl.onDeny" ng-disabled="form.$invalid" ng-click="$ctrl.doDeny()") Deny

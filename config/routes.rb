@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resource :account_info, only: [:show]
 
     resources :provider_types, only: [:index, :show]
-    resources :provider_data, only: [:index]
+    resources :provider_data, only: [:index, :show]
     resources :providers do
       resource :connection, only: [:update], module: :providers
       resource :sync, only: [:create], module: :providers

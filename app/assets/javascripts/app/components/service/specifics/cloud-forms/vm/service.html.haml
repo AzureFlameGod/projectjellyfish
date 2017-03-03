@@ -1,12 +1,12 @@
 .message.is-info(ng-if="$ctrl.status == 'provisioning'")
-  .message-body Server is still provisioning, nothing to report just yet.
+  .message-body Machine is still provisioning, nothing to report just yet.
 
 .card.is-fullwidth(ng-if="$ctrl.status != 'provisioning'")
   %table.table
     %tbody
       %tr
-        %th Host Name
-        %td(ng-bind="$ctrl.details.name || 'no host name set'")
+        %th Machine Name
+        %td(ng-bind="$ctrl.details.name || 'no machine name set'")
       %tr(ng-if="$ctrl.details.cpu_count")
         %th CPU
         %td(ng-bind-template="{{$ctrl.details.cpu_count}} socket x {{$ctrl.details.core_count}} core")
@@ -25,7 +25,7 @@
           %ul
             %li(ng-repeat="ip in $ctrl.details.public_ips track by ip")
               %span(ng-bind="ip")
-              %a.button.is-small.is-dark(ng-if="$ctrl.status == 'provisioned'" ng-href="ssh://{{ip}}")
+              %a.button.is-small.is-dark(ng-if="$ctrl.status == 'powered_on'" ng-href="ssh://{{ip}}")
                 %i.fa.fa-fw.fa-terminal
       %tr(ng-if="$ctrl.details.private_ips")
         %th Private IPs

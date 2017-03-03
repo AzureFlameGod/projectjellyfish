@@ -12,9 +12,9 @@ class CreateProviderData < ActiveRecord::Migration[5.0]
       t.boolean :available, default: true
       t.boolean :deprecated, default: false
 
-      t.index :data_type
-      t.index :ext_id
-      t.index :ext_group_id
+      t.index [:provider_id, :data_type, :name], name: 'provider_data_id_type_name'
+      t.index [:provider_id, :data_type, :ext_group_id, :name], name: 'provider_data_id_type_group_name'
+      t.index [:provider_id, :ext_id]
     end
 
     change_table :providers do |t|

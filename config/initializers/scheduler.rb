@@ -1,30 +1,49 @@
 require 'rufus-scheduler'
 
-scheduler = Rufus::Scheduler.singleton
+scheduler = Rufus::Scheduler.new
 
 # Limit scheduler to web processes only
 if File.split($0).last == 'puma'
-  # Provider connection checks
+  # # Provider connection checks
+  # #
+  # # 1. Find only connected providers
+  # scheduler.every '10m', overlap: false do
+  #   Provider.where(connected: true).pluck(:id).each do |provider_id|
+  #     Provider::CheckCredentialsJob.perform_later provider_id
+  #   end
+  # end
   #
-  scheduler.every '10m', overlap: false do
-    Provider.where(connected: true).pluck(:id).each do |provider_id|
-      Provider::CheckCredentialsJob.perform_later provider_id
-    end
-  end
+  # # Provider data sync
+  # #
+  # # 1. Find only connected providers
+  # scheduler.every '20m', overlap: false do
+  #   Provider.where(connected: true).pluck(:id, :last_synced_at).each do |provider_id, last_synced_at|
+  #     ProviderData::SyncJob.perform_later provider_id, last_synced_at.to_s
+  #   end
+  # end
 
-  scheduler.every '10m', overlap: false do
-    Provider.where(connected: true).pluck(:id, :last_synced_at) do |id, last_synced_at|
-      ProviderData::SyncJob.perform_later provider_id: id, last_synced_at: last_synced_at
-    end
-  end
-
-  # Monitor services
-  #
-  # 1. Find only services with connected providers
-  # 2. That want to be monitored
-  # 3. Have not been checked since `monitor_frequency` seconds ago
-  # 4. And we've finished checking the service
   scheduler.every '10s', overlap: false do
+    # Provider connection checks, Provider data sync
+    #
+    # 1. Find only connected providers
+    ten_minutes_ago = DateTime.current - 10.minutes
+    twenty_minutes_ago = DateTime.current - 20.minutes
+    Provider.where(connected: true).each do |provider|
+      if provider.credentials_validated_at.nil? || provider.credentials_validated_at < ten_minutes_ago
+        Provider::CheckCredentialsJob.perform_later(provider.id)
+      end
+
+      if provider.last_synced_at.nil? || provider.last_synced_at < twenty_minutes_ago
+        ProviderData::SyncJob.perform_later(provider.id, provider.last_synced_at.to_s)
+      end
+    end
+
+    # Monitor services
+    #
+    # 1. Find only services with connected providers
+    # 2. That want to be monitored
+    # 3. Have not been checked since `monitor_frequency` seconds ago
+    # 4. And we've finished checking the service
     Service
       .select(:id, :updated_at)
       .joins(:provider)

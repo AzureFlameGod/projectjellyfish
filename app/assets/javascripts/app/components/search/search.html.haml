@@ -1,0 +1,6 @@
+%span.level-item(ng-if="::$ctrl.label" ng-bind="::$ctrl.label")
+%span.control.level-item.has-addons.has-icon
+  %input.input(type="text" placeholder="{{::$ctrl.placeholder}}" ng-model="$ctrl.terms" on-enter="$ctrl.doEvent('Search', $ctrl.terms)")
+  %span.icon
+    %i.fa.fa-search
+  %a.button.is-dark(type="button" ng-click="$ctrl.terms = ''; $ctrl.doEvent('Search', $ctrl.terms);") Clear

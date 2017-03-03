@@ -3,6 +3,10 @@ class ProviderDataPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def sync?
     is_admin?
   end

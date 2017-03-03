@@ -15,6 +15,7 @@
     projectQuestions: apiBase + 'project_questions',
     projectRequests: apiBase + 'project_requests',
     providers: apiBase + 'providers',
+    providerData: apiBase + 'provider_data',
     providerTypes: apiBase + 'provider_types',
     productCategories: apiBase + 'product_categories',
     services: apiBase + 'services',

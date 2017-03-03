@@ -5,7 +5,7 @@
     .controller('ShowServiceController', Controller);
 
   /** @ngInject */
-  function Controller(ServiceDetailService, ServiceService) {
+  function Controller(NotificationsService, ServiceDetailService, ServiceService) {
     var ctrl = this;
 
     ctrl.reloading = false;
@@ -41,10 +41,12 @@
       return ServiceService.action(ctrl.serviceDetail.id, data)
         .then(function (result) {
           // Update status, health, actions, details, ...
-          ctrl.serviceDetails.attributes.status = result.attributes.status;
-          ctrl.serviceDetails.attributes.health = result.attributes.health;
-          ctrl.serviceDetails.attributes.actions = result.attributes.actions;
-          ctrl.serviceDetails.attributes.details = result.attributes.details;
+          ctrl.serviceDetail.attributes.status = result.attributes.status;
+          ctrl.serviceDetail.attributes.health = result.attributes.health;
+          ctrl.serviceDetail.attributes.actions = result.attributes.actions;
+          ctrl.serviceDetail.attributes.details = result.attributes.details;
+
+          NotificationsService.info("Request to '"+event.action+"' this service has been sent.", 'Action Requested');
         })
         .finally(function () {
           ctrl.reloading = false;

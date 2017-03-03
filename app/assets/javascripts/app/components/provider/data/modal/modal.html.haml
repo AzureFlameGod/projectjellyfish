@@ -1,0 +1,28 @@
+.modal.is-active
+  .modal-background
+  .modal-card
+    %header.modal-card-head
+      %p.modal-card-title(ng-transclude) Available Data
+      %button.delete(ng-click="$ctrl.onCancel()")
+    %section.modal-card-body
+      .columns
+        .column
+          %search(on-search="$ctrl.search($event)" placeholder="{{$ctrl.placeholder}}")
+      .columns
+        .column
+          %table.table.is-striped
+            %thead
+              %tr
+                %th(ng-repeat="header in ::$ctrl.headers track by $index" ng-bind="header")
+                %th
+                  .control.is-loading(ng-if="$ctrl.isLoading")
+            %tbody
+              %tr.has-text-middle(ng-repeat="row in $ctrl.rows track by row.id")
+                %td(ng-repeat="getter in $ctrl.getters track by $index" ng-bind="getter(row)")
+                %td.has-text-right
+                  %a.button.is-primary(ng-click="$ctrl.doEvent('Select', row);") Select
+      .columns(ng-if="$ctrl.meta.total_pages > 1")
+        .column
+          %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+    %section.modal-card-foot
+      %a.button(ng-click="$ctrl.onCancel()") Cancel

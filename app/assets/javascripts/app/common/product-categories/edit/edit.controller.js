@@ -23,7 +23,7 @@
     function onUpdate(event) {
       return ProductCategoryService.update(event.productCategory)
         .then(function (category) {
-          NotificationsService.success('Category \'' +category.attributes.name + '\' has been updated.', 'Category Updated');
+          NotificationsService.success("Category '" + category.attributes.name + "' has been updated.", 'Category Updated');
           $state.go('product-categories.list')
         });
     }
@@ -33,7 +33,7 @@
 
       if ($window.confirm(message)) {
         return ProductCategoryService.delete(event.productCategory)
-          .then(function (category) {
+          .then(function () {
             NotificationsService.success('Category has been deleted.', 'Category Deleted');
             $state.go('product-categories.list');
           });
