@@ -54,13 +54,24 @@ module CloudForms
         # Get the templates for the provider
         template_query = "?expand=resources&attributes=id,name,description,guid,deprecated&filter[]=ems_id=#{provider_result[:id]}"
         client.templates.paginate template_query do |template_result|
-          data << [[:template, template_result[:id].to_s], {
+          record_data = {
             name: template_result[:name],
             description: template_result[:description],
             ext_group_id: provider_result[:id],
-            deprecated: template_result[:deprecated],
             properties: { guid: template_result[:guid] }
-          }]
+          }
+
+          # determine deprecation status
+          record_data[:deprecated] = case provider_type
+          when 'azure', 'google', 'aws'
+            template_result[:deprecated]
+          when 'vmware'
+            template_result[:connection_state] == 'connected'
+          else
+            !!template_result[:deprecated]
+          end
+
+          data << [[:template, template_result[:id].to_s], record_data]
         end
 
         # Get the flavors for the provider
