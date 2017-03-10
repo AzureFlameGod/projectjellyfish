@@ -33,9 +33,10 @@ class ServiceOrder::CreateTest < ActiveSupport::TestCase
 
     # service_requests are not passed in params, they are loaded from the DB
     ServiceRequest.delete_all
+    pre_count = ServiceOrder.count
     result = ServiceOrder::Create.run(context: context, params: @params)
 
-    assert_equal 0, ServiceOrder.count
+    assert_equal pre_count, ServiceOrder.count
   end
 
 end

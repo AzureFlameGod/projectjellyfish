@@ -28,11 +28,11 @@ class RemoteAuthSessionsController < ActionController::Base
   # We are currently assuming remote_user or the unique SAML user is the email address and
   # the lookup for our user model
   def create_params
-    HashWithIndifferentAccess.new(
+    {
       remote_user: request.env['HTTP_X_REMOTE_USER'],
       name: request.env['HTTP_X_REMOTE_USER_FULLNAME'],
       remote_ip: request.remote_ip,
       user_agent: request.user_agent
-    )
+    }
   end
 end

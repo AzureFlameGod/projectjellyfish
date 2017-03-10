@@ -1,4 +1,4 @@
-class Registration
+module Registration
   class Create < ApplicationService
     include Policy
     include Sanitize

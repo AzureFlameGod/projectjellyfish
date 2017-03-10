@@ -12,6 +12,7 @@ configured:
   project: delta
   state: configured
   service_name: some name
+  service_order: pending
 configured2:
   type: CloudForms::Automation::ServiceRequest
   user: admin
@@ -19,6 +20,7 @@ configured2:
   project: delta
   state: configured
   service_name: another name
+  service_order: pending
 user_owned:
   type: CloudForms::Automation::ServiceRequest
   user: user
@@ -26,6 +28,7 @@ user_owned:
   project: delta
   state: configured
   service_name: to test ownership
+  service_order: pending
 approved:
   type: CloudForms::Automation::ServiceRequest
   user: user
@@ -40,3 +43,4 @@ ordered:
   project: delta
   state: ordered
   service_name: an ordered service
+  service_order: done

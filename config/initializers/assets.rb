@@ -1,9 +1,9 @@
 # Be sure to restart your server when you modify this file.
 
-#if Rails.env.production?
+if Rails.env.production?
   Rails.application.config.assets.js_compressor = :uglifier
   Rails.application.config.assets.css_compressor = :sass
-#end
+end
 
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = (ENV['ASSETS_VERSION'] || '1.0')

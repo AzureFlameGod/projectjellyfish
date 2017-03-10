@@ -1,1 +1,10 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+project_request:
+  user: user
+  processor: manager
+  project: delta
+  status: approved
+  requested: true
+  name: project request
+  budget: 100
+  request_message: Approved by Management User with message 'hello'
