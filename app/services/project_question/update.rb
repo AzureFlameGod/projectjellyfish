@@ -8,8 +8,8 @@ class ProjectQuestion < ApplicationRecord
     policy ProjectQuestionPolicy
 
     sanitize do
+      required(:id, ApplicationRecord::Types::UUID).filled(format?: ApplicationRecord::Types::UUID_REGEXP)
       required(:data).schema do
-        required(:id, ApplicationRecord::Types::UUID).filled(format?: ApplicationRecord::Types::UUID_REGEXP)
         required(:type, :string).filled(eql?: 'project_questions')
         required(:attributes).schema do
           required(:label, :string).filled(:str?)

@@ -4,8 +4,8 @@ fisma:
   required: true
   answers:
     - label: Not Required
-      require:
-      exclude:
+      require: [None]
+      exclude: [None]
     - label: High
       require: [fisma-high, private]
       exclude: [fisma-medium, fisma-low, cloud, public]

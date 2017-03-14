@@ -5,9 +5,10 @@ class Filter::ShowTest < ActiveSupport::TestCase
   end
 
   test 'show filters' do
-    result = Filter::Show.run context: users(:user), params: { id: filters(:project) }
+    filter = filters(:project)
+    result = Filter::Show.run context: users(:user), params: { id: filter.id }
     assert result.valid?
-    assert_equal filters(:project).id, result.model.id
+    assert_equal filter.created_at, result.model.created_at
   end
 
 end
