@@ -27,15 +27,12 @@
     }
 
     function onChanges(changes) {
-      if (changes.item) {
-        ctrl.item = angular.copy(ctrl.item);
-        buildQuery();
-      }
-
       if (changes.template) {
         ctrl.template = angular.copy(ctrl.template);
         setValueText();
       }
+
+      buildQuery();
     }
 
     function postLink() {
@@ -48,10 +45,10 @@
     function buildQuery() {
       ctrl.query = {
         filter: {
-          provider_id: ctrl.item.attributes.provider_id,
+          provider_id: ctrl.vm.item.attributes.provider_id,
           data_type: 'template',
           deprecated: false,
-          ext_group_id: ctrl.item.attributes.settings.provider_ext_id || null
+          ext_group_id: ctrl.vm.provider.attributes.ext_id || null
         },
         page: {
           number: 1,

@@ -28,15 +28,12 @@
     }
 
     function onChanges(changes) {
-      if (changes.item) {
-        ctrl.item = angular.copy(ctrl.item);
-        buildQuery();
-      }
-
       if (changes.provider) {
         ctrl.provider = angular.copy(ctrl.provider);
         setValueText();
       }
+
+      buildQuery();
     }
 
     function postLink() {
@@ -57,7 +54,7 @@
     function buildQuery() {
       ctrl.query = {
         filter: {
-          provider_id: ctrl.item.attributes.provider_id,
+          provider_id: ctrl.vm.item.attributes.provider_id,
           data_type: 'provider',
           deprecated: false
         },

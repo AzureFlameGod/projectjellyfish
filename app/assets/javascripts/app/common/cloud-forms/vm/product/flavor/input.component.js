@@ -6,9 +6,11 @@
       templateUrl: 'common/cloud-forms/vm/product/flavor/input.html',
       controller: 'CloudFormsVmProductFlavorController',
       bindings: {
-        item: '<',
         flavor: '<',
         onSelect: '&?'
+      },
+      require: {
+        vm: '^^cloudFormsVmProduct'
       }
     });
 })();

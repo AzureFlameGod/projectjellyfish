@@ -6,9 +6,11 @@
       templateUrl: 'common/cloud-forms/vm/product/provider/input.html',
       controller: 'CloudFormsVmProductProviderController',
       bindings: {
-        item: '<',
         provider: '<',
         onSelect: '&?'
+      },
+      require: {
+        vm: '^^cloudFormsVmProduct'
       }
     });
 })();
