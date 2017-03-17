@@ -139,7 +139,6 @@
       }
 
       if (angular.isUndefined(ctrl.provider) || !ctrl.provider) {
-        console.log('no provider');
         ctrl.showTemplate = false;
         ctrl.showFlavor = false;
         ctrl.showDiskSize = false;
@@ -151,9 +150,11 @@
 
       // Clear values when the provider changes and our template or flavor don't have a matching ext_group_id
       if (ctrl.template && ctrl.template.attributes.ext_group_id != ctrl.provider.attributes.ext_id) {
+        ctrl.template = undefined;
         ctrl.item.attributes.settings.template_ext_id = null;
       }
       if (ctrl.flavor && ctrl.template.attributes.ext_group_id != ctrl.provider.attributes.ext_id) {
+        ctrl.flavor = undefined;
         ctrl.item.attributes.settings.flavor_ext_id = null;
       }
 
