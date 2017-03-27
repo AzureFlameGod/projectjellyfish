@@ -43,11 +43,14 @@
       .control
         %label.label
           %span Comparable Properties
-        .control.is-horizontal(ng-repeat="pair in ::$ctrl.model.properties track by $index")
-          .control-label
-            %label.label.flex--middle(ng-bind="pair.name")
-          .control
-            %input.input(type="text" ng-model="pair.value")
+        .control.is-clearfix(ng-repeat="pair in ::$ctrl.model.properties track by $index")
+          .control.is-horizontal
+            .control-label
+              %label.label.flex--middle(ng-bind="pair.name")
+            .control
+              %input.input(type="text" ng-model="pair.value")
+          %server-messages.is-error.pull-right(path="properties/{{$index}}/value")
+            %server-message(message="filled") A property value is required
       .control
         %label.label
           %span Tags
