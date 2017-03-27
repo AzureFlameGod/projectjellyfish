@@ -55,6 +55,8 @@ module ManageIQClient
         end
 
         o[:base_path] = @base_path
+        o[:read_timeout] = ManageIQClient::READ_TIMEOUT
+        o[:write_timeout] = ManageIQClient::WRITE_TIMEOUT
       end)
     end
 

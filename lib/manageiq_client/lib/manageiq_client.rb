@@ -8,4 +8,6 @@ require 'manageiq_client/version'
 module ManageIQClient
   HEADERS = { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }.freeze
   BASE_PATH = '/api'.freeze
+  READ_TIMEOUT = 180
+  WRITE_TIMEOUT = 120
 end
