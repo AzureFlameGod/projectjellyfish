@@ -12,10 +12,10 @@
           %a(ui-sref="providers.show({id: $ctrl.product.attributes.provider().id})" ng-bind="::$ctrl.product.attributes.provider().attributes.name")
       %tr
         %th Setup
-        %td(ng-bind-template="${{::$ctrl.product.attributes.setup_price}}")
+        %td(ng-bind="::$ctrl.product.attributes.setup_price | price")
       %tr
         %th Hourly
-        %td(ng-bind-template="${{::$ctrl.product.attributes.hourly_price}}")
+        %td(ng-bind="::$ctrl.product.attributes.hourly_price | price")
       %tr
         %th Monthly
-        %td(ng-bind-template="${{::$ctrl.product.attributes.monthly_price}}")
+        %td(ng-bind="::$ctrl.product.attributes.monthly_price | price")
