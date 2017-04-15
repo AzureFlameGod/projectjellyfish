@@ -63,45 +63,26 @@ module CloudForms
 
       def self.combine_settings(product_settings, user_settings)
         product_settings.merge(user_settings)
-
-        #
-        # combined_settings = {
-        #   guid: product_settings['guid'],
-        #   vm_fields: product_settings['vm_fields'].map { |v| [v['name'], v['value']] }.to_h,
-        #   tags: product_settings['tags'].map { |v| [v['name'], v['value']] }.to_h,
-        #   ems_custom_attributes: product_settings['ems_attrs'].map { |v| [v['name'], v['value']] }.to_h,
-        #   miq_custom_attributes: product_settings['miq_attrs'].map { |v| [v['name'], v['value']] }.to_h
-        # }
-        #
-        # combined_settings[:vm_fields].merge! user_settings['vm_fields'].map { |v| [v['name'], v['value']] }.to_h
-        #
-        # # Ensure some settings exist
-        # combined_settings[:vm_fields]['vm_name'] ||= generate_vm_name
-        #
-        # combined_settings
       end
 
       def build_provision_request
         inputs = self.settings
 
-        ext_provider = ProviderData.find_by provider_id: self.provider_id, ext_id: inputs['provider_ext_id'], data_type: 'provider'
-        ext_template = ProviderData.find_by provider_id: self.provider_id, ext_id: inputs['template_ext_id'], data_type: 'template'
+        vm_fields = case ext_provider_type
+                    when :google
+                      {
+                        instance_type: inputs['flavor_ext_id'].to_i,
+                        boot_disk_size: inputs['disk_size_gb']
+                      }
+                    when :aws, :azure
+                      {
+                        instance_type: inputs['flavor_ext_id'].to_i
+                      }
+                    else
+                      {}
+                    end
 
-        vm_fields = case ext_provider.properties['type']
-        when 'google'
-          {
-            instance_type: inputs['flavor_ext_id'].to_i,
-            boot_disk_size: inputs['disk_size_gb']
-          }
-        when 'aws', 'azure'
-          {
-            instance_type: inputs['flavor_ext_id'].to_i,
-          }
-        else
-          {}
-        end
-
-        vm_fields[:vm_name] = generate_vm_name ext_provider.properties['type']
+        vm_fields[:vm_name] = generate_vm_name ext_provider_type
 
         {
           body: {
@@ -116,9 +97,9 @@ module CloudForms
                 owner_last_name: 'Jellyfish',
                 owner_email: user.email
               },
-              tags: {}, #self.settings['tags'] || {},
-              ems_custom_attributes: {}, #self.settings['ems_custom_attributes'] || {},
-              miq_custom_attributes: {} #self.settings['miq_custom_attributes'] || {}
+              tags: {},
+              ems_custom_attributes: {},
+              miq_custom_attributes: {}
             }
           }
         }
@@ -169,7 +150,12 @@ module CloudForms
           return
         end
 
-        terminate_results = provider.client.instances.terminate details['instance_id']
+        terminate_results = case ext_provider_type
+                            when :vmware
+                              provider.client.vms.retire details['instance_id']
+                            else
+                              provider.client.instances.terminate details['instance_id']
+                            end
 
         self.status_message = terminate_results['message']
 
@@ -212,7 +198,12 @@ module CloudForms
           return
         end
 
-        task_results = provider.client.instances.start details['instance_id']
+        task_results = case ext_provider_type
+                       when :vmware
+                         provider.client.vms.start details['instance_id']
+                       else
+                         provider.client.instances.start details['instance_id']
+                       end
         self.status_message = task_results['message']
         self.details['power_on_task_id'] = task_results['task_id']
       rescue => error
@@ -238,7 +229,12 @@ module CloudForms
           return
         end
 
-        task_results = provider.client.instances.stop details['instance_id']
+        task_results = case ext_provider_type
+                       when :vmware
+                         provider.client.vms.stop details['instance_id']
+                       else
+                         provider.client.instances.stop details['instance_id']
+                       end
 
         self.status_message = task_results['message']
 
@@ -273,7 +269,12 @@ module CloudForms
 
       def update_status
         attributes = 'disks,provisioned_storage,ipaddresses,mem_cpu,num_cpu,cpu_total_cores,cpu_cores_per_socket'
-        instance_details = provider.client.instances.find "#{details['instance_id']}?attributes=#{attributes}"
+        instance_details = case ext_provider_type
+                           when 'vmware'
+                             provider.client.vms.find "#{details['instance_id']}?attributes=#{attributes}"
+                           else
+                             provider.client.instances.find "#{details['instance_id']}?attributes=#{attributes}"
+                           end
 
         self.details['name'] = instance_details['name']
         self.details['vendor'] = instance_details['vendor']
@@ -285,7 +286,7 @@ module CloudForms
         self.details['memory'] = instance_details['mem_cpu']
         self.details['cpu_count'] = instance_details['num_cpu']
         self.details['core_count'] = instance_details['cpu_total_cores']
-        self.details['retired'] = instance_details.fetch('retired', false) || instance_details['raw_power_state'] == 'DELETED'
+        self.details['retired'] = instance_details.fetch('retired', false) || instance_details['raw_power_state'].downcase == 'deleted'
 
         case details['power_state']
         when 'on'
@@ -305,22 +306,36 @@ module CloudForms
 
       def generate_vm_name(provider_type)
         case provider_type
-        when 'azure'
+        when :azure
           # AFAICT Azure has the most restrictive server name rules. 15 alphanumeric and -_, must start and end with alpha
-          ('pj-'+SecureRandom.base58(11)+('a'..'z').to_a.sample)
+          ('pj-' + SecureRandom.base58(11) + ('a'..'z').to_a.sample)
         else
-          ('pj-'+SecureRandom.hex(8))
+          ('pj-' + SecureRandom.hex(8))
         end
       end
 
       def partition_ips(ips)
         ips.partition do |ip|
-          octets = ip.split('.').map &:to_i
+          octets = ip.split('.').map(&:to_i)
 
           (octets[0] == 10) ||
             ((octets[0] == 172) && (octets[1] >= 16) && (octets[1] <= 31)) ||
             ((octets[0] == 192) && (octets[1] == 168))
         end
+      end
+
+      # Some helper methods that make determining what actions or external calls to make easier.
+
+      def ext_provider
+        @_ext_provider ||= ProviderData.find_by provider_id: self.provider_id, ext_id: self.settings['provider_ext_id'], data_type: 'provider'
+      end
+
+      def ext_provider_type
+        @_ext_provider_type ||= ext_provider.properties['type'].to_sym
+      end
+
+      def ext_template
+        @_ext_template ||= ProviderData.find_by(provider_id: self.provider_id, ext_id: self.settings['template_ext_id'], data_type: 'template')
       end
     end
   end
