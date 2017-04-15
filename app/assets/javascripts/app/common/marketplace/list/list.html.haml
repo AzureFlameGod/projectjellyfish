@@ -13,7 +13,7 @@
           %button.button.is-dark(type="button" ng-click="$ctrl.doSearch('')") Clear
 
 %div(ng-if="$ctrl.products.length")
-  %products(products="$ctrl.products" on-show="$ctrl.onShow($event)" on-add-to-cart="$ctrl.addToCart($event)" comparable="true")
+  %products(products="$ctrl.products" on-add-to-cart="$ctrl.addToCart($event)" comparable="true")
   %div(ng-if="$ctrl.meta.total_pages > 1")
     %hr
     %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
