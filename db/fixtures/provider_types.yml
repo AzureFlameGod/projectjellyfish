@@ -8,4 +8,4 @@ amazon:
   type: Amazon::ProviderType
   name: AWS
   description: Amazon Web Services
-  active: true
+  active: false
