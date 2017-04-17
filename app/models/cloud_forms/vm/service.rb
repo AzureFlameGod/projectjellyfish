@@ -327,7 +327,7 @@ module CloudForms
       # Some helper methods that make determining what actions or external calls to make easier.
 
       def ext_provider
-        @_ext_provider ||= ProviderData.find_by provider_id: self.provider_id, ext_id: self.settings['provider_ext_id'], data_type: 'provider'
+        @_ext_provider ||= ProviderData.find_by(provider_id: self.provider_id, ext_id: self.settings['provider_ext_id'], data_type: 'provider')
       end
 
       def ext_provider_type
