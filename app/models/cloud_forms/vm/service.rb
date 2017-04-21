@@ -270,7 +270,7 @@ module CloudForms
       def update_status
         attributes = 'disks,provisioned_storage,ipaddresses,mem_cpu,num_cpu,cpu_total_cores,cpu_cores_per_socket'
         instance_details = case ext_provider_type
-                           when 'vmware'
+                           when :vmware
                              provider.client.vms.find "#{details['instance_id']}?attributes=#{attributes}"
                            else
                              provider.client.instances.find "#{details['instance_id']}?attributes=#{attributes}"
