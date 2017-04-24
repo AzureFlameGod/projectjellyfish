@@ -288,6 +288,8 @@ module CloudForms
         self.details['core_count'] = instance_details['cpu_total_cores']
         self.details['retired'] = instance_details.fetch('retired', false) || instance_details['raw_power_state'].downcase == 'deleted'
 
+        details_will_change!
+
         case details['power_state']
         when 'on'
           power_on
