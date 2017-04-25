@@ -295,6 +295,9 @@ module CloudForms
           power_on
         when 'off'
           power_off
+        when 'unknown'
+          self.details['retired'] = true
+          power_off
         else
           # noop
         end
