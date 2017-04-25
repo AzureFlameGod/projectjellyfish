@@ -54,5 +54,18 @@ if File.split($0).last == 'puma'
       .each do |service_id, updated_at|
       Service::State::CheckJob.perform_later service_id, updated_at.to_s
     end
+
+    # Check for any delayed requests that can now be provisioned
+    #
+    # 1. Find service requests that are :delayed
+    # 2. That belong to providers which are connected
+    ServiceRequest
+      .select(:id)
+      .joins(:provider)
+      .merge(Provider.where(connected: true))
+      .with_state(:delayed)
+      .each do |service_request|
+      ServiceRequest::UnstickJob.perform_later(service_request.id)
+    end
   end
 end

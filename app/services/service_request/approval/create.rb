@@ -25,19 +25,12 @@ class ServiceRequest < ApplicationRecord
           model.processed_message = processed_message
           model.save
 
+          ServiceOrder::RecountJob.perform_later(model.service_order_id)
+
           if model.approved?
-            model.service_order.increment :approved_count
             ServiceRequestMailer.approval(model).deliver_later
-            # create_service
           elsif model.denied?
-            model.service_order.increment :denied_count
             ServiceRequestMailer.denial(model).deliver_later
-          end
-
-          model.service_order.reload
-
-          if model.service_order.approved_count + model.service_order.denied_count == model.service_order.ordered_count
-            model.service_order.complete!
           end
         end
       end

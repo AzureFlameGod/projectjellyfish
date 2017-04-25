@@ -6,6 +6,7 @@ class ServiceRequest < ApplicationRecord
   belongs_to :user
   belongs_to :processor, class_name: '::User'
   belongs_to :product
+  belongs_to :provider, through: :product
   belongs_to :project
   belongs_to :service_order
   has_one :service
@@ -16,12 +17,19 @@ class ServiceRequest < ApplicationRecord
     end
 
     event :order do
-      transition configured: :approved, if: -> { AppSetting.current.auto_approve_services }
+      # Auto approve is on and the provider is connected
+      transition configured: :approved, if: -> { auto_approval? && provider_connected? }
+      # Auto approve is on but the provider is not connected
+      transition configured: :delayed, if: -> { auto_approval? }
+      # Leave the request to be approved or denied
       transition configured: :ordered
     end
 
     event :approve do
-      transition ordered: :approved
+      # Approve the request if the provider is connected
+      transition [:delayed, :ordered] => :approved, if: -> { provider_connected? }
+      # The provider is not connected
+      transition ordered: :delayed
     end
 
     after_transition to: :approved do |request, _transition|
@@ -46,6 +54,14 @@ class ServiceRequest < ApplicationRecord
   # TODO: Remove this after removing the price columns from service_requests; use the products.*_price columns
   def monthly_cost
     (hourly_price || 0) * 730 + (monthly_price || 0)
+  end
+
+  def auto_approval?
+    AppSetting.current.auto_approve_services
+  end
+
+  def provider_connected?
+    product.provider.connected?
   end
 
   # All ServiceRequests use the same serializer
