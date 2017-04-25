@@ -31,8 +31,6 @@
         ctrl.template = angular.copy(ctrl.template);
         setValueText();
       }
-
-      buildQuery();
     }
 
     function postLink() {
@@ -73,6 +71,8 @@
 
     // input
     function openModal() {
+      buildQuery();
+
       ctrl.query.page.number = 1;
       ctrl.isOpen = true;
     }

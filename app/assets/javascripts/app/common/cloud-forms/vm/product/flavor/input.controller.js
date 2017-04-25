@@ -31,8 +31,6 @@
         ctrl.flavor = angular.copy(ctrl.flavor);
         setValueText();
       }
-
-      buildQuery();
     }
 
     function postLink() {
@@ -73,6 +71,8 @@
 
     // input
     function openModal() {
+      buildQuery();
+
       ctrl.query.page.number = 1;
       ctrl.isOpen = true;
     }
