@@ -6,7 +6,7 @@ class ServiceRequest < ApplicationRecord
   belongs_to :user
   belongs_to :processor, class_name: '::User'
   belongs_to :product
-  belongs_to :provider, through: :product
+  has_one :provider, through: :product
   belongs_to :project
   belongs_to :service_order
   has_one :service
