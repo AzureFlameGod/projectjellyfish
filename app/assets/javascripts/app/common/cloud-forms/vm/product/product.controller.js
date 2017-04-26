@@ -153,7 +153,7 @@
         ctrl.template = undefined;
         ctrl.item.attributes.settings.template_ext_id = null;
       }
-      if (ctrl.flavor && ctrl.template.attributes.ext_group_id != ctrl.provider.attributes.ext_id) {
+      if (ctrl.flavor && ctrl.flavor.attributes.ext_group_id != ctrl.provider.attributes.ext_id) {
         ctrl.flavor = undefined;
         ctrl.item.attributes.settings.flavor_ext_id = null;
       }
