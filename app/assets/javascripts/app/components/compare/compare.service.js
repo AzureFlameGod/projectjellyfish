@@ -10,6 +10,7 @@
       maximum: 4,
       add: add,
       remove: remove,
+      clear: clear,
       list: list,
       isListed: isListed,
       subscribe: subscribe,
@@ -33,6 +34,14 @@
 
       if (index >= 0) {
         items.splice(index, 1);
+        notifyListeners('remove', item);
+      }
+    }
+
+    function clear() {
+      var item;
+
+      while (item = items.shift()) {
         notifyListeners('remove', item);
       }
     }
