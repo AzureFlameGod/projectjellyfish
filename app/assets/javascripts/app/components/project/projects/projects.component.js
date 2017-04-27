@@ -9,7 +9,8 @@
         projects: '<',
         onSelect: '&?',
         onShow: '&?',
-        onArchive: '&?'
+        onArchive: '&?',
+        onSort: '&?'
       }
     });
 })();

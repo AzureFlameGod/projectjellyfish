@@ -14,6 +14,7 @@
     ctrl.onSelect = onSelect;
     ctrl.reload = reload;
     ctrl.changePage = changePage;
+    ctrl.sort = sort;
 
     function onChanges(changes) {
       if (changes.query) {
@@ -40,6 +41,17 @@
     function changePage(event) {
       $state.go('.', {page: event.page}, {notify: false});
       ctrl.query.page.number = event.page;
+      reload();
+    }
+
+    function sort(event) {
+      var sortParam = [
+        (event.sortDir === -1 ? '-' : ''),
+        event.sortBy
+      ].join('');
+
+      ctrl.query.sort = sortParam;
+
       reload();
     }
   }

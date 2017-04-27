@@ -8,10 +8,14 @@
   function Controller() {
     var ctrl = this;
 
+    ctrl.sortBy = 'name';
+    ctrl.sortDir = 1;
+
     ctrl.$onChanges = onChanges;
     ctrl.hasActions = hasActions;
     ctrl.doEvent = doEvent;
     ctrl.selectProject = selectProject;
+    ctrl.sort = sort;
 
     function onChanges(changes) {
       if (changes.projects) {
@@ -37,6 +41,18 @@
           project: project
         }
       });
+    }
+
+    function sort(event) {
+      if (event.sortBy !== ctrl.sortBy) {
+        event.sortDir = 1;
+      }
+
+      angular.merge(ctrl, event);
+
+      if (angular.isDefined(ctrl.onSort)) {
+        ctrl.onSort({ $event: event });
+      }
     }
   }
 })();

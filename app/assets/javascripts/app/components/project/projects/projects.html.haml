@@ -1,16 +1,22 @@
 %table.table
   %thead.has-no-hover
     %tr
-      %th Project
-      %th Budget
+      %th
+        %sortable-header(key="name" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Name
+      %th
+        %sortable-header(key="budget" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Budget
+      %th
+        %sortable-header(key="spent" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Cost To Date
       %th(ng-if="::$ctrl.hasActions()")
   %tbody
-    %tr(ng-repeat="project in ::$ctrl.projects track by project.id")
+    %tr(ng-repeat="project in $ctrl.projects track by project.id")
       %td.has-text-middle
         %a(ng-click="$ctrl.selectProject(project)")
           %span(ng-bind="project.attributes.name")
       %td.has-text-middle
         %span(ng-bind="project.attributes.budget | currency")
+      %td.has-text-middle
+        %span(ng-bind="project.attributes.spent | currency")
       %td.has-text-middle.is-icon(ng-if="::$ctrl.hasActions()")
         %button.button.is-small.is-dark(type="button" ng-if="$ctrl.onShow" ng-click="$ctrl.doEvent('Show', project)") View
         %button.button.is-small.is-danger(type="button" ng-if="$ctrl.onArchive" ng-click="$ctrl.doEvent('Archive', project)") Archive

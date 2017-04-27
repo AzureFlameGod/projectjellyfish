@@ -9,7 +9,8 @@
       %th(ng-if="::$ctrl.hasActions()")
   %tbody
     %tr(ng-repeat="request in $ctrl.projectRequests track by request.id")
-      %td(ng-bind="::request.attributes.status")
+      %td
+        %span.tag(ng-bind="::request.attributes.status")
       %td(ng-bind="::request.attributes.name")
       %td(ng-bind="::request.attributes.budget | currency")
       %td(ng-bind="::request.attributes.user().attributes.name")

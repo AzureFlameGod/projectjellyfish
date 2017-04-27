@@ -5,7 +5,7 @@
     .controller('ProjectApprovalsListController', Controller);
 
   /** @ngInject */
-  function Controller($state, ProjectRequestService) {
+  function Controller($state, ProjectRequestService, NotificationsService) {
     var ctrl = this;
 
     ctrl.reloading = false;
@@ -48,8 +48,16 @@
     function withApproval(event) {
       ProjectRequestService.approval(event.projectRequest.id, event.projectApproval)
         .then(function () {
+          var message = 'Project "' + event.projectRequest.attributes.name + '" has been ';
+
           ctrl.selectedRequest = null;
           reload();
+
+          if (event.projectApproval.attributes.approval === 'approve') {
+            NotificationsService.info(message + 'approved.');
+          } else {
+            NotificationsService.info(message + 'denied');
+          }
         });
     }
   }

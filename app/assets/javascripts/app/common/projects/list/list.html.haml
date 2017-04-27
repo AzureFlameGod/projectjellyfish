@@ -8,7 +8,7 @@
 
 %div(ng-if="$ctrl.projects.length")
   .card.is-fullwidth
-    %projects(projects="$ctrl.projects" on-select="$ctrl.onSelect($event)")
+    %projects(projects="$ctrl.projects" on-select="$ctrl.onSelect($event)" on-sort="$ctrl.sort($event)")
   %div(ng-if="$ctrl.projects.meta().total_pages > 1")
     %hr
     %pagination(pagination="$ctrl.projects.meta()" on-change-page="$ctrl.changePage($event)")

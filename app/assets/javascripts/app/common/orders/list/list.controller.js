@@ -14,6 +14,7 @@
     ctrl.reload = reload;
     ctrl.changePage = changePage;
     ctrl.onShow = onShow;
+    ctrl.sort = sort;
 
     function onChanges(changes) {
       if (changes.serviceOrders) {
@@ -43,6 +44,17 @@
 
     function onShow(event) {
       $state.go('orders.show', {id: event.serviceOrder.id});
+    }
+
+    function sort(event) {
+      var sortParam = [
+        (event.sortDir === -1 ? '-' : ''),
+        event.sortBy
+      ].join('');
+
+      ctrl.query.sort = sortParam;
+
+      reload();
     }
   }
 })();

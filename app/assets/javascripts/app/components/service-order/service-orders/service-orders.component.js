@@ -7,7 +7,8 @@
       controller: 'ServiceOrdersController',
       bindings: {
         serviceOrders: '<',
-        onShow: '&'
+        onShow: '&',
+        onSort: '&?'
       }
     });
 })();

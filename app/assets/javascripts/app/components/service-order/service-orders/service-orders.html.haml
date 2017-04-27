@@ -2,15 +2,21 @@
   %table.table
     %thead.has-no-hover
       %tr
-        %th Status
+        %th
+          %sortable-header(key="status" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Status
         %th ID
-        %th Ordered At
-        %th Services Ordered
-        %th Approved
-        %th Denied
+        %th
+          %sortable-header(key="ordered_at" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Ordered At
+        %th
+          %sortable-header(key="ordered_count" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Services Ordered
+        %th
+          %sortable-header(key="approved_count" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Approved
+        %th
+          %sortable-header(key="denied_count" sort-by="$ctrl.sortBy" sort-dir="$ctrl.sortDir" on-sort="$ctrl.sort($event)") Denied
     %tbody
       %tr(ng-repeat="order in $ctrl.serviceOrders track by order.id")
-        %td(ng-bind="::order.attributes.status")
+        %td
+          %span.tag(ng-bind="::order.attributes.status")
         %td
           %a(ng-click="$ctrl.selectOrder(order)" ng-bind="::order.id")
         %td(ng-bind="::order.attributes.ordered_at | date : 'medium'")

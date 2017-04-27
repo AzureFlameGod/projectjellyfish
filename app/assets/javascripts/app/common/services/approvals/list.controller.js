@@ -5,7 +5,7 @@
     .controller('ServiceApprovalsListController', Controller);
 
   /** @ngInject */
-  function Controller($state, ServiceRequestService) {
+  function Controller($state, ServiceRequestService, NotificationsService) {
     var ctrl = this;
 
     ctrl.reloading = false;
@@ -48,8 +48,16 @@
     function withApproval(event) {
       ServiceRequestService.approval(event.serviceRequest.id, event.serviceApproval)
         .then(function () {
+          var message = 'The service "' + event.projectRequest.attributes.name + '" has been ';
+
           ctrl.selectedRequest = null;
           reload();
+
+          if (event.serviceApproval.attributes.approval === 'approve') {
+            NotificationsService.info(message + 'approved.');
+          } else {
+            NotificationsService.info(message + 'denied');
+          }
         });
     }
   }

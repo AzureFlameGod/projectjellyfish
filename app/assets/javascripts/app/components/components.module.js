@@ -24,6 +24,7 @@
 // = require app/components/service-order/service-order.module
 // = require app/components/service-request/service-request.module
 // = require app/components/settings/settings.module
+// = require app/components/sortable-header/sortable-header.module
 // = require app/components/status-icon/status-icon.module
 // = require app/components/tabs/tabs.module
 // = require app/components/user/user.module
@@ -58,6 +59,7 @@
     'components.service-order',
     'components.service-request',
     'components.settings',
+    'components.sortable-header',
     'components.status-icon',
     'components.tabs',
     'components.user'

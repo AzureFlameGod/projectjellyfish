@@ -10,7 +10,8 @@
       %th(ng-if="::$ctrl.hasActions()")
   %tbody
     %tr(ng-repeat="request in ::$ctrl.serviceRequests track by request.id")
-      %td(ng-bind="request.attributes.state")
+      %td
+        %span.tag(ng-bind="request.attributes.state")
       %td(ng-bind="request.attributes.service_name || '-not set-'")
       %td(ng-bind="request.attributes.product().attributes.name || request.attributes.product_id")
       %td(ng-bind="request.attributes.project().attributes.name || request.attributes.project_id || '-not set-'")
