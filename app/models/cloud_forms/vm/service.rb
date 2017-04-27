@@ -74,7 +74,7 @@ module CloudForms
                         instance_type: inputs['flavor_ext_id'].to_i,
                         boot_disk_size: inputs['disk_size_gb']
                       }
-                    when :aws, :azure
+                    when :aws, :azure, :awsgov
                       {
                         instance_type: inputs['flavor_ext_id'].to_i
                       }
@@ -151,7 +151,7 @@ module CloudForms
         end
 
         terminate_results = case ext_provider_type
-                            when :vmware
+                            when :vmware, :awsgov
                               provider.client.vms.retire details['instance_id']
                             else
                               provider.client.instances.terminate details['instance_id']
@@ -199,7 +199,7 @@ module CloudForms
         end
 
         task_results = case ext_provider_type
-                       when :vmware
+                       when :vmware, :awsgov
                          provider.client.vms.start details['instance_id']
                        else
                          provider.client.instances.start details['instance_id']
@@ -230,7 +230,7 @@ module CloudForms
         end
 
         task_results = case ext_provider_type
-                       when :vmware
+                       when :vmware, :awsgov
                          provider.client.vms.stop details['instance_id']
                        else
                          provider.client.instances.stop details['instance_id']
@@ -270,7 +270,7 @@ module CloudForms
       def update_status
         attributes = 'disks,provisioned_storage,ipaddresses,mem_cpu,num_cpu,cpu_total_cores,cpu_cores_per_socket'
         instance_details = case ext_provider_type
-                           when :vmware
+                           when :vmware, :awsgov
                              provider.client.vms.find "#{details['instance_id']}?attributes=#{attributes}"
                            else
                              provider.client.instances.find "#{details['instance_id']}?attributes=#{attributes}"

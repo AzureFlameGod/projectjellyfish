@@ -36,7 +36,7 @@ module CloudForms
       data = []
 
       # Get and loop over each provider; We only care about collecting data for active providers
-      provider_query = '?expand=resources&attributes=id,name,description,type,guid,last_refresh_date&filter[]=parent_ems_id=null'
+      provider_query = '?expand=resources&attributes=id,name,provider_region,description,type,guid,last_refresh_date&filter[]=parent_ems_id=null'
       client.providers.paginate provider_query do |provider_result|
         provider_type = provider_types[provider_result[:type]]
 
@@ -44,6 +44,11 @@ module CloudForms
         next unless provider_type
 
         # TODO: Use last_refresh_date to skip syncing a provider that doesn't need refreshing
+
+        # Decorate AWS as govcloud when the region contains /gov/
+        if provider_type == 'aws' && provider_result[:provider_region][/gov/]
+          provider_type = 'awsgov'
+        end
 
         data << [[:provider, provider_result[:id].to_s], {
           name: provider_result[:name],
