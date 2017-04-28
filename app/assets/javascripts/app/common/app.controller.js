@@ -5,7 +5,7 @@
     .controller('AppController', AppController);
 
   /** @ngInject */
-  function AppController($state, AuthService, CompareService) {
+  function AppController($state, AuthService, CartService, CompareService, NotificationsService) {
     var ctrl = this;
 
     ctrl.user = AuthService.getUser();
@@ -18,7 +18,9 @@
 
       function signedOut() {
         // TODO: Handle user app state in a more central place
+        CartService.clear();
         CompareService.clear();
+        NotificationsService.clear();
 
         $state.go('auth.login');
       }

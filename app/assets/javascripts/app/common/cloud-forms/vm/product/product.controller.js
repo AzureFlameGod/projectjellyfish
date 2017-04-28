@@ -166,6 +166,7 @@
           showDiskSize = false;
           break;
         case 'aws':
+        case 'awsgov':
           showDiskSize = false;
           break;
         case 'azure':

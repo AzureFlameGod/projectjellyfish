@@ -1,7 +1,7 @@
 .columns
   .column
     %reload-button(type="button" ng-disabled="$ctrl.reloading" ng-click="$ctrl.reload()")
-  .column.has-text-right
+  .column.has-text-right(ng-if="$ctrl.member")
     %a.button.is-primary(ui-sref="projects.edit({id: $ctrl.project.id})") Edit
 
 .columns

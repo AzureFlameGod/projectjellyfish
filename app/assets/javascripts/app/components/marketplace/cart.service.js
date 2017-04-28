@@ -5,7 +5,7 @@
     .factory('CartService', Factory);
 
   /** @ngInject */
-  function Factory($q, ApiService, AuthService, NotificationsService, ServiceRequestService, ServiceOrderService) {
+  function Factory(ApiService, AuthService, NotificationsService, ServiceRequestService, ServiceOrderService) {
     var service = {
       project: null,
       getItems: getItems,
@@ -14,7 +14,8 @@
       removeFromCart: destroy,
       configure: update,
       order: order,
-      search: search
+      search: search,
+      clear: clear
     };
 
     var API_ROUTE = ApiService.routes.cart;
@@ -32,6 +33,10 @@
 
     function reload() {
       return load();
+    }
+
+    function clear() {
+      items = false;
     }
 
     function create(product) {
