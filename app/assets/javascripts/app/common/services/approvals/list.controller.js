@@ -48,7 +48,7 @@
     function withApproval(event) {
       ServiceRequestService.approval(event.serviceRequest.id, event.serviceApproval)
         .then(function () {
-          var message = 'The service "' + event.projectRequest.attributes.name + '" has been ';
+          var message = 'The service "' + event.serviceRequest.attributes.service_name + '" has been ';
 
           ctrl.selectedRequest = null;
           reload();

@@ -36,7 +36,7 @@
                 users: 'name'
               },
               filter: {
-                with_states: ['ordered', 'approved', 'denied'],
+                with_states: ['ordered', 'approved', 'denied', 'delayed'],
                 user_id: AuthService.getUser().id
               },
               page: {
