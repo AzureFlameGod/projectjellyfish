@@ -22,7 +22,8 @@ module ManageIQClient
       return self unless actions.key? 'actions'
 
       actions['actions'].each do |action|
-        action_path = URI.parse(action['href']).path.sub @base_path, ''
+        action_path = URI.parse(action['href']).path.sub(@base_path, '').chomp('/')
+        action_path = nil if action_path.blank?
         action_method = action['method'].upcase
         action_name = action['name'].to_sym
         self.class.send :define_method, action_name do |*args|
