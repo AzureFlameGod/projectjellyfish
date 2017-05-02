@@ -5,7 +5,7 @@ class ServiceRequest < ApplicationRecord
     model ServiceRequest, :find
 
     def perform
-      model.fire_events :approved
+      model.fire_events :approve
       model.save
     end
   end
