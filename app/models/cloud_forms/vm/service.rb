@@ -118,6 +118,7 @@ module CloudForms
       end
 
       def check_provisioning_status
+        # TODO: Should consider some kind of timeout
         while provisioning?
           sleep 5 # TODO: sleeping? maybe a block taking method with yield with options might be better
           results = provider.client.provision_requests.find "#{self.details['provision_request_id']}?expand=tasks"
@@ -168,6 +169,7 @@ module CloudForms
       end
 
       def check_deprovisioning_status
+        # TODO: Should consider some kind of timeout
         while deprovisioning?
           sleep 5 # TODO: needs DRYing
 
