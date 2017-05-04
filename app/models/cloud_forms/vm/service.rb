@@ -171,12 +171,17 @@ module CloudForms
         while deprovisioning?
           sleep 5 # TODO: needs DRYing
 
-          task = provider.client.tasks.find details['terminate_task_id']
+          if details['terminate_task_id']
+            task = provider.client.tasks.find details['terminate_task_id']
 
-          # task['status'] could be 'Error'; Needs handling
-          if task['state'].downcase == 'finished'
+            # task['status'] could be 'Error'; Needs handling
+            if task['state'].downcase == 'finished'
+              update_status
+              self.status_message = task['message']
+            end
+          elsif [:vmware, :awsgov].include? ext_provider_type
+            # TODO: Find out what methods are available to follow the retirement for vms
             update_status
-            self.status_message = task['message']
           end
         end
       rescue => error
@@ -268,7 +273,7 @@ module CloudForms
       private
 
       def update_status
-        attributes = 'disks,provisioned_storage,ipaddresses,mem_cpu,num_cpu,cpu_total_cores,cpu_cores_per_socket'
+        attributes = 'disks,provisioned_storage,ipaddresses,mem_cpu,num_cpu,cpu_total_cores,cpu_cores_per_socket,retirement_status'
         instance_details = case ext_provider_type
                            when :vmware, :awsgov
                              provider.client.vms.find "#{details['instance_id']}?attributes=#{attributes}"
@@ -286,7 +291,7 @@ module CloudForms
         self.details['memory'] = instance_details['mem_cpu']
         self.details['cpu_count'] = instance_details['num_cpu']
         self.details['core_count'] = instance_details['cpu_total_cores']
-        self.details['retired'] = instance_details.fetch('retired', false) || instance_details['raw_power_state'].downcase == 'deleted'
+        self.details['retired'] = instance_details.fetch('retired', false) || instance_details['raw_power_state'].downcase == 'deleted' || !!instance_details.fetch('retirement_status', 'active')[/retir/]
 
         details_will_change!
 
