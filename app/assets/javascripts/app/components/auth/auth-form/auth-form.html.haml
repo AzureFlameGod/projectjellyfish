@@ -1,0 +1,13 @@
+%form(name="authForm" novalidate ng-submit="$ctrl.submitForm()")
+  %server-messages.is-error(path="/data/attributes")
+    %server-message(message="VALIDATION_ERROR")
+  .control
+    %server-messages.is-error.pull-right(path="email")
+      %server-message(message="valid_email") Not a valid email address
+    %input.input(ng-model="$ctrl.user.email" placeholder="Enter your email" name="email" type="email" required)
+  .control
+    %server-messages.is-error.pull-right(path="password")
+      %server-message(message="filled") Your password is required
+    %input.input(ng-model="$ctrl.user.password" placeholder="Enter your password" name="password" type="password" required)
+  %button.button.is-primary(type="submit" ng-disabled="authForm.$invalid" ng-bind="$ctrl.button")
+  %div(ng-if="$ctrl.message" ng-bind="$ctrl.message")

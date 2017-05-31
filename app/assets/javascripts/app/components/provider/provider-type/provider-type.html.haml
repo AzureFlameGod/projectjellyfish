@@ -1,0 +1,11 @@
+.card.card__link(ng-click="$ctrl.select()")
+  .flex
+    .flex__col.flex__col--stunted
+      %img.icon(ng-src="images/{{::$ctrl.providerType.attributes.type}}.png")
+    .flex__col-6
+      .text--uppercase.text--bold(href="" ng-bind="::$ctrl.providerType.attributes.name")
+      %small(ng-bind="::$ctrl.providerType.attributes.description")
+    .flex__col
+      %ul.tags-list.flex--end
+        %li(ng-repeat="tag in ::$ctrl.providerType.attributes.tag_list")
+          %span.provider-tag(ng-bind="::tag")

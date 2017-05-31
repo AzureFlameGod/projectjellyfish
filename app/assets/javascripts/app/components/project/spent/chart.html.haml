@@ -1,0 +1,6 @@
+.card
+  .card-header
+    %p.card-header-title Spent
+  .card-content
+    .content
+      %canvas.chart.chart-doughnut(chart-data="$ctrl.burnData" chart-labels="::$ctrl.burnLabels" chart-options="{animation: false}" height="{{$ctrl.height}}" width="100")

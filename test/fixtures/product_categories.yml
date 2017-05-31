@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+servers:
+  name: Servers
+  description: All servers. Compute, public and private.
+  cached_tag_list: server, compute
+databases:
+  name: Database
+  description: All data storage. SQL, NoSQL, and graph stores
+  cached_tag_list: database, sql, nosql, graph
+storage:
+  name: Storage
+  description: All file storage
+  cached_tag_list: file, storage
+

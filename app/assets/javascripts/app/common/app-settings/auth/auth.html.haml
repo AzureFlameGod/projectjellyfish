@@ -1,0 +1,22 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="app-settings") Settings
+      %li
+        Auth
+
+%tabs(classes="is-centered")
+  %tab(label="Local")
+    .columns
+      .column.is-half
+        %app-settings-local-auth-form(settings="$ctrl.settings" on-submit="$ctrl.onSubmit($event)" on-cancel="$ctrl.onCancel($event)")
+  %tab(label="Remote")
+    .columns
+      .column.is-half
+        %app-settings-remote-auth-form(settings="$ctrl.settings" on-submit="$ctrl.onSubmit($event)" on-cancel="$ctrl.onCancel($event)")
+  %tab(label="SAML")
+    .columns
+      .column.is-half
+        %app-settings-saml-auth-form(settings="$ctrl.settings" on-submit="$ctrl.onSubmit($event)" on-cancel="$ctrl.onCancel($event)")
+

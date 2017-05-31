@@ -1,0 +1,15 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="products.list") Products
+      %li
+        View
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-primary(ui-sref="products.edit({id: $ctrl.product.id})") Edit
+
+%product-details(product="$ctrl.product")

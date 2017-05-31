@@ -1,0 +1,7 @@
+.layout.columns.is-gapless
+  %app-nav.layout__header.column.is-narrow(user="$ctrl.user" on-logout="$ctrl.logout()")
+  .layout__content.column.columns
+    %aside.layout__sidebar.column.is-narrow(ui-view="sidebar")
+    %main.layout__main.column
+      %div(ui-view="main")
+  %app-footer.layout__footer.column.is-narrow

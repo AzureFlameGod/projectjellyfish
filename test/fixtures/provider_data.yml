@@ -1,0 +1,33 @@
+---
+one:
+  data_type: template
+  provider: cloud_forms
+  name: a template
+  description: MyText
+  ext_id: MyText
+  ext_group_id: MyText
+  properties:
+  available: true
+  deprecated: false
+
+two:
+  data_type: flavor
+  provider: cloud_forms
+  name: a flavor
+  description: MyText
+  ext_id: MyText
+  ext_group_id: MyText
+  properties:
+  available: true
+  deprecated: false
+
+unavailable:
+  data_type: flavor
+  provider: cloud_forms
+  name: unavailable flavor
+  description: MyText
+  ext_id: MyText
+  ext_group_id: MyText
+  properties:
+  available: false
+  deprecated: false

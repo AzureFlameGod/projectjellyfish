@@ -1,0 +1,20 @@
+%aside.menu
+  %ul.menu-list
+    %li(ng-repeat="item in ::$ctrl.items")
+      %a(ui-state="item.state" ui-sref-active="is-active")
+        %span(ng-bind="::item.label")
+      %div(ui-view="{{::item.state}}" class="slide-open")
+    %li(ng-if="::$ctrl.isManager")
+      %hr
+  %ul.menu-list(ng-if="::$ctrl.isManager")
+    %li(ng-repeat="item in ::$ctrl.manage")
+      %a(ui-state="item.state" ui-sref-active="is-active")
+        %span(ng-bind="::item.label")
+      %div(ui-view="{{::item.state}}" class="slide-open")
+    %li(ng-if="$ctrl.isAdministrator")
+      %hr
+  %ul.menu-list(ng-if="::$ctrl.isAdministrator")
+    %li(ng-repeat="item in ::$ctrl.admin")
+      %a(ui-state="item.state" ui-sref-active="is-active")
+        %span(ng-bind="::item.label")
+      %div(ui-view="{{::item.state}}" class="slide-open")

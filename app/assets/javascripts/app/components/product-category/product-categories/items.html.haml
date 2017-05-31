@@ -1,0 +1,18 @@
+.columns.is-multiline
+  .column.is-half(ng-repeat="item in ::$ctrl.productCategories track by item.id")
+    .card.is-fullwidth
+      .card-content
+        %article.media
+          .media-content
+            .title.is-5
+              %a(ng-if="$ctrl.onShow" ng-click="$ctrl.showItem(item)" ng-bind="item.attributes.name")
+              %span(ng-if="!$ctrl.onShow" ng-bind="item.attributes.name")
+            %p.subtitle.is-6(ng-bind="item.attributes.description")
+            .level
+              .level-left
+                .level-item(ng-repeat="tag in ::item.attributes.tag_list")
+                  %span.tag.is-small.is-primary(ng-bind="::tag")
+          .media-right
+            %button.button.is-primary(type="button" ng-if="$ctrl.onSelect" ng-click="$ctrl.selectItem(item)") Select
+            %button.button.is-primary(type="button" ng-if="$ctrl.onUpdate" ng-click="$ctrl.updateItem(item)") Update
+            %button.button.is-danger(type="button" ng-if="$ctrl.onDelete" ng-click="$ctrl.deleteItem(item)") Delete

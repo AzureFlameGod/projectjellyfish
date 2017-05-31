@@ -1,13 +1,21 @@
 class ProductTypePolicy < ApplicationPolicy
-  def index?
-    logged_in?
+  def search?
+    is_manager?
   end
 
   def show?
-    logged_in?
+    is_manager?
   end
 
-  def async_select?
-    logged_in?
+  def create?
+    is_manager?
+  end
+
+  def update?
+    is_manager?
+  end
+
+  def destroy?
+    is_manager?
   end
 end

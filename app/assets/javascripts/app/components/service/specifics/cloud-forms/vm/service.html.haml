@@ -1,0 +1,35 @@
+.message.is-info(ng-if="$ctrl.status == 'provisioning'")
+  .message-body Machine is still provisioning, nothing to report just yet.
+
+.card.is-fullwidth(ng-if="$ctrl.status != 'provisioning'")
+  %table.table
+    %tbody
+      %tr
+        %th Machine Name
+        %td(ng-bind="$ctrl.details.name || 'no machine name set'")
+      %tr(ng-if="$ctrl.details.cpu_count")
+        %th CPU
+        %td(ng-bind-template="{{$ctrl.details.cpu_count}} socket x {{$ctrl.details.core_count}} core")
+      %tr(ng-if="$ctrl.details.memory")
+        %th Memory
+        %td(ng-bind-template="{{$ctrl.details.memory / 1000.0}} GB")
+      %tr(ng-if="$ctrl.details.disk_size")
+        %th Storage
+        %td(ng-bind-template="{{$ctrl.details.disk_size / 1024 | number : 1}} GB")
+      %tr
+        %th Power State
+        %td(ng-bind="$ctrl.details.power_state || 'unknown'")
+      %tr(ng-if="$ctrl.details.public_ips")
+        %th IPs
+        %td
+          %ul
+            %li(ng-repeat="ip in $ctrl.details.public_ips track by ip")
+              %span(ng-bind="ip")
+              %a.button.is-small.is-dark(ng-if="$ctrl.status == 'powered_on'" ng-href="ssh://{{ip}}")
+                %i.fa.fa-fw.fa-terminal
+      %tr(ng-if="$ctrl.details.private_ips")
+        %th Private IPs
+        %td
+          %ul
+            %li(ng-repeat="ip in $ctrl.details.private_ips track by ip")
+              %span(ng-bind="ip")

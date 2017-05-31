@@ -1,32 +1,12 @@
-# == Schema Information
-#
-# Table name: providers
-#
-#  id                     :integer          not null, primary key
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  deleted_at             :datetime
-#  type                   :string           not null
-#  registered_provider_id :integer          not null
-#  name                   :string           not null
-#  description            :text
-#  active                 :boolean
-#  cached_tag_list        :string
-#
-# Indexes
-#
-#  index_providers_on_registered_provider_id  (registered_provider_id)
-#  index_providers_on_type                    (type)
-#
-
 class ProviderSerializer < ApplicationSerializer
-  attributes :id, :registered_provider_id, :name, :description, :active, :type
-  attribute :tag_list, key: :tags
+  attributes :name, :description, :active, :credentials_message, :status_message, :connected, :provider_type_id
+  attributes :created_at, :updated_at
+  attributes :credentials_validated_at, :last_connected_at, :last_synced_at, filter: false
 
-  has_many :answers
-  has_one :registered_provider, serializer: RegisteredProviderSerializer
+  field :type_name, as: :type
+  fields :credentials, :tag_list
 
-  def type
-    object.type.split('::').last
-  end
+  has_one :provider_type
+  has_many :product_types
+  has_many :products
 end

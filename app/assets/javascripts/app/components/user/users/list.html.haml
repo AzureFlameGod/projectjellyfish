@@ -1,0 +1,33 @@
+.columns.is-multiline
+  .column.is-half(ng-repeat="item in $ctrl.users track by item.id")
+    .card.is-fullwidth
+      .card-header
+        .card-header-title
+          .level(style="flex: 1")
+            .level-left
+              %span.level-item(ng-bind="item.attributes.name")
+              .level-item(ng-switch="item.attributes.role")
+                %span.tag.is-small.is-info(ng-switch-when="manager") Manager
+                %span.tag.is-small.is-warning(ng-switch-when="admin") Administrator
+            .level-right.flex-end
+              %button.button.level-item.is-small.is-primary(type="button" ng-if="::$ctrl.onUpdate" ng-click="$ctrl.doEvent('Update', item)") Edit
+              %button.button.level-item.is-small.is-danger(type="button" ng-if="::$ctrl.onDelete" ng-click="$ctrl.doEvent('Delete', item)") Delete
+              %button.button.level-item.is-small.is-dark(type="button" ng-if="::$ctrl.onShow" ng-click="$ctrl.doEvent('Show', item)") View
+      .card-content
+        %article.media
+          %figure.media-left
+            .image.is-64x64
+              %img(ng-src="{{item.attributes.avatar_url}}")
+          .media-content
+            %div(ng-switch="item.attributes.state")
+              %span.tag.is-small.is-dark(ng-switch-when="pending") Pending
+              %span.tag.is-small.is-danger(ng-switch-when="disabled") Disabled
+        .level
+          .level-left
+            .level-item
+              %span(ng-bind-template="Last login: {{(item.attributes.last_login_at | date : 'short') || 'Never'}}")
+          .level-right.flex-end
+            %button.button.level-item.is-small.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.doEvent('Select', item)") Select
+            %button.button.level-item.is-small.is-success(type="button" ng-if="item.attributes.state == 'pending' && $ctrl.onAction" ng-click="$ctrl.doAction('approve', item)") Approve
+            %button.button.level-item.is-small.is-danger(type="button" ng-if="item.attributes.state == 'active' && $ctrl.onAction" ng-click="$ctrl.doAction('disable', item)") Disable
+            %button.button.level-item.is-small.is-success(type="button" ng-if="item.attributes.state == 'disabled' && $ctrl.onAction" ng-click="$ctrl.doAction('enable', item)") Enable

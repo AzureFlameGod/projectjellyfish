@@ -1,0 +1,17 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="products.list") Products
+      %li
+        %a(ui-sref="products.new" ng-bind="::$ctrl.provider.attributes.name")
+      %li
+        Select Type
+
+%div(ng-if="$ctrl.productTypes.length")
+  %product-types(product-types="$ctrl.productTypes" on-select="$ctrl.onSelect($event)")
+  %hr
+  %pagination(pagination="$ctrl.productTypes.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.productTypes.length == 0")
+  .message-body There are no product types.

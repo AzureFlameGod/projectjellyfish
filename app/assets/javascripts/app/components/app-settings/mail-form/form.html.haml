@@ -1,0 +1,52 @@
+%form(name="form" novalidate)
+  %div.label.has-text-right
+    %span.is-required
+    %small field is required
+  .columns
+    .column
+      .control
+        %label.label
+          %span.is-required Host
+          %server-messages.is-error.pull-right(path="mail_host")
+            %server-message(message="format") Expecting a server or host address
+        %input.input(type="text" name="host" ng-model="$ctrl.model.mail_host" required)
+      .control
+        %label.label
+          %span.is-required Port
+          %server-messages.is-error.pull-right(path="mail_port")
+            %server-message(message="filled") A port is required
+        %input.input(type="text" name="port" ng-model="$ctrl.model.mail_port" required)
+      .control
+        %label.label
+          %span.is-required Username
+          %server-messages.is-error.pull-right(path="mail_username")
+            %server-message(message="filled") A username is required
+        %input.input(type="text" name="username" ng-model="$ctrl.model.mail_username")
+      .control
+        %label.label
+          %span Change Password?
+        %input.toggle(type="checkbox" id="changePassword" ng-model="$ctrl.changePassword" ng-change="!$ctrl.changePassword && delete($ctrl.model['mail_password'])")
+        %label.label(for="changePassword")
+      .control(ng-if="$ctrl.changePassword")
+        %label.label
+          %span.is-required Password
+          %server-messages.is-error.pull-right(path="mail_password")
+            %server-message(message="filled") A password is required
+        %input.input(type="password" name="password" ng-model="$ctrl.model.mail_password")
+      .control(ng-if="$ctrl.changePassword")
+        %label.label
+          %span.is-required Confirm Password
+          %span.is-error.pull-right(ng-messages="form.passwordConfirm.$error")
+            %span(ng-message="match") Passwords do not match
+        %input.input(type="password" name="passwordConfirm" ng-model="passwordConfirm" match="$ctrl.model.mail_password")
+      .control
+        %label.label
+          %span.is-required Sender Address
+          %server-messages.is-error.pull-right(path="mail_sender")
+            %server-message(message="filled") An email address for the sender is required
+        %input.input(type="text" name="sender" ng-model="$ctrl.model.mail_sender" required)
+
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onSubmit" ng-disabled="form.$invalid" ng-click="$ctrl.doSubmit();") Save
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel();") Cancel

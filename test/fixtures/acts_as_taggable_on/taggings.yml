@@ -1,0 +1,37 @@
+---
+cloud_forms_automation_private:
+  taggable: cloud_forms_automation (Product)
+  context: tags
+  tag: private
+cloud_forms_automation_cloudforms:
+  taggable: cloud_forms_automation (Product)
+  context: tags
+  tag: cloudforms
+cloud_forms_automation_automation:
+  taggable: cloud_forms_automation (Product)
+  context: tags
+  tag: automation
+cloud_forms_automation_script:
+  taggable: cloud_forms_automation (Product)
+  context: tags
+  tag: script
+aaa_private:
+  taggable: aaa (Product)
+  context: tags
+  tag: private
+aaa_cloudforms:
+  taggable: aaa (Product)
+  context: tags
+  tag: cloudforms
+aaa_automation:
+  taggable: aaa (Product)
+  context: tags
+  tag: automation
+aaa_script:
+  taggable: aaa (Product)
+  context: tags
+  tag: script
+aaa_aaa:
+  taggable: aaa (Product)
+  context: tags
+  tag: aaa

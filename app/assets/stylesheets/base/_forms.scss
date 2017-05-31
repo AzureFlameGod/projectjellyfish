@@ -1,0 +1,103 @@
+.label {
+  .is-required::after {
+    content: "\0f069";
+    font-family: FontAwesome;
+    font-size: $xs-font-size;
+    color: $red;
+    margin-left: $xxs-spacing;
+    vertical-align: middle;
+  }
+}
+
+//form {
+//  display: flex;
+//  flex-direction: column;
+//}
+//
+//.form--horizontal {
+//  display: flex;
+//  flex-direction: row;
+//}
+//
+//input, textarea, select {
+//  background-color: $white;
+//  border-radius: $base-border-radius;
+//  font-size: $base-font-size;
+//  font-weight: 400;
+//  line-height: $base-line-height;
+//  padding: $xs-spacing $small-spacing;
+//  border: $base-border;
+//  width: 100%;
+//
+//  &:focus {
+//    border-color: $light-border-color;
+//    background-color: $white;
+//    outline: none;
+//  }
+//}
+//
+//.form__field {
+//  margin-bottom: $xs-spacing;
+//  padding-right: $base-spacing;
+//
+//  label {
+//    display: flex;
+//    color: $medium-gray;
+//    font-size: $small-font-size;
+//    font-weight: 500;
+//    justify-content: space-between;
+//    margin-bottom: $xxs-spacing/2;
+//    padding: $xxs-spacing/2 $small-spacing;
+//    text-transform: uppercase;
+//
+//    span {
+//      display: flex;
+//      align-items: center;
+//    }
+//  }
+//
+//  input, textarea, select {
+//    width: 100%;
+//  }
+//
+//  input[type="checkbox"] {
+//    width: inherit;
+//  }
+//
+//  textarea {
+//    max-width: 100%;
+//    resize: vertical;
+//    padding: floor($xxs-spacing/1.05) $small-spacing;
+//    min-height: $base-spacing + $xxs-spacing/1.05 * 2 + $base-border-width * 2;
+//    max-height: $base-spacing * 6 + $xxs-spacing/1.05 * 2 + $base-border-width * 2;
+//    margin-bottom: -4px;
+//  }
+//}
+//
+//.form__error {
+//  float: right;
+//  color: $dark-red;
+//}
+//
+//.form__box {
+//  flex: 1 1 0;
+//  //max-width: $base-max-width;
+//}
+//
+//.form__buttons {
+//  margin-top: $xs-spacing;
+//  font-size: 0;
+//}
+//
+//.form__label--required:after {
+//  content: "\0f069";
+//  font-family: FontAwesome;
+//  font-size: $xs-font-size;
+//  color: $red;
+//  margin-left: $xxs-spacing;
+//  vertical-align: middle;
+//}
+//
+//.form__label--error {
+//  color: $red;
+//}

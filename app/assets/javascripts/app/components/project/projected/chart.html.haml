@@ -1,0 +1,9 @@
+.card
+  .card-header
+    %p.card-header-title
+      Projected Spending
+      .select
+        %select(ng-model="$ctrl.months" ng-change="$ctrl.regenerate()" ng-options="option[0] as option[1] for option in ::$ctrl.options")
+  .card-content
+    .content
+      %canvas.chart.chart-line.chart-xs(chart-data="$ctrl.data" chart-series="::$ctrl.series" chart-labels="$ctrl.labels" chart-options="{animation: false}"  height="50" width="100")

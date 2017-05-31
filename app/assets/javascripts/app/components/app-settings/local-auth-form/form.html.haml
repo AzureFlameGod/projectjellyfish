@@ -1,0 +1,21 @@
+%form(name="form" novalidate)
+  -#%div.label.has-text-right
+  -#  %span.is-required
+  -#  %small field is required
+  .columns
+    .column
+      .control
+        %label.label
+          %span Enable Local Sign-in
+        %input.toggle(type="checkbox" id="localSignin" ng-model="$ctrl.model.enable_signin")
+        %label.label(for="localSignin")
+      .control
+        %label.label
+          %span Enable Sign ups
+        %input.toggle(type="checkbox" id="enableSignups" ng-model="$ctrl.model.enable_signup")
+        %label.label(for="enableSignups")
+
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onSubmit" ng-disabled="form.$invalid" ng-click="$ctrl.doSubmit();") Save
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel();") Cancel

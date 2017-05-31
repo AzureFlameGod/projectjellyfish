@@ -1,14 +1,17 @@
-class ApplicationSerializer < ActiveModel::Serializer
-  def include_associations!
-    return unless @options[:include].present?
+class ApplicationSerializer < Goby::Serializer
+  def credentials
+    object.credentials.reject { |k, _v| k[/\Aencrypted_/] }
+  end
 
-    inclusions = @options.delete(:include)
+  def settings
+    object.settings.reject { |k, _v| k[/\Aencrypted_/] }
+  end
 
-    inclusions.each_pair do |association, includes|
-      include! association, include: includes
-    end
+  def details
+    object.details.reject { |k, _v| k[/\Aencrypted_/] }
+  end
 
-    # Put the includes back; Important if an array is being returned with includes
-    @options[:include] = inclusions
+  def tag_list
+    object.cached_tag_list.split /,\s?/
   end
 end

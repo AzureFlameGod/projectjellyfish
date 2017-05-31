@@ -1,0 +1,46 @@
+---
+pending:
+  type: CloudForms::Automation::ServiceRequest
+  user: admin
+  product: cloud_forms_automation
+  project: delta
+  state: pending
+configured:
+  type: CloudForms::Automation::ServiceRequest
+  user: admin
+  product: cloud_forms_automation
+  project: delta
+  state: configured
+  service_name: some name
+  service_order: pending
+configured2:
+  type: CloudForms::Automation::ServiceRequest
+  user: admin
+  product: cloud_forms_automation
+  project: delta
+  state: configured
+  service_name: another name
+  service_order: pending
+user_owned:
+  type: CloudForms::Automation::ServiceRequest
+  user: user
+  product: cloud_forms_automation
+  project: delta
+  state: configured
+  service_name: to test ownership
+  service_order: pending
+approved:
+  type: CloudForms::Automation::ServiceRequest
+  user: user
+  product: cloud_forms_automation
+  project: delta
+  state: approved
+  service_name: to test ownership
+ordered:
+  type: CloudForms::Automation::ServiceRequest
+  user: user
+  product: cloud_forms_automation
+  project: delta
+  state: ordered
+  service_name: an ordered service
+  service_order: done

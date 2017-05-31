@@ -1,0 +1,16 @@
+.level
+  .level-left
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="projects.list") Projects
+      %li
+        %a(ui-sref="projects.requests") Requests
+      %li
+        View
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+
+.card.is-fullwidth
+  %project-request-details(project-request="$ctrl.projectRequest")

@@ -1,0 +1,7 @@
+---
+pending:
+  user: user
+  status: pending
+done:
+  user: another_user
+  status: complete

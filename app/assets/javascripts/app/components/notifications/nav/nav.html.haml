@@ -1,0 +1,23 @@
+.notifications-nav
+  %a
+    %div
+      %i.fa.fa-fw.fa-2x.fa-bell
+    %span.badge.tag.is-danger(ng-if="$ctrl.notifications.length > 0" ng-bind="$ctrl.notifications.length")
+  .notifications-nav__container
+    %div.is-flex.flex-end
+      %button.button.is-small.is-light(ng-click="$ctrl.clear()") Clear
+    .notifications-nav__outer-wrapper
+      %p.content(ng-if="$ctrl.notifications.length == 0") Nothing to report.
+      .notifications-nav__inner-wrapper(ng-if="$ctrl.notifications.length > 0")
+        .notifications-nav__item(ng-repeat="notification in $ctrl.notifications track by $index" ng-class="$ctrl.classes[notification.type]")
+          .notifications-nav__icon
+            %i.fa.fa-fw(ng-class="$ctrl.icons[notification.type]")
+          %div
+            %div.is-flex
+              %small
+                %strong(ng-bind="notification.title")
+                %span.flex-end(am-time-ago="notification.when")
+            %a(ng-if="notification.link.state != ''" ui-state="notification.link.state" ui-state-params="notification.link.params")
+              %small(ng-bind="notification.message")
+            %small(ng-if="notification.link.state == ''" ng-bind="notification.message")
+

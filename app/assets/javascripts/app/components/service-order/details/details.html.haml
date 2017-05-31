@@ -1,0 +1,18 @@
+%table.table
+  %tbody
+    %tr
+      %th ID
+      %td(ng-bind="::$ctrl.serviceOrder.id")
+    %tr
+      %th Status
+      %td
+        %span.stamp(ng-class="['stamp--'+$ctrl.serviceOrder.attributes.status]" ng-bind="$ctrl.serviceOrder.attributes.status")
+    %tr
+      %th Submitted
+      %td(ng-bind="::$ctrl.serviceOrder.attributes.created_at | date : 'medium'")
+    %tr
+      %th Setup Total
+      %td(ng-bind-template="${{::$ctrl.serviceOrder.attributes.setup_total}}")
+    %tr
+      %th Monthly Total
+      %td(ng-bind-template="${{::$ctrl.serviceOrder.attributes.monthly_total}}")

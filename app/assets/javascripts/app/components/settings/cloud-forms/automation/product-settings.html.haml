@@ -1,0 +1,13 @@
+%div(ng-form name="settings" ng-model-options="{debounce: 250}")
+  .control
+    %label.label
+      %span.is-required Namespace
+    %input.input(type="text" name="miqNamespace" ng-model="$ctrl.model.miq_namespace" required ng-change="$ctrl.doChange()")
+  .control
+    %label.label
+      %span.is-required Class
+    %input.input(type="text" name="miqClass" ng-model="$ctrl.model.miq_class" required ng-change="$ctrl.doChange()")
+  .control
+    %label.label
+      %span.is-required Instance
+    %input.input(type="text" name="miqInstance" ng-model="$ctrl.model.miq_instance" required ng-change="$ctrl.doChange()")

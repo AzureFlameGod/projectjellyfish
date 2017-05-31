@@ -1,0 +1,6 @@
+%span(title="One Time Setup Cost")
+  %i.fa.fa-fw.fa-wrench
+  %strong(ng-bind="::$ctrl.object.attributes.setup_price | currency")
+%span(title="Monthly Cost")
+  %i.fa.fa-fw.fa-calendar
+  %strong(ng-bind="::$ctrl.object.attributes.monthly_cost | currency")

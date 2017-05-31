@@ -1,0 +1,18 @@
+.modal.is-active
+  .modal-background
+  .modal-card
+    %header.modal-card-head
+      %p.modal-card-title Service Approval
+      %button.delete(ng-click="$ctrl.onCancel()")
+    %section.modal-card-body
+      %service-request-details(service-request="$ctrl.serviceRequest")
+      %hr
+      %form.columns(name="form" novalidate)
+        .column
+          .control
+            %label.label Message
+            %textarea.textarea(name="description" placeholder="Optional: Reason for approval or denying the request." rows="3" ng-model="$ctrl.model.reason_message")
+    %footer.modal-card-foot
+      %button.button.is-success(type="button" ng-if="::$ctrl.onApprove" ng-disabled="form.$invalid" ng-click="$ctrl.doApprove()") Approve
+      %button.button.is-danger(type="button" ng-if="::$ctrl.onDeny" ng-disabled="form.$invalid" ng-click="$ctrl.doDeny()") Deny
+      %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel();") Cancel

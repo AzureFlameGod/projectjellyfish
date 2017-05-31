@@ -1,0 +1,18 @@
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-dark(ui-sref="marketplace.list({projectId: $ctrl.project.id})") Marketplace
+
+%div(ng-if="$ctrl.serviceDetails.length")
+  %service-details(service-details="$ctrl.serviceDetails" on-show="$ctrl.onShow($event)")
+  %div(ng-if="$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.serviceDetails.length == 0")
+  .message-body
+    %p
+      There are no services,
+      %a(ui-sref="marketplace.list({projectId: $ctrl.project.id})") visit the Marketplace
+      to select some to add.

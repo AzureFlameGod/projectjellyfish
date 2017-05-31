@@ -1,0 +1,26 @@
+.card.is-fullwidth
+  %table.table
+    %thead.has-no-hover
+      %tr
+        %th
+        %th Product
+        %th Project
+        %th Costs
+        %th Actions
+    %tbody
+      %tr(ng-repeat="item in $ctrl.items track by item.id")
+        -#%td.has-text-middle
+        -#  %indeterminate-checkbox(is-checked="-1 != $ctrl.selectedItems.indexOf(item)" on-click="$ctrl.selectItem(item)")
+        %td.is-icon
+          .image.is-32x32
+            %img(ng-src="images/{{::item.attributes.product().attributes.type}}.png")
+        %td.has-text-middle
+          %span(ng-bind="::item.attributes.product().attributes.name")
+        %td.has-text-middle
+          %span(ng-bind="::item.attributes.project().attributes.name")
+        %td.has-text-middle
+          %price-info.level-item(object="::item.attributes.product()")
+        %td.has-text-middle.is-icon
+          %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onConfigure && !item.attributes.configured" ng-click="$ctrl.doConfigure(item)") Configure
+          %button.button.is-small(type="button" ng-if="::$ctrl.onConfigure && item.attributes.configured" ng-click="$ctrl.doConfigure(item)") Reconfigure
+          %button.button.is-small.is-danger(type="button" ng-if="::$ctrl.onRemove" ng-click="$ctrl.doRemove(item)") Remove

@@ -1,0 +1,18 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="providers.list") Providers
+      %li
+        Select Provider Type
+
+%div(ng-if="$ctrl.providerTypes.length")
+  %provider-types(provider-types="$ctrl.providerTypes" on-select="$ctrl.onSelect($event)")
+  %hr
+  %pagination(pagination="$ctrl.providerTypes.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-danger(ng-if="$ctrl.providerTypes.length == 0")
+  .message-body
+    %i.fa.fa-fw.fa-warning.fa-2x.is-danger
+    %strong Project Jellyfish has not been installed correctly.
+    %p There are no provider types.

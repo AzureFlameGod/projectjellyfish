@@ -1,0 +1,17 @@
+%h1.title.is-4 My Projects
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-success(ui-sref="projects.request") New Project Request
+
+%div(ng-if="$ctrl.projects.length")
+  .card.is-fullwidth
+    %projects(projects="$ctrl.projects" on-select="$ctrl.onSelect($event)" on-sort="$ctrl.sort($event)")
+  %div(ng-if="$ctrl.projects.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.projects.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.projects.length == 0")
+  .message-body There are no projects.

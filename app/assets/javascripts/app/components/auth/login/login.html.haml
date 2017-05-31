@@ -1,0 +1,16 @@
+.layout.columns.is-gapless
+  .layout__hero.column.columns
+    .column.is-half.is-offset-one-quarter
+      .box
+        %h1.title.is-3 Sign In
+        %remote-login(ng-if="::$ctrl.login.remote")
+        .columns(ng-if="::$ctrl.login.remote && ($ctrl.login.local)")
+          .column.has-text-centered
+            %hr.divider
+            OR
+            %hr.divider
+        %auth-form(ng-if="::$ctrl.login.local" user="$ctrl.user" message="{{ $ctrl.error }}" button="Sign In" on-submit="$ctrl.signInUser($event)")
+      .is-small
+        %a(ui-sref="auth.forgot-password") Forgot your password?
+  %app-footer.layout__footer.column.is-narrow
+

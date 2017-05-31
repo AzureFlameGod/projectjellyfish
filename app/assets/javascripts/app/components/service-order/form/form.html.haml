@@ -1,0 +1,8 @@
+%form(name="form" novalidate)
+  .form--horizontal
+    .form__box
+      .form__field
+        %label Optional Message
+        %textarea(name="message" ng-model="$ctrl.model.request_message" rows="3")
+  .form__buttons
+    %button.button(type="button" ng-if="$ctrl.onCreate" ng-disabled="form.$invalid" ng-click="$ctrl.doCreate();") Order Services

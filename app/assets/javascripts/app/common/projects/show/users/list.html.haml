@@ -1,0 +1,26 @@
+%h1.title.is-4 Members
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+
+.columns
+  .column
+    .control.is-horizontal
+      .control-label
+        Add new members
+      %autocomplete.control.is-expanded(items="$ctrl.users" is-loading="$ctrl.findingUsers" on-change="$ctrl.findUsers($event)" on-select="$ctrl.selectUser($event)")
+
+%div(ng-if="$ctrl.members.length")
+  %members(members="$ctrl.members" max-role="$ctrl.member.attributes.role" on-save="$ctrl.onSave($event)" on-delete="$ctrl.onDelete($event)")
+  %div(ng-if="$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+
+.message.is-info(ng-if="$ctrl.members.length == 0")
+  .message-body
+    %p
+      There are no users set up on this project.
+
+-#%pre(ng-bind="$ctrl.members | json")

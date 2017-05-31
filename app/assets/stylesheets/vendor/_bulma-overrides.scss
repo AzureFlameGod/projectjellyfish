@@ -1,0 +1,20 @@
+hr {
+  margin: 10px 0;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.tabs.has-no-border {
+  ul,
+  a {
+    border: none;
+  }
+}
+
+.table.has-no-hover, .table .has-no-hover {
+  tr:hover {
+    background: inherit;
+  }
+}

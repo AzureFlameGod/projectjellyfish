@@ -1,0 +1,17 @@
+---
+fisma:
+  label: FISMA level?
+  required: true
+  answers:
+    - label: Not Required
+      require: [None]
+      exclude: [None]
+    - label: High
+      require: [fisma-high, private]
+      exclude: [fisma-medium, fisma-low, cloud, public]
+    - label: Medium
+      require: [fisma-high, fisma-medium, private]
+      exclude: [fisma-low, public]
+    - label: Low
+      require: [fisma-high, fisma-medium, fisma-low]
+      exclude: [public]

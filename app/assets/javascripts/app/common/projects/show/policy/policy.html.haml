@@ -1,0 +1,32 @@
+%h1.title.is-4 Product Policy
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %button.button.is-success(ng-click="$ctrl.buildPolicy()" ng-disabled="$ctrl.reloading || $ctrl.newPolicy") New Policy
+
+%div(ng-if="$ctrl.policies.length")
+  %policies(policies="$ctrl.policies"  on-save="$ctrl.onSave($event)" on-delete="$ctrl.onDelete($event)")
+  %div(ng-if="$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.policies.length == 0")
+  .message-body
+    %p
+      There are no policies set yet.
+
+.message.is-info
+  .message-header Policies
+  .message-body
+    .content
+      %p Policies control what products may be added to the project.
+      %p
+        %strong Exclude ALL
+        policies force that the product not have any of the tags listed. Only a single `exclude` policy will be needed.
+      %p
+        %strong Require ANY
+        policies check for at least one matching tag. Each `required` list can check for a different set of required tags. Don't combine all required tags into a single list if you require more than one to be matched.
+
+%policy-modal(ng-if="$ctrl.newPolicy" policy="$ctrl.newPolicy" on-save="$ctrl.onCreate($event)" on-cancel="$ctrl.onCancel()")

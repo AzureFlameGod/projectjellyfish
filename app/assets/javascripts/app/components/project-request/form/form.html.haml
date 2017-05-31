@@ -1,0 +1,26 @@
+%form(name="form" novalidate)
+  .columns
+    .column.is-half
+      %div.label.has-text-right
+        %span.is-required
+        %small field is required
+      .control
+        %label.label
+          %span.is-required Name
+        %input.input(type="text" name="name" ng-model="$ctrl.model.name" required)
+      .control
+        %label.label
+          %span.is-required Budget
+          %span.is-error.pull-right(ng-messages="form.budget.$error")
+            %span(ng-message="pattern") Must be a monetary value
+        %input.input(type="text" name="budget" ng-model="$ctrl.model.budget" required ng-pattern="$ctrl.budgetRegEx")
+      .control
+        %label.label
+          %span.is-required Request Message
+        %textarea.textarea(name="request_message" rows="3" ng-model="$ctrl.model.request_message" required)
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onCreate" ng-disabled="form.$invalid" ng-click="$ctrl.doCreate();") Create Request
+    %button.button.is-primary(type="button" ng-if="$ctrl.onUpdate" ng-disabled="form.$invalid" ng-click="$ctrl.doUpdate();") Save Changes
+    %button.button.is-danger(type="button" ng-if="$ctrl.onDelete" ng-click="$ctrl.doDelete();") Delete Request
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel()") Cancel

@@ -1,0 +1,14 @@
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-success(ui-sref="products.new") New Product
+
+%div(ng-if="$ctrl.products.length")
+  %products(products="$ctrl.products" on-show="$ctrl.onShow($event)" on-update="$ctrl.onUpdate($event)")
+  %div(ng-if="$ctrl.products.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.products.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.products.length == 0")
+  .message-body There are no products.

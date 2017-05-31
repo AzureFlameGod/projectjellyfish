@@ -1,55 +1,22 @@
 class ProjectPolicy < ApplicationPolicy
-  def index?
+  def search?
     true
   end
 
   def show?
-    can?('read')
-  end
-
-  def new?
-    user.admin? || user.groups.any?
-  end
-
-  def destroy?
-    can?('write')
-  end
-
-  def create?
-    user.admin? || user.groups.any?
+    is_manager? || Membership.where(user_id: context.id, project_id: record.id).exists?
   end
 
   def update?
-    can?('write')
-  end
-
-  # TODO: These should be their own policy/controller
-  def approvals?
-    true
-  end
-
-  def approve?
-    user.admin?
-  end
-
-  def reject?
-    user.admin?
-  end
-
-  private
-
-  def can?(action)
-    return true if user.admin?
-    object = record || Project
-    Permissions.new(user: user, object: object).allow?(action)
+    is_manager? || Membership.where(user_id: context.id, project_id: record.id).exists?
   end
 
   class Scope < Scope
     def resolve
-      if user.admin?
+      if context.manager? || context.admin?
         scope
       else
-        user.projects
+        scope.joins(:memberships).references(:memberships).where(memberships: { user_id: context.id })
       end
     end
   end

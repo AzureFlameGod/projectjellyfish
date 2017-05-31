@@ -1,0 +1,31 @@
+#toast-container .toast {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: $xs-spacing $xs-spacing $xs-spacing 50px;
+  width: 350px;
+  border-radius: $base-border-radius;
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  -moz-box-shadow: 0 0 12px #999999;
+  -webkit-box-shadow: 0 0 12px #999999;
+  box-shadow: 0 0 12px #999999;
+  color: #FFFFFF;
+  opacity: 0.9;
+}
+
+.toast {
+  background-color: $black;
+}
+.toast-success {
+  background-color: $success-color;
+}
+.toast-error {
+  background-color: $error-color;
+}
+.toast-info {
+  background-color: $info-color;
+}
+.toast-warning {
+  background-color: $warning-color;
+}

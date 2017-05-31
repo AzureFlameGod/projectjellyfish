@@ -1,0 +1,23 @@
+.card
+  .card-header
+    .card-header-title(ng-bind="$ctrl.project.attributes.name")
+  .card-content
+    %table.table.is-borderless
+      %tbody.has-righted-headers
+        %tr
+          %th ID
+          %td(ng-bind="::$ctrl.project.id")
+        %tr
+          %th Description
+          %td
+            %p(ng-bind="$ctrl.project.attributes.description")
+        %tr
+          %th Spending updates
+          %td
+            %ul
+              %li
+                Hourly costs updated
+                %span(am-time-ago="$ctrl.project.attributes.last_hourly_compute_at")
+              %li
+                Monthly costs updated
+                %span(am-time-ago="$ctrl.project.attributes.last_monthly_compute_at")

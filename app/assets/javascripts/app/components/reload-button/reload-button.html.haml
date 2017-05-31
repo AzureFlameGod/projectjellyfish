@@ -1,0 +1,5 @@
+%button.button.is-primary(type="button" ng-disabled="$ctrl.reloading" ng-click="$ctrl.reload()")
+  .is-flex
+    %span.icon
+      %i.fa.fa-fw.fa-refresh(ng-class="{'fa-spin': $ctrl.reloading}")
+    %span Reload

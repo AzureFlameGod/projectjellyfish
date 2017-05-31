@@ -1,0 +1,33 @@
+.card.is-fullwidth
+  %table.table
+    %tbody
+      %tr
+        %th ID
+        %td(ng-bind="::$ctrl.serviceRequest.id")
+      %tr
+        %th Status
+        %td
+          %span.stamp(ng-class="::['stamp--'+$ctrl.serviceRequest.attributes.status]" ng-bind="::$ctrl.serviceRequest.attributes.status")
+      %tr
+        %th Product
+        %td
+          %a(ui-sref="products.show({id: $ctrl.serviceRequest.attributes.product_id})" ng-bind="::$ctrl.serviceRequest.attributes.product_id")
+      %tr(ng-if="::$ctrl.serviceRequest.attributes.project_id")
+        %th Project
+        %td
+          %a(ui-sref="projects.show({id: $ctrl.serviceRequest.attributes.project_id})" ng-bind="::$ctrl.serviceRequest.attributes.project_id")
+      %tr
+        %th Requested
+        %td(ng-bind-template="{{::$ctrl.serviceRequest.attributes.created_at | date : 'medium'}}")
+      %tr
+        %th Requester
+        %td(ng-bind="::$ctrl.serviceRequest.attributes.user().attributes.name")
+      %tr(ng-if="::$ctrl.serviceRequest.attributes.status != 'pending'")
+        %th Processed
+        %td(ng-bind-template="{{::$ctrl.serviceRequest.attributes.processed_at | date : 'medium'}}")
+      %tr(ng-if="::$ctrl.serviceRequest.attributes.status != 'pending'")
+        %th Processor
+        %td(ng-bind="::$ctrl.serviceRequest.attributes.processor().attributes.name")
+      %tr(ng-if="::$ctrl.serviceRequest.attributes.status != 'pending'")
+        %th Processed Message
+        %td(ng-bind="::$ctrl.serviceRequest.attributes.processed_message")

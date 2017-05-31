@@ -20,4 +20,31 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  user_mailer:
+    registration:
+      subject: 'Successful registration at Project Jellyfish!'
+    approval:
+      subject: 'Welcome to Project Jellyfish!'
+    welcome:
+      subject: 'Welcome to Project Jellyfish!'
+  test_mailer:
+    test_email:
+      subject: 'This is a test email from Project Jellyfish'
+  project_request_mailer:
+    needs_approval:
+      subject: 'New project request for approval'
+    approved:
+      subject: 'Your project %{name} has been approved'
+    denied:
+      subject: 'Your project request %{name} has been denied'
+  service_request_mailer:
+    approval:
+      subject: 'Your service request for %{service_name} was approved'
+    denial:
+      subject: 'Your service request for %{service_name} was denied'
+  provider_mailer:
+    disconnected:
+      subject: 'The %{provider_type} Provider %{name} is not reachable'
+  service_mailer:
+    error_alert:
+      subject: 'The service %{name} is in an error state'

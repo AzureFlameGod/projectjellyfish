@@ -1,0 +1,12 @@
+---
+cloud_forms:
+  type: CloudForms::Provider
+  name: CloudForms Instance 1
+  description: Test CloudForm Instance
+  credentials:
+    host: http://localhost:3002
+    username: admin
+    encrypted_password: <%= ApplicationRecord::encrypt('password') %>
+  cached_tag_list: cloud_forms, instance
+  provider_type: cloud_forms
+  active: true

@@ -1,0 +1,11 @@
+(function () {
+  'use strict';
+
+  var constants = {
+    version: '<%= Rails.application.secrets.version %>'
+  };
+
+  angular.module('common')
+    .constant('AppSettings', angular.copy(window.APP_SETTINGS))
+    .constant('Config', constants)
+})();

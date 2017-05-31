@@ -1,0 +1,38 @@
+.card.is-fullwidth
+  %table.table
+    %tbody
+      %tr
+        %th ID
+        %td(ng-bind="::$ctrl.projectRequest.id")
+      %tr
+        %th Name
+        %td(ng-bind="::$ctrl.projectRequest.attributes.name")
+      %tr
+        %th Budget
+        %td(ng-bind-template="{{::$ctrl.projectRequest.attributes.budget | currency}}")
+      %tr
+        %th Status
+        %td
+          %span.stamp(ng-class="::['stamp--'+$ctrl.projectRequest.attributes.status]" ng-bind="::$ctrl.projectRequest.attributes.status")
+      %tr
+        %th Requested
+        %td(ng-bind-template="{{::$ctrl.projectRequest.attributes.created_at | date : 'medium'}}")
+      %tr
+        %th Requester
+        %td(ng-bind="::$ctrl.projectRequest.attributes.user().attributes.name")
+      %tr
+        %th Request Message
+        %td(ng-bind="::$ctrl.projectRequest.attributes.request_message")
+      %tr(ng-if="::$ctrl.projectRequest.attributes.status != 'pending'")
+        %th Processed
+        %td(ng-bind-template="{{::$ctrl.projectRequest.attributes.processed_at | date : 'medium'}}")
+      %tr(ng-if="::$ctrl.projectRequest.attributes.status != 'pending'")
+        %th Processor
+        %td(ng-bind="::$ctrl.projectRequest.attributes.processor().attributes.name")
+      %tr(ng-if="::$ctrl.projectRequest.attributes.status != 'pending'")
+        %th Processed Message
+        %td(ng-bind="::$ctrl.projectRequest.attributes.processed_message")
+      %tr(ng-if="::$ctrl.projectRequest.attributes.status != 'pending'")
+        %th Project
+        %td
+          %a(ui-sref="projects.show({id: $ctrl.projectRequest.attributes.project_id})" ng-bind="::$ctrl.projectRequest.attributes.project_id")

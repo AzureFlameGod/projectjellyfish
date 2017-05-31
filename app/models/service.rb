@@ -1,80 +1,94 @@
-# == Schema Information
-#
-# Table name: services
-#
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  type       :string           not null
-#  uuid       :string           not null
-#  name       :string           not null
-#  health     :integer          default(0), not null
-#  status     :integer
-#  status_msg :string
-#
-# Indexes
-#
-#  index_services_on_type  (type)
-#  index_services_on_uuid  (uuid)
-#
-
-class Service < ActiveRecord::Base
-  include Answers
-
-  has_many :alerts, as: :alertable
-  has_many :latest_alerts, -> { latest }, class_name: 'Alert', as: :alertable
-  has_many :service_outputs
-  has_many :logs, as: :loggable, dependent: :destroy
-
-  belongs_to :order
-  has_one :project, through: :order
+class Service < ApplicationRecord
+  belongs_to :user
+  belongs_to :provider
   belongs_to :product
-  has_one :product_type, through: :product
-  has_one :provider, through: :product
+  belongs_to :project
+  belongs_to :service_request
+  belongs_to :service_order
 
-  enum health: { ok: 0, warning: 1, critical: 2 }
-  enum status: {
-    unknown: 0,
-    pending: 1,
-    provisioning: 2,
-    starting: 3,
-    running: 4,
-    available: 5,
-    stopping: 6,
-    stopped: 7,
-    unavailable: 8,
-    retired: 9,
-    terminated: 10
-  }
+  state_machine :state, initial: :pending do
+    event :provision do
+      transition pending: :provisioning
+    end
 
-  accepts_nested_attributes_for :answers
+    event :done do
+      # Required: Define service transitions in your service to standardize the completion of any work.
+    end
 
-  before_create :ensure_uuid
+    event :errored do
+      transition all - :error => :error
+    end
+    after_transition to: :error, do: :alert_email
 
-  def self.policy_class
-    ServicePolicy
+    after_transition do |service, transition|
+      service.monitor_frequency = service.monitor_frequency_for(transition.to)
+      service.billable = service.billable_for(transition.to)
+      service.last_changed_at = DateTime.current
+      # Caching the actions makes them available to ServiceDetails results
+      service.actions = (service.state_events - service.ignored_actions).join ','
+    end
+
+    after_transition to: :provisioning, do: :start_provisioning
+
+    state :provisioned
+    state :error
   end
 
-  def operations
-    []
+  # Optional: Implement and call `+ super` in each service to exclude actions from being serialized
+  def ignored_actions
+    %i(errored done)
   end
 
-  def start_operation(operation)
-    message = operation.to_sym
-    send(message) if respond_to? message
+  # Optional: Implement in each service to define default details
+  def self.default_details
+    {}
   end
 
-  def actions
-    ActiveSupport::Deprecation.warn 'Service.actions will be removed in a future update, use Service.operations instead', caller
-    operations
+  # Optional: Implement in each service to process settings as desired
+  def self.combine_settings(product_settings, user_settings)
+    {
+      product: product_settings,
+      user: user_settings
+    }
   end
 
-  def provision
+  # Optional: Implement in each service to process the service provisioning
+  def start_provisioning
+    done!
   end
 
-  private
+  # Optional: Implement in each service to keep monitor_frequency at optimal rates
+  def monitor_frequency_for(_state)
+    0
+  end
 
-  def ensure_uuid
-    self[:uuid] = SecureRandom.uuid if self[:uuid].nil?
+  # Optional: Implement in each service to keep billable updated
+  def billable_for(_state)
+    false
+  end
+
+  # Optional: Implement in each service to check the status of
+  def check_status
+    check_method = "check_#{state}_status".to_sym
+    __send__ check_method if respond_to? check_method
+  rescue => error
+    errored!
+    self.status_message = error.message
+  ensure
+    save if changed?
+  end
+
+  # TODO: unused?
+  def connected?
+    provider.connected? or (self.status_message = 'Actions cannot be taken while the service provider is disconnected' and false)
+  end
+
+  # All Services use the same serializer unless overridden
+  def serializer_class_name
+    'ServiceSerializer'
+  end
+
+  def alert_email
+    ServiceMailer.error_alert(self).deliver_later
   end
 end

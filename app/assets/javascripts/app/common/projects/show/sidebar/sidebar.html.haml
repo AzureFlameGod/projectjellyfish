@@ -1,0 +1,7 @@
+%aside.menu
+  %ul.menu-list
+    %li(ng-repeat="item in $ctrl.items")
+      %hr(ng-if="::item.divider")
+      %a(ng-if="::!item.divider" ui-state="item.state" ui-state-params="item.params" ui-sref-active="is-active")
+        %i.fa.fa-fw(ng-if="::item.icon" ng-class="::item.icon")
+        %span(ng-bind="::item.label")

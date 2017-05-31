@@ -1,0 +1,13 @@
+---
+manager:
+  name: Management User
+  email: manager@projectjellyfish.org
+  role: manager
+  state: active
+  password_digest: <%= BCrypt::Password.create('jellyfish', cost: 1) %>
+admin:
+  name: Administrator
+  email: admin@projectjellyfish.org
+  role: admin
+  state: active
+  password_digest: <%= BCrypt::Password.create('jellyfish', cost: 1) %>

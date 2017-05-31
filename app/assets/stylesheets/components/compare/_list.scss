@@ -1,0 +1,20 @@
+.compare-list {
+
+  .compare-list__item {
+    position: relative;
+    border: $base-border;
+    border-radius: $base-border-radius;
+    background-color: $off-white;
+
+    i:before {
+      background-color: $white;
+      border-radius: 50%;
+    }
+  }
+
+  .image ~ i {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}

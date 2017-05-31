@@ -1,0 +1,11 @@
+%nav.pagination.is-centered
+  %ul.pagination-list
+    %li
+      %button.button(type="button" ng-disabled="$ctrl.page == 1" ng-click="$ctrl.changePage($ctrl.page - 1)")
+        .is-flex Prev
+    %li(ng-repeat="page in $ctrl.pages")
+      %button.button(type="button" ng-click="$ctrl.changePage(page.page)" ng-class="{'is-primary': $ctrl.page == page.page}")
+        .is-flex(ng-bind="page.label")
+    %li
+      %button.button(type="button" ng-disabled="$ctrl.page >= $ctrl.total_pages" ng-click="$ctrl.changePage($ctrl.page + 1)")
+        .is-flex Next

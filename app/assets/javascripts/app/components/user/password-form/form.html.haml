@@ -1,0 +1,20 @@
+.columns
+  .column
+    %form(name="form" novalidate)
+      %div.label.has-text-right
+        %span.is-required
+        %small field is required
+      .control
+        %label.label
+          %span.is-required Password
+        %input.input(type="password" name="password" ng-model="$ctrl.model.password" required)
+      .control
+        %label.label
+          %span.is-required Password Confirmation
+        %input.input(type="password" name="password_confirmation" ng-model="$ctrl.model.password_confirmation" required)
+
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onCreate" ng-disabled="form.$invalid" ng-click="$ctrl.doEvent('Create');") Create Password
+    %button.button.is-primary(type="button" ng-if="$ctrl.onUpdate" ng-disabled="form.$invalid" ng-click="$ctrl.doEvent('Update');") Change Password
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel()") Cancel

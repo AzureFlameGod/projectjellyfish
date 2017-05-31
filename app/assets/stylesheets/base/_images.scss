@@ -1,0 +1,23 @@
+img {
+  &.icon {
+    $size: $base-font-size * 4;
+    border: $base-border;
+    border-radius: $base-border-radius;
+    background-color: $off-white;
+    height: $size;
+    width: $size;
+    vertical-align: middle;
+
+    &--small {
+      height: $size/2;
+      width: $size/2;
+    }
+  }
+}
+
+
+img,
+picture {
+  margin: 0;
+  max-width: 100%;
+}

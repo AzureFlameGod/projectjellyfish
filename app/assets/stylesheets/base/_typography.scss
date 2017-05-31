@@ -1,0 +1,36 @@
+.is-danger, .is-error {
+  color: $error-color;
+}
+
+.is-success {
+  color: $success-color;
+}
+
+.is-warning {
+  color: $warning-color;
+}
+
+.is-info {
+  color: $info-color;
+}
+
+.bd-danger,
+.bd-error {
+  border-color: $error-color;
+}
+
+.bd-success {
+  border-color: $success-color;
+}
+
+.bd-primary {
+  border-color: $primary-color;
+}
+
+.bd-warning {
+  border-color: $warning-color;
+}
+
+.bd-info {
+  border-color: $info-color;
+}

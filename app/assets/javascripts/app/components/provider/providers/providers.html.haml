@@ -1,0 +1,30 @@
+.columns.is-multiline
+  .column.is-half(ng-repeat="provider in $ctrl.providers track by provider.id")
+    .card.is-fullwidth
+      .card-header
+        .card-header-title
+          .level(style="flex: 1")
+            .level-left
+              %span.level-item(ng-bind="::provider.attributes.name")
+              %i.level-item.fa.fa-fw.fa-warning.is-danger(ng-if="!provider.attributes.connected" title="Provider is not connected!")
+            .level-right.flex-end
+              %button.button.level-item.is-small.is-primary(type="button" ng-if="::$ctrl.onUpdate" ng-click="$ctrl.doEvent('Update', provider)") Edit
+              %button.button.level-item.is-small.is-danger(type="button" ng-if="::$ctrl.onDelete" ng-click="$ctrl.doEvent('Delete', provider)") Delete
+              %button.button.level-item.is-small.is-dark(type="button" ng-if="::$ctrl.onShow" ng-click="$ctrl.doEvent('Show', provider)") View
+      .card-content
+        %article.media
+          %figure.media-left
+            .image.is-64x64
+              %img(ng-src="images/{{::provider.attributes.type}}.png")
+          .media-content
+            .subtitle.is-6(ng-bind="::provider.attributes.description || 'No Description'")
+            .level
+              .level-left
+                .level-item(ng-repeat="tag in ::provider.attributes.tag_list")
+                  %span.tag.is-small.is-primary(ng-bind="::tag")
+        .level
+          .level-left
+            &nbsp;
+          .level-right.flex-end
+            %button.button.level-item.is-small.is-primary(type="button" ng-if="::$ctrl.onReconnect" ng-click="$ctrl.doEvent('Reconnect', provider)") Reconnect
+            %button.button.level-item.is-small.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.doEvent('Select', provider)") Select

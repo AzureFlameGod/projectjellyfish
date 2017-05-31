@@ -1,67 +1,65 @@
-# == Schema Information
-#
-# Table name: products
-#
-#  id              :integer          not null, primary key
-#  name            :string(255)      not null
-#  description     :text
-#  active          :boolean          default(TRUE)
-#  img             :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  deleted_at      :datetime
-#  setup_price     :decimal(10, 4)   default(0.0)
-#  hourly_price    :decimal(10, 4)   default(0.0)
-#  monthly_price   :decimal(10, 4)   default(0.0)
-#  cached_tag_list :string
-#  provider_id     :integer
-#  product_type_id :integer
-#  type            :string           default("Product"), not null
-#
-# Indexes
-#
-#  index_products_on_deleted_at       (deleted_at)
-#  index_products_on_product_type_id  (product_type_id)
-#  index_products_on_provider_id      (provider_id)
-#
+class Product < ApplicationRecord
+  extend Settings
+  include PgSearch
 
-class Product < ActiveRecord::Base
-  include Answers
-
-  acts_as_paranoid
   acts_as_taggable
+  acts_as_paranoid
 
-  belongs_to :provider
   belongs_to :product_type
+  belongs_to :provider
+  has_many :service_requests
   has_many :services
 
-  accepts_nested_attributes_for :answers
+  scope :tagged_with_any, -> (tags) { tagged_with(tags, any: true) }
+  scope :not_tagged_with, -> (tags) { tagged_with(tags, exclude: true) }
+  scope :project_policy, -> (project_id) { policy(Filter.where(filterable_id: project_id, filterable_type: 'Project').pluck(:exclude, :cached_tag_list)) }
 
-  after_initialize :init
-
-  scope :active, -> { where(active: true) }
-
-  def order_questions
-    []
+  # Expect an array of [exclude::boolean, tags::text]
+  # Example [[false, 'tagged,with,any'], [true, 'not,tagged,with']]
+  scope :policy, -> (filters) do
+    filters.inject(all) do |query, filter|
+      filter[0] ? query.not_tagged_with(filter[0]) : query.tagged_with_any(filter[1])
+    end
   end
 
-  def service_class
-    'Service'.constantize
+  pg_search_scope :search, against: %i(name description cached_tag_list), using: {
+    tsearch: {
+      dictionary: 'english',
+      tsvector_column: :tsv
+    }
+  }
+
+  # # Optional: Override in each product to customize service request class name
+  def self.service_request_class
+    to_s.sub(/Product\z/, 'ServiceRequest').constantize
   end
 
-  def self.policy_class
-    ProductPolicy
+  # Optional: Override in each product to customize service class name
+  def self.service_class
+    to_s.sub(/Product\z/, 'Service').constantize
+  end
+
+  # Optional: Override in each product to define a validation schema for settings
+  def self.settings_schema(_mode = :create)
+    Dry::Validation.Schema(build: false)
+  end
+
+  # Optional: Override in each product
+  def default_settings
+    # Used to initialize the service request.
+    {}
+  end
+
+  # This is here because of a bug : https://github.com/mbleigh/acts-as-taggable-on/issues/432
+  def self.caching_tag_list_on?(_context)
+    true
   end
 
   def monthly_cost
-    monthly_price + (hourly_price * 750)
+    hourly_price * 730 + monthly_price
   end
 
-  private
-
-  def init
-    self.setup_price ||= 0.0
-    self.hourly_price ||= 0.0
-    self.monthly_price ||= 0.0
+  def serializer_class_name
+    'ProductSerializer'
   end
 end

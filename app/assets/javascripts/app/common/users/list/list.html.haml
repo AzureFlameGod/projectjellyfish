@@ -1,0 +1,28 @@
+.columns
+  .column
+    .control.is-grouped
+      .control
+        %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+      %span.control.has-icon.has-addons
+        %input.input(type="text" placeholder="name or email" ng-model="$ctrl.terms" on-enter="$ctrl.onSearch()")
+        %span.icon
+          %i.fa.fa-search
+        %button.button.is-primary(ng-disabled="$ctrl.reloading" ng-click="$ctrl.onSearch()") Search
+      .control-label
+        %label.label
+          %span Show Pending?
+      .control
+        %input.toggle(type="checkbox" id="userTypes" ng-model="$ctrl.query.filter.with_states" ng-true-value="['pending']" ng-false-value="['active','disabled']" ng-change="$ctrl.onSearch()")
+        %label.label(for="userTypes")
+
+  .column.has-text-right
+    %a.button.is-success(ui-sref="users.new") New User
+
+%div(ng-if="$ctrl.users.length")
+  %users(users="$ctrl.users" on-show="$ctrl.onShow($event)" on-update="$ctrl.onUpdate($event)" on-action="$ctrl.onAction($event)")
+  %div(ng-if="$ctrl.users.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.users.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.users.length == 0")
+  .message-body No users match

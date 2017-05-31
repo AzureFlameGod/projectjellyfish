@@ -1,84 +1,34 @@
-# == Schema Information
-#
-# Table name: product_types
-#
-#  id            :integer          not null, primary key
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  type          :string           not null
-#  name          :string           not null
-#  uuid          :string           not null
-#  active        :boolean          default(TRUE), not null
-#  provider_type :string           not null
-#
-# Indexes
-#
-#  index_product_types_on_provider_type  (provider_type)
-#  index_product_types_on_type           (type)
-#  index_product_types_on_uuid           (uuid)
-#
+class ProductType < ApplicationRecord
+  belongs_to :provider_type
 
-class ProductType < ActiveRecord::Base
-  has_many :products
-
-  validates :name, presence: true, allow_nil: false, allow_blank: false
-  validates :uuid, presence: true, allow_nil: false, allow_blank: false
-  validates :provider_type, presence: true, allow_nil: false, allow_blank: false
-
-  def self.create(opts)
-    ProductType.inheritance_column = :_type_disabled
-    product_type = ProductType.find_by uuid: opts[:uuid]
-    product_type.nil? ? super(opts) : create_existing(product_type, opts)
-    ProductType.inheritance_column = :type
+  # Optional: Override in each product type to customize product class name
+  def self.product_class
+    to_s.sub(/Type\z/, '').constantize
   end
 
-  def self.create!(opts)
-    ProductType.inheritance_column = :_type_disabled
-    product_type = ProductType.find_by uuid: opts[:uuid]
-    product_type.nil? ? super(opts) : create_existing(product_type, opts)
-    ProductType.inheritance_column = :type
-  end
-
-  def self.policy_class
-    ProductTypePolicy
-  end
-
-  def description
-    ''
-  end
-
-  def tags
+  # Optional: Override in each product type
+  # Properties are used to create a comparable list of properties;
+  # The list of strings are turned into labels that will have values manager supplied/changed values on the products
+  # example: [ {name: 'CPUs', value: '1'}, ...]
+  def properties
     []
   end
 
-  def product_questions
+  # Optional: Override in each product type
+  # settings are used to create a products initial settings
+  # Product.settings are later combined with a ServiceRequest.settings to create the Service.settings
+  def default_settings
+    # Used to initialize the product.
+    {}
+  end
+
+  # Optional: Override in each product type
+  def tag_list
     []
   end
 
-  def product_class
-    'Product'.constantize
-  end
-
-  def self.create_existing(product_type, opts)
-    columns = [:name, :provider_type]
-    to_update = Hash[opts.select { |k, _| columns.include? k }]
-    product_type.update_attributes to_update
-    product_type.update_column :type, opts[:type] if product_type.type != opts[:type]
-    product_type
-  end
-
-  def self.load_product_types
-    ProductType.table_exists?
-  rescue
-    false
-  end
-
-  def self.set(name, uuid, options)
-    keys = %i(provider_type)
-    {
-      name: name,
-      uuid: uuid,
-      provider_type: 'Provider'
-    }.merge options.keep_if { |key| keys.include? key }
+  # All product types use the same serializer
+  def serializer_class_name
+    'ProductTypeSerializer'
   end
 end

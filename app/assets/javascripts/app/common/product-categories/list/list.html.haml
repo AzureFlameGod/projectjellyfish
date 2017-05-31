@@ -1,0 +1,14 @@
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+  .column.has-text-right
+    %a.button.is-success(ui-sref="product-categories.new") New Category
+
+%div(ng-if="$ctrl.productCategories.length")
+  %product-categories(product-categories="$ctrl.productCategories" on-update="$ctrl.onUpdate($event)")
+  %div(ng-if="$ctrl.productCategories.meta().total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.productCategories.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.productCategories.length == 0")
+  .message-body There are no categories.

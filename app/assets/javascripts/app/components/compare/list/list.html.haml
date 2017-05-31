@@ -1,0 +1,11 @@
+.compare-list.level
+  .level-left
+    .compare-list__item.level-item(ng-repeat="item in $ctrl.items track by $index" title="{{item.attributes.name}}")
+      %a(ng-click="$ctrl.onRemove(item)")
+        .image.is-32x32
+          %img(ng-src="images/{{item.attributes.type}}.png")
+        %i.fa.fa-times-circle
+    .level-item
+      %a.button.is-dark(ng-disabled="$ctrl.items.length <= 1" ng-click="$ctrl.comparing = true;") Compare Items
+
+%compare-modal(ng-if="$ctrl.comparing" items="$ctrl.items" heading="Comparing Products" on-cancel="$ctrl.comparing = false;")

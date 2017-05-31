@@ -1,0 +1,13 @@
+---
+foo:
+  name: Servers
+  description: All servers or computes
+  cached_tag_list: server
+bar:
+  name: Datastores
+  description: All SQL, NoSQL, and Graph databases
+  cached_tag_list: database
+fizz:
+  name: Storage
+  description: All file and asset storage
+  cached_tag_list: storage

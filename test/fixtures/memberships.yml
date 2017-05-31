@@ -1,0 +1,5 @@
+admin_in_delta:
+  project: delta
+  user: admin
+  role: 3
+  

@@ -1,0 +1,25 @@
+.modal.is-active
+  .modal-background
+  .modal-card
+    %header.modal-card-head
+      %p.modal-card-title Policy
+      %button.delete(ng-click="$ctrl.onCancel()")
+    %section.modal-card-body
+      %form.columns(name="form" novalidate)
+        .column
+          %div.label.has-text-right
+            %span.is-required
+            %small field is required
+          .control
+            %label.label
+              %span.is-required Policy Type
+            .select
+              %select(ng-model="$ctrl.policy.attributes.exclude" required ng-options="opt.v as opt.l for opt in [{v: true, l: 'Exclude ALL'}, {v: false, l: 'Require ANY'}]")
+          .control
+            %label.label
+              %span Tags List
+            %tags-input(ng-model="$ctrl.policy.attributes.tag_list")
+    %footer.modal-card-foot
+      %button.button.is-success(type="button" ng-if="::$ctrl.onSave" ng-disabled="form.$invalid" ng-click="$ctrl.doEvent('Save')") Save
+      %button.button.is-danger(type="button" ng-if="::$ctrl.onDelete" ng-disabled="form.$invalid" ng-click="$ctrl.doEvent('Delete'") Delete
+      %button.button(type="button" ng-if="::$ctrl.onCancel" ng-click="$ctrl.onCancel();") Cancel

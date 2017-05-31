@@ -1,35 +1,21 @@
 class ProjectQuestionPolicy < ApplicationPolicy
-  def index?
+  def search?
     true
-  end
-
-  def create?
-    user.admin?
   end
 
   def show?
     true
   end
 
-  def new?
-    true
+  def create?
+    is_manager?
   end
 
   def update?
-    true
+    is_manager?
   end
 
   def destroy?
-    user.admin?
-  end
-
-  def reposition?
-    user.admin?
-  end
-
-  class Scope < Scope
-    def resolve
-      scope
-    end
+    is_manager?
   end
 end

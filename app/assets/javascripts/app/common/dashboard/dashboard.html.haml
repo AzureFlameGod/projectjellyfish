@@ -1,0 +1,10 @@
+.columns
+  .column
+    %projects-projected-widget(projects="$ctrl.projects")
+  .column
+    %projects-spent-widget(projects="$ctrl.projects")
+
+-#.dashboard(ng-switch="::$ctrl.user.attributes.role")
+-#  %user-dashboard(ng-switch-when="user")
+-#  %manager-dashboard(ng-switch-when="manager")
+-#  %admin-dashboard(ng-switch-when="admin")

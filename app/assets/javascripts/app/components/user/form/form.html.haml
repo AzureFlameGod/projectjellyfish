@@ -1,0 +1,46 @@
+.columns
+  .column
+    %form(name="form" novalidate)
+      %div.label.has-text-right
+        %span.is-required
+        %small field is required
+      .control
+        %label.label
+          %span.is-required Name
+        %input.input(type="text" name="name" ng-model="$ctrl.model.name" required)
+      .control
+        %label.label
+          %span.is-required Email
+          %span.is-error.pull-right(ng-messages="form.email.$error" role="alert")
+            %span(ng-message="email") Expecting a valid email address
+        %input.input(type="email" name="email" ng-model="$ctrl.model.email" required)
+      .control
+        %label.label
+          %span.is-required Role
+        .select
+          %select(name="role" ng-model="$ctrl.model.role" required)
+            %option(value="user") User
+            %option(value="manager") Manager
+            %option(value="admin") Administrator
+      .control(ng-if="!$ctrl.user.id")
+        %label.label
+          %span.is-required State
+        .select
+          %select(name="state" ng-model="$ctrl.model.state" required)
+            %option(value="pending") Requires further approval
+            %option(value="active") Make Active
+      .control(ng-if="!$ctrl.user.id")
+        %label.label
+          %span.is-required Password
+        %input.input(type="password" name="password" ng-model="$ctrl.model.password" required)
+      .control(ng-if="!$ctrl.user.id")
+        %label.label
+          %span.is-required Password Confirmation
+        %input.input(type="password" name="password_confirmation" ng-model="$ctrl.model.password_confirmation" required)
+
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onCreate" ng-disabled="form.$invalid" ng-click="$ctrl.doEvent('Create');") Create User
+    %button.button.is-primary(type="button" ng-if="$ctrl.onUpdate" ng-disabled="form.$invalid" ng-click="$ctrl.doEvent('Update');") Save Changes
+    %button.button.is-danger(type="button" ng-if="$ctrl.onDelete" ng-click="$ctrl.doEvent('Delete');") Delete User
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel()") Cancel

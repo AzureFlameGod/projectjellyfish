@@ -1,0 +1,21 @@
+%provider(provider="$ctrl.provider")
+%hr
+.card.is-fullwidth
+  %table.table
+    %tbody
+      %tr
+        %th Status
+        %td(ng-bind="$ctrl.provider.attributes.status_message || 'Unknown'")
+      %tr
+        %th Credentials
+        %td(ng-bind="$ctrl.provider.attributes.credentials_message || 'Never Checked'")
+      %tr
+        %th Last Validated
+        %td
+          %span(ng-if="!$ctrl.provider.attributes.credentials_validated_at") Never
+          %span(ng-if="$ctrl.provider.attributes.credentials_validated_at" am-time-ago="$ctrl.provider.attributes.credentials_validated_at")
+      %tr
+        %th Last Synced
+        %td
+          %span(ng-if="!$ctrl.provider.attributes.last_synced_at") Never
+          %span(ng-if="$ctrl.provider.attributes.last_synced_at" am-time-ago="$ctrl.provider.attributes.last_synced_at")

@@ -1,0 +1,50 @@
+%form(name="form" novalidate)
+  %div.label.has-text-right
+    %span.is-required
+    %small field is required
+  .columns
+    .column.is-half
+      .control
+        %label.label
+          %span.is-required Question
+        %input.input(type="text" name="label" ng-model="$ctrl.model.label" required)
+      .control
+        %label.label Answer Required
+        %input.toggle(type="checkbox" id="requiredAnswer" ng-model="$ctrl.model.required")
+        %label.label(for="requireAnswer")
+    .column.is-half
+      .control
+        %label.label
+          %span.is-required Answer Options
+        .control(ng-repeat="answer in $ctrl.model.answers track by $index")
+          .control.is-grouped
+            .control
+              %label.label(ng-bind-template="{{$index+1}}.")
+            .control.is-expanded
+              %input.input(type="text" ng-model="answer.label" required)
+            .control
+              %button.button.is-danger(type="button" ng-disabled="$ctrl.model.answers.length <= 2" ng-click="$ctrl.removeAnswer($index)") Remove
+              %button.button.is-small(type="button" ng-disabled="$first" title="Move question up" ng-click="$ctrl.moveAnswer($index, -1)")
+                %i.fa.fa-fw.fa-caret-up
+              %button.button.is-small(type="button" ng-disabled="$last" title="Move question down" ng-click="$ctrl.moveAnswer($index, 1)")
+                %i.fa.fa-fw.fa-caret-down
+          .control.is-horizontal
+            .control-label
+              %label.label Require
+            .control.is-grouped
+              .control.is-expanded
+                %tags-input(ng-model="answer.require")
+          .control.is-horizontal
+            .control-label
+              %label.label Exclude
+            .control.is-grouped
+              .control.is-expanded
+                %tags-input(ng-model="answer.exclude")
+        .control
+          %button.button.is-small.is-primary(type="button" ng-click="$ctrl.addAnswer()") Add Option
+.columns
+  .column
+    %button.button.is-primary(type="button" ng-if="$ctrl.onCreate" ng-disabled="form.$invalid" ng-click="$ctrl.doCreate();") Create Question
+    %button.button.is-primary(type="button" ng-if="$ctrl.onUpdate" ng-disabled="form.$invalid" ng-click="$ctrl.doUpdate();") Save Changes
+    %button.button.is-danger(type="button" ng-if="$ctrl.onDelete" ng-click="$ctrl.doDelete();") Delete Question
+    %button.button(type="button" ng-if="$ctrl.onCancel" ng-click="$ctrl.onCancel();") Cancel

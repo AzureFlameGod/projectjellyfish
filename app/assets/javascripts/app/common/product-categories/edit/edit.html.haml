@@ -1,0 +1,9 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="product-categories.list") Product Categories
+      %li
+        Edit
+
+%product-category-form(product-category="$ctrl.productCategory" on-update="$ctrl.onUpdate($event)" on-delete="$ctrl.onDelete($event)" on-cancel="$ctrl.onCancel()")

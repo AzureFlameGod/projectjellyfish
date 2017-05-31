@@ -1,0 +1,3 @@
+class RegistrationSerializer < ApplicationSerializer
+
+end

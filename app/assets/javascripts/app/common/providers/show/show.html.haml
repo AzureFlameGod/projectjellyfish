@@ -1,0 +1,17 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="providers.list") Providers
+      %li
+        View
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+    %button.button.is-primary(type="button" ng-click="$ctrl.reconnect()" ng-disabled="$ctrl.reloading") Reconnect
+    %button.button.is-primary(type="button" ng-click="$ctrl.sync()" ng-disabled="$ctrl.reloading") Sync Data
+  .column.has-text-right
+    %a.button.is-primary(ui-sref="providers.edit({id: $ctrl.provider.id})") Edit
+
+%provider-details(provider="$ctrl.provider")

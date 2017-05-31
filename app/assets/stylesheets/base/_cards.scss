@@ -1,0 +1,40 @@
+.card {
+  box-shadow: $card-shadow;
+  background-color: $white;
+  margin: $xs-spacing 0;
+  padding: $small-spacing $small-spacing;
+  //max-width: $base-max-width;
+
+  &--rows {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  //&--narrow {
+  //  max-width: $small-max-width;
+  //}
+  //
+  //&--wide {
+  //  max-width: $large-max-width;
+  //}
+}
+
+//.card__row {
+//  align-items: center;
+//  display: flex;
+//
+//
+//  & + & {
+//    margin-top: $small-spacing;
+//  }
+//}
+//
+//.card__column {
+//  & + & {
+//    margin-left: $small-spacing;
+//  }
+//}
+
+.card__link {
+  cursor: pointer;
+}

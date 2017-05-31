@@ -1,0 +1,58 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+cloud_forms_automation:
+  type: CloudForms::Automation::Product
+  name: Automation Script
+  description: An automation script
+  settings:
+    miq_namespace: Namespace
+    miq_class: Class
+    miq_instance: Instance
+  provider: cloud_forms
+  product_type: cloud_forms_automation
+  setup_price: 9.99
+  hourly_price: 0.0099
+  monthly_price: 1.99
+  cached_tag_list: cloudforms, private, automation, script
+cheap_setup:
+  type: CloudForms::Automation::Product
+  name: Automation Script
+  description: An automation script
+  settings:
+    miq_namespace: Namespace
+    miq_class: Class
+    miq_instance: Instance
+  provider: cloud_forms
+  product_type: cloud_forms_automation
+  setup_price: 0.99
+  hourly_price: 0.0099
+  monthly_price: 1.99
+  cached_tag_list: cloudforms, private, automation, script
+aaa:
+  type: CloudForms::Automation::Product
+  name: AAA Automation Script
+  description: An automation script
+  settings:
+    miq_namespace: Namespace
+    miq_class: Class
+    miq_instance: Instance
+  provider: cloud_forms
+  product_type: cloud_forms_automation
+  setup_price: 9.99
+  hourly_price: 0.0099
+  monthly_price: 1.99
+  cached_tag_list: cloudforms, private, automation, script, aaa
+zzz:
+  type: CloudForms::Automation::Product
+  name: ZZZ Automation Script
+  description: An automation script
+  settings:
+    miq_namespace: Namespace
+    miq_class: Class
+    miq_instance: Instance
+  provider: cloud_forms
+  product_type: cloud_forms_automation
+  setup_price: 9.99
+  hourly_price: 0.0099
+  monthly_price: 1.99
+  cached_tag_list: cloudforms, private, automation, script, zzz

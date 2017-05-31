@@ -1,0 +1,22 @@
+.columns
+  .column
+    .level
+      .level-left
+        %product-category-select.level-item(product-categories="$ctrl.productCategories" selected="$ctrl.productCategory" on-select="$ctrl.onSelectCategory($event)" default-option="All Categories")
+        %project-select.level-item(projects="$ctrl.projects" selected="$ctrl.project" on-select="$ctrl.onSelectProject($event)" default-option="Choose a Project")
+
+      .level-right
+        %compare-list.level-item
+        %span.level-item Search
+        .control.level-item.has-addons
+          %input.input(ng-model="$ctrl.query.filter.search" on-enter="$ctrl.doSearch($ctrl.query.filter.search)")
+          %button.button.is-dark(type="button" ng-click="$ctrl.doSearch('')") Clear
+
+%div(ng-if="$ctrl.products.length")
+  %products(products="$ctrl.products" on-add-to-cart="$ctrl.addToCart($event)" comparable="true")
+  %div(ng-if="$ctrl.meta.total_pages > 1")
+    %hr
+    %pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.products.length == 0")
+  .message-body There are no products that match the search criteria.

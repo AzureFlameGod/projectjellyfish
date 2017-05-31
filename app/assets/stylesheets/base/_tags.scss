@@ -1,0 +1,23 @@
+.tags-list {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: -$xxs-spacing;
+
+  li {
+    padding: 0 $xs-spacing;
+    background-color: $blue;
+    color: $white;
+    border-radius: 12px;
+    margin: $xxs-spacing;
+    white-space: nowrap;
+
+    //&:first-child {
+    //  margin-left: 0
+    //}
+    //
+    //&:last-child {
+    //  margin-right: 0
+    //}
+  }
+}

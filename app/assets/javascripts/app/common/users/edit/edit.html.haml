@@ -1,0 +1,15 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="users.list") Users
+      %li
+        %a(ui-sref="users.show({id: $ctrl.user.id})") View
+      %li
+        Edit
+
+.columns
+  .column.is-half
+    %user-form(user="$ctrl.user" on-update="$ctrl.onUpdate($event)" on-cancel="$ctrl.onCancel()")
+  .column.is-half
+    %user-password-form(password="$ctrl.password" on-update="$ctrl.onUpdatePassword($event)")

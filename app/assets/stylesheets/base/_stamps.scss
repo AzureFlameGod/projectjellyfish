@@ -1,0 +1,28 @@
+.stamp {
+  font-size: $small-font-size;
+  font-weight: 600;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: $base-border-radius * 2;
+  padding: $xxs-spacing/2 $xxs-spacing;
+}
+
+.stamp--pending {
+  border-color: $dark-gray;
+  background-color: $light-gray;
+}
+
+.stamp--approved {
+  border-color: $dark-blue;
+  background-color: $light-blue;
+}
+
+.stamp--denied, .stamp--errored {
+  border-color: $dark-red;
+  background-color: $light-red;
+}
+
+.stamp--ordered {
+  border-color: $dark-green;
+  background-color: $light-green;
+}

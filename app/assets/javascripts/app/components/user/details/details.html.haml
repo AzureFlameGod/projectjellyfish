@@ -1,0 +1,36 @@
+.card.is-fullwidth
+  %table.table
+    %tbody
+      %tr
+        %th ID
+        %td(ng-bind="::$ctrl.user.id")
+      %tr
+        %th Name
+        %td(ng-bind="$ctrl.user.attributes.name")
+      %tr
+        %th Avatar
+        %td
+          %figure
+            .image.is-64x64
+              %img(ng-src="{{$ctrl.user.attributes.avatar_url}}")
+      %tr
+        %th Role
+        %td
+          %div(ng-switch="$ctrl.user.attributes.role")
+            %span.tag.is-small.is-light(ng-switch-when="user") User
+            %span.tag.is-small.is-info(ng-switch-when="manager") Manager
+            %span.tag.is-small.is-warning(ng-switch-when="admin") Administrator
+
+      %tr
+        %th Email
+        %td(ng-bind="$ctrl.user.attributes.email")
+      %tr
+        %th Status
+        %td
+          %div(ng-switch="$ctrl.user.attributes.state")
+            %span.tag.is-small.is-primary(ng-switch-when="active") Active
+            %span.tag.is-small.is-dark(ng-switch-when="pending") Pending
+            %span.tag.is-small.is-danger(ng-switch-when="disabled") Disabled
+      %tr
+        %th Last Login
+        %td(ng-bind="($ctrl.user.attributes.last_login_at | date : 'short') || 'Never'")

@@ -1,0 +1,66 @@
+.layout__sidebar {
+  background-color: $dark-gray;
+
+  .menu-list a {
+    color: $off-white;
+
+    &:hover {
+      color: $dark-gray;
+    }
+  }
+
+  a.is-active {
+    color: $white;
+  }
+}
+
+//aside.sidebar {
+//  background-color: $white;
+//  min-height: 100%;
+//  padding-top: $small-spacing;
+//}
+//
+//.sidebar__logo {
+//  margin-bottom: $small-spacing;
+//
+//  a {
+//    display: block;
+//
+//    img {
+//      display: block;
+//      margin: 0 auto;
+//      max-height: $header-height;
+//    }
+//  }
+//}
+//
+//.sidebar__header {
+//  display: flex;
+//  justify-content: center;
+//  text-transform: uppercase;
+//  font-weight: 500;
+//}
+//
+//.sidebar__list {
+//
+//}
+//
+//.sidebar__item {
+//
+//}
+//
+//.sidebar__link {
+//  color: $dark-gray;
+//  display: block;
+//  padding: 0 $xs-spacing;
+//  margin-bottom: $xxs-spacing;
+//  font-weight: 500;
+//
+//  &:hover {
+//    color: $medium-gray;
+//  }
+//}
+//
+//.sidebar__link--active {
+//  background-color: $light-blue;
+//}

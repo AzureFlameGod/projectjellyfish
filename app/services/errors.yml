@@ -1,0 +1,21 @@
+---
+en:
+  errors:
+    match_password?: 'is not correct'
+    unique_name?: 'is not unique'
+    unique_email?: 'is not unique'
+    valid_password?: 'is not correct'
+    valid_email?: 'is not correct'
+    active?: 'is not active'
+    exists?: 'is not a valid id'
+    user_exists?: 'is not a valid user id'
+    project_exists?: 'is not a valid project id'
+    identifier_exists?: 'is not a valid object identifier'
+    valid_action?: 'is not a valid service action'
+    accepted?: 'is not permitted by policy'
+    member_already?: is already a member
+    role_permitted?: is not an allowed role level
+
+    rules:
+      password_confirmation:
+        eql?: 'must match password'

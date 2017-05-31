@@ -1,0 +1,4 @@
+%a.cart-nav(ui-sref="cart")
+  %div
+    %i.fa.fa-fw.fa-2x.fa-shopping-cart
+  %span.tag.is-danger(ng-if="$ctrl.requests.length > 0" ng-bind="$ctrl.requests.length")

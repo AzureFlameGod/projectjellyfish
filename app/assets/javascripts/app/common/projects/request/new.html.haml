@@ -1,0 +1,9 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="projects.list.projects") Projects
+      %li
+        New Request
+
+%project-request-form(project-request="$ctrl.projectRequest" on-create="$ctrl.onCreate($event)" on-cancel="$ctrl.onCancel()")

@@ -1,0 +1,16 @@
+%header.nav.has-shadow
+  .nav-left
+    .nav-item.is-brand
+      %a(ui-sref="app")
+        .title.is-3 Project Jellyfish
+  .nav-right
+    %notifications-nav.nav-item
+    %cart-nav.nav-item
+    .nav-item.header__profile
+      %img(ng-src="{{::$ctrl.user.attributes.avatar_url}}")
+      %span(ng-bind="::$ctrl.user.attributes.name")
+    .nav-item
+      %a.button.is-danger(ng-click="$ctrl.onLogout()")
+        %span.icon.is-small
+          %i.fa.fa-power-off
+        %span Sign Out

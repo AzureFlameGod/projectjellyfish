@@ -1,0 +1,16 @@
+.level
+  .level-left
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="services.list") Services
+      %li
+        %a(ui-sref="services.requests") Requests
+      %li
+        View
+
+.columns
+  .column
+    %reload-button(reload="$ctrl.reload()" reloading="$ctrl.reloading")
+
+.card.is-fullwidth
+  %service-request-details(service-request="$ctrl.serviceRequest")

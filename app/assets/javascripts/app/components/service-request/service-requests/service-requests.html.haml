@@ -1,0 +1,25 @@
+%table.table
+  %thead.has-no-hover
+    %tr
+      %th State
+      %th Name
+      %th Product
+      %th Project
+      %th Setup
+      %th Cost
+      %th(ng-if="::$ctrl.hasActions()")
+  %tbody
+    %tr(ng-repeat="request in ::$ctrl.serviceRequests track by request.id")
+      %td
+        %span.tag(ng-bind="request.attributes.state")
+      %td(ng-bind="request.attributes.service_name || '-not set-'")
+      %td(ng-bind="request.attributes.product().attributes.name || request.attributes.product_id")
+      %td(ng-bind="request.attributes.project().attributes.name || request.attributes.project_id || '-not set-'")
+      %td(ng-bind-template="${{request.attributes.setup_price || request.attributes.product().setup_price || '0.00'}}")
+      %td(ng-bind-template="${{request.attributes.monthly_cost || request.attributes.product().monthly_cost || '0.00'}}")
+      %td.is-icon(ng-if="::$ctrl.hasActions()")
+        %button.button.is-small.is-dark(type="button" ng-if="::$ctrl.onShow" ng-click="$ctrl.doEvent('Show', request)") View
+        %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onEdit" ng-click="$ctrl.doEvent('Edit', request)") Edit
+        %button.button.is-small.is-primary(type="button" ng-if="::$ctrl.onSelect" ng-click="$ctrl.doEvent('Select', request)") Select
+        %button.button.is-small.is-success(type="button" ng-if="::$ctrl.onApprove" ng-click="$ctrl.doEvent('Approve', request)") Approve
+        %button.button.is-small.is-danger(type="button" ng-if="::$ctrl.onDeny" ng-click="$ctrl.doEvent('Deny', request)") Deny

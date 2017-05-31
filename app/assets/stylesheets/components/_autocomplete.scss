@@ -1,0 +1,30 @@
+.autocomplete {
+  position: relative;
+  width: 100%;
+
+  > ul {
+    background: $white;
+    border-radius: $base-border-radius;
+    border: $base-border;
+    left: 0;
+    margin-top: 2px;
+    right: 0;
+    padding: $xs-spacing/2;
+    position: absolute;
+    z-index: 99;
+  }
+
+  > ul > li {
+    padding: $xs-spacing/2;
+    box-shadow: $card-shadow;
+
+    &:last-child {
+      box-shadow: none;
+    }
+  }
+
+  > ul > li.is-active {
+    background-color: $primary-color;
+    color: $white;
+  }
+}

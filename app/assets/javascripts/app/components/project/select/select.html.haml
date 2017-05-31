@@ -1,0 +1,3 @@
+.select
+  %select(ng-model="$ctrl.selected" ng-change="$ctrl.onSelect({$event: {project: $ctrl.selected}})" ng-options="project as project.attributes.name for project in ::$ctrl.projects track by project.id")
+    %option(value="" ng-bind="::$ctrl.defaultOption || 'All Projects'")

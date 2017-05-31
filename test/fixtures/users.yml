@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+user:
+  name: User
+  email: user@user.com
+  role: user
+  state: active
+  password_digest: <%= BCrypt::Password.create('user', cost: 1) %>
+another_user:
+  name: Another User
+  email: another_user@user.com
+  role: user
+  state: active
+  password_digest: <%= BCrypt::Password.create('user', cost: 1) %>
+manager:
+  name: manager
+  email: manager@manager.com
+  role: manager
+  state: active
+  password_digest: <%= BCrypt::Password.create('manager', cost: 1) %>
+admin:
+  name: admin
+  email: admin@admin.com
+  role: admin
+  state: active
+  password_digest: <%= BCrypt::Password.create('admin', cost: 1) %>
+pending:
+  name: pending
+  email: pending@inactive.com
+  role: admin
+  state: pending
+  password_digest: <%= BCrypt::Password.create('admin', cost: 1) %>
+disabled:
+  name: disabled
+  email: disabled@inactive.com
+  role: admin
+  state: disabled
+  password_digest: <%= BCrypt::Password.create('admin', cost: 1) %>
+

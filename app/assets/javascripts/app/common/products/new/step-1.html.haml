@@ -1,0 +1,15 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="products.list") Products
+      %li
+        Select Provider
+
+%div(ng-if="$ctrl.providers.length")
+  %providers(providers="$ctrl.providers" on-select="$ctrl.onSelect($event)")
+  %hr
+  %pagination(pagination="$ctrl.providers.meta()" on-change-page="$ctrl.changePage($event)")
+
+.message.is-info(ng-if="$ctrl.providers.length == 0")
+  .message-body There are no providers.

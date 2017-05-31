@@ -1,0 +1,8 @@
+.columns
+  .column
+    %reload-button(type="button" ng-disabled="$ctrl.reloading" ng-click="$ctrl.reload()")
+
+.card.is-fullwidth
+  %service-requests(service-requests="$ctrl.serviceRequests")
+%hr
+%pagination(pagination="$ctrl.meta" on-change-page="$ctrl.changePage($event)")

@@ -1,0 +1,13 @@
+.columns
+  .column
+    %ul.breadcrumbs
+      %li
+        %a(ui-sref="projects.list") Projects
+      %li
+        %a(ui-sref="projects.show({id: $ctrl.project.id})") View
+      %li
+        Edit
+
+.columns
+  .column.is-half
+    %project-form(project="$ctrl.project" member="$ctrl.member" on-update="$ctrl.onUpdate($event)" on-cancel="$ctrl.onCancel()")

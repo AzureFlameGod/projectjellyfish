@@ -1,0 +1,6 @@
+---
+cloud_forms_automation:
+  type: CloudForms::Automation::ProductType
+  name: Automation Script
+  description: An automation script
+  provider_type: cloud_forms

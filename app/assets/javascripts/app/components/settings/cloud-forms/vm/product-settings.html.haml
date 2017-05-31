@@ -1,0 +1,26 @@
+%div(ng-form name="settings" ng-model-options="{debounce: 250}")
+  .control
+    %label.label
+      %span.is-required Guid
+    %input.input(type="text" ng-model="$ctrl.model.guid" required ng-change="$ctrl.doChange()")
+  .control
+    %label.label
+      %span.is-required VM Fields
+    %settings-pairs(settings="$ctrl.model" pairs="vm_fields" labels="['Field', 'Value']" on-change="$ctrl.doChange($event)" add="Add Vm Field")
+  .control
+    %label.label
+      %span.is-required Service Fields
+    %small Service fields will be displayed to the user when requesting the product. All service fields will be required and are combined with VM Fields.
+    %settings-pairs(settings="$ctrl.model" pairs="service_fields" labels="['Field', 'Default']" on-change="$ctrl.doChange($event)" add="Add Service Field" value-required="false")
+  .control
+    %label.label
+      %span.is-required Tags
+    %settings-pairs(settings="$ctrl.model" pairs="tags" labels="['Tag', 'Value']" on-change="$ctrl.doChange($event)" add="Add Tag")
+  .control
+    %label.label
+      %span.is-required EMS Attributes
+    %settings-pairs(settings="$ctrl.model" pairs="ems_attrs" labels="['Attribute', 'Value']" on-change="$ctrl.doChange($event)" add="Add EMS Attribute")
+  .control
+    %label.label
+      %span.is-required MIQ Attributes
+    %settings-pairs(settings="$ctrl.model" pairs="miq_attrs" labels="['Attribute', 'Value']" on-change="$ctrl.doChange($event)" add="Add MIQ Attribute")

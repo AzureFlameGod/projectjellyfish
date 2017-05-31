@@ -1,173 +1,119 @@
-ruby '2.3.0'
-
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.6'
-
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18.2'
-gem 'pg_search', '~> 0.7.8'
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'pg', '~> 0.18'
+gem 'pg_search', '~> 1.0.0' # Postgres Fulltext searching
+gem 'scenic', '~> 1.3.0' # Postgres view management
+gem 'with_advisory_lock', '~> 3.1.0'  # Allow application level locks
+# Use Puma as the app server
+gem 'puma', '~> 3.0'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+gem 'redis', '~> 3.0'
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
 
-# Pagination
-gem 'will_paginate', '~> 3.0.7'
-
-# .Env gem Gem
+# Simple ENV variables
 gem 'dotenv-rails'
 
-# Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7', require: 'bcrypt'
+# Service parameter validation and schema verification
+gem 'dry-validation'
+gem 'goby', path: './lib/goby'
+gem 'kaminari'
 
-# Use puma as the app server
-gem 'puma'
+# Authentication (HTTP Token)
+gem 'jwt'
 
-# Use responders
-gem 'responders'
+# Cache & Job backend
+gem 'redis-store'
 
-# Authentication
-gem 'devise'
-gem 'omniauth'
-
-# Authorization
-gem 'pundit'
-
-gem 'time_for_a_boolean'
-
-# Adds enhanced pub/sub hooks
-gem 'wisper'
-
-# HTML
-gem 'angular-rails-templates'
-# Remove asset requests from the logs
-gem 'quiet_assets', group: :development
-
-# CSS
-gem 'bootstrap-sass'
-gem 'sass-rails'
-gem 'autoprefixer-rails'
-gem 'nokogiri'
-gem 'font-awesome-rails'
-
-# JavaScript
-gem 'ngannotate-rails', '~> 1.2', '>= 1.2.1'
-gem 'coffee-rails'
-gem 'uglifier'
-
-# UX dependencies
-source 'https://rails-assets.org' do
-  gem 'rails-assets-lodash', '~> 3.10.0'
-  gem 'rails-assets-moment', '~> 2.10.0'
-  gem 'rails-assets-toastr', '~> 2.1.0'
-  gem 'rails-assets-jquery', '~> 2.1.0'
-  gem 'rails-assets-bootstrap-sass-official', '~> 3.3.0'
-  gem 'rails-assets-ngDraggable', '~> 0.1.8'
-  gem 'rails-assets-angular', '~> 1.4.0'
-  gem 'rails-assets-angular-animate', '~> 1.4.0'
-  gem 'rails-assets-angular-aria', '~> 1.4.0'
-  gem 'rails-assets-angular-bootstrap', '~> 0.13.0'
-  gem 'rails-assets-angular-messages', '~> 1.4.0'
-  gem 'rails-assets-angular-resource', '~> 1.4.0'
-  gem 'rails-assets-angular-sanitize', '~> 1.4.0'
-  gem 'rails-assets-angular-ui-router', '~> 0.2.0'
-  gem 'rails-assets-angular-filter', '~> 0.5.4'
-  gem 'rails-assets-angular-smart-table', '~> 2.1.0'
-  gem 'rails-assets-angular-ui-sortable', '~> 0.13.3'
-  gem 'rails-assets-api-check'
-  gem 'rails-assets-angular-formly', '~> 7.1.0'
-  gem 'rails-assets-angular-marked', '~> 1.0.1'
-  gem 'rails-assets-angularjs-color-picker'
-  gem 'rails-assets-highcharts', '~> 4.1.6'
-  gem 'rails-assets-highcharts-ng', '~> 0.0.8'
-end
-
-# Tests
-group :development, :test do
-  gem 'annotate'
-  gem 'awesome_print'
-  gem 'brakeman', require: false
-  gem 'codeclimate-test-reporter', require: nil
-  gem 'database_cleaner', '~> 1.5.1'
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'license_finder'
-  gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.0'
-  gem 'rubocop'
-  gem 'seed_dump'
-  gem 'selenium-webdriver'
-  gem 'test_after_commit'
-  # gem 'poltergeist', require: 'capybara/poltergeist'
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  # gem 'web-console', '~> 2.0.0'
-  # gem 'capybara-angular', '0.1.0'
-  # gem 'launchy'
-  gem 'foreman'
-
-  # Dev dependencies
-  source 'https://rails-assets.org' do
-    gem 'rails-assets-angular-mocks', '~> 1.4.0'
-    gem 'rails-assets-sinon'
-    gem 'rails-assets-bardjs', '~> 0.1.0'
-  end
-end
-
-group :test do
-  gem 'rake' # for travis
-  gem 'shoulda-matchers', '2.8.0', require: false
-end
-
-group :docker do
-  gem 'activerecord-nulldb-adapter'
-end
-
-# Documentation
-gem 'apipie-rails', '0.3.3'
-
-# Keep but hide deleted records
-gem 'paranoia'
-
-# Communicating with external services
-gem 'rest-client'
-gem 'virtus'
-
-# CRONTAB SCHEDULER
+# Jobs & Workers
+gem 'sidekiq'
 gem 'rufus-scheduler'
 
-# ActiveRecord DelayedJob
-gem 'delayed_job_active_record'
+# Model additions
+gem 'acts-as-taggable-on', '~> 4.0.0'
+gem 'paranoia', '~> 2.2.0'
+gem 'state_machines'
+gem 'state_machines-activerecord', '~> 0.4.0'
 
-# Daemons for DelayedJob
-gem 'daemons'
+# Used by provider clients
+gem 'manageiq-client', path: './lib/manageiq_client'
 
-# Get picky about what is put into responses
-gem 'active_model_serializers', '~> 0.8.0'
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
 
-# Gems for Content Pages
-gem 'friendly_id'
-gem 'paper_trail'
-
-gem 'sass'
-
-group :production, :staging do
-  gem 'rails_12factor'
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
 end
 
-# Add Tags
-gem 'acts-as-taggable-on'
+group :development do
+  gem 'pry-rails'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-commands-testunit'
+end
 
-# Sortable Items
-gem 'acts_as_list'
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# TO ENCODE DECIMALS AS JSON NUMBERS
-gem 'activesupport-json_encoder'
+group :test do
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'minitest-rails'
+  gem 'webmock'
+  gem 'simplecov', require: false
+end
 
-# Resource filtering with scopes
-gem 'has_scope'
+#
+# Client Gem includes; All of the following can be removed if the Server is no longer also serving the Client
+#
 
-# ActiveRecord JSON Validator
-gem 'activerecord_json_validator'
+# Also remove the following client additions
+# - config/initializers/assets.rb
+# - app/controllers/client_controller.rb
+# - app/views/layouts/client.html.erb
+# - app/views/client
+# - app/assets
+# - Client Routes from config/routes.rb
 
-group :test, :development, :staging do
-  gem 'jellyfish-demo', github: 'projectjellyfish/jellyfish-demo'
+# Using assets; Serving the client as well as serving the API
+gem 'sprockets-rails'
+gem 'mini_racer'
+# HTML
+gem 'haml'
+gem 'angular-rails-templates'
+# CSS
+# gem 'bootstrap-sass'
+gem 'sassc-rails'
+gem 'autoprefixer-rails'
+gem 'font-awesome-rails'
+# JavaScript
+gem 'ngannotate-rails'
+gem 'uglifier'
+# UX dependencies
+source 'https://rails-assets.org' do
+  angular_version = '~> 1.5.0'
+
+  gem 'rails-assets-moment', '~> 2.15.0'
+  gem 'rails-assets-angular', angular_version
+  gem 'rails-assets-angular-animate', angular_version
+  gem 'rails-assets-angular-aria', angular_version
+  gem 'rails-assets-angular-sanitize', angular_version
+  gem 'rails-assets-angular-messages', angular_version
+  gem 'rails-assets-ng-tags-input', '~> 3.1.0'
+  gem 'rails-assets-angular-loading-bar', '~> 0.9.0'
+  gem 'rails-assets-satellizer', '~> 0.15.0'
+  gem 'rails-assets-angular-moment', '~> 1.0.0'
+  gem 'rails-assets-bulma', '~> 0.3.0'
+  gem 'rails-assets-chart.js', '~> 2.4.0'
+  gem 'rails-assets-angular-chart.js', '~> 1.1.0'
+  gem 'rails-assets-ng-dialog', '~> 0.6.0'
+  gem 'rails-assets-angular-toastr', '~> 2.1.0'
 end
